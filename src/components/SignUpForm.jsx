@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import env from 'react-dotenv'
 
 export const SignUpForm = ({ handleShowRegister }) => {
 	const [firstName, setFirstName] = useState('')
@@ -30,10 +29,12 @@ export const SignUpForm = ({ handleShowRegister }) => {
 				termsAgreed,
 			})
 			if (response) {
-				setMessage(response.data.message)
+				console.log(response)
+				setMessage(response.data)
 			}
 		} catch (error) {
-			console.log(error)
+			if (error) console.log(error)
+			setError(error.response.data.message)
 		}
 	}
 	return (

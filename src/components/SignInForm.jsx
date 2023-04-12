@@ -1,23 +1,19 @@
-import { useState, useEffect } from 'react'
-import { Login } from '../Auth'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export const SignInForm = ({ handleShowRegister }) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [error, setError] = useState('')
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [rememberMe, setRememberMe] = useState(false)
+	const [error, setError] = useState('')
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			const message = await Login(email, password, rememberMe)
-			if (message) {
-				setIsLoggedIn(true)
-			}
+			await axios.post(`http://localhost:5005/auth/login`, { email, password, rememberMe })
 		} catch (error) {
-			setError(error.message)
+			setError(error.response.data.message)
 		}
 	}
 
