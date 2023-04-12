@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import env from 'react-dotenv'
 
 export const SignUpForm = ({ handleShowRegister }) => {
 	const [firstName, setFirstName] = useState('')
@@ -8,38 +9,31 @@ export const SignUpForm = ({ handleShowRegister }) => {
 	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [confirmPassword, setConfirmPassword] = useState('')
 	const [error, setError] = useState('')
 	const [message, setMessage] = useState('')
 	const [termsAgreed, setTermsAgreed] = useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		if (password !== confirmPassword) {
-			setError('Passwords do not match.')
-			return
-		}
+
 		if (!termsAgreed) {
 			setError('Please agree to the terms and conditions.')
 			return
 		}
 		try {
-			const response = await axios.post('api/auth/register', {
+			const response = await axios.post(`http://localhost:5005/auth/signup`, {
 				firstName,
 				lastName,
 				username,
 				email,
 				password,
-				confirmPassword,
 				termsAgreed,
 			})
 			if (response) {
 				setMessage(response.data.message)
 			}
 		} catch (error) {
-			if (error) {
-				setError(error.response.data.message)
-			}
+			console.log(error)
 		}
 	}
 	return (
