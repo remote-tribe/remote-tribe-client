@@ -19,9 +19,9 @@ export const NavBar = () => {
 
 				<div className='hidden sm:flex sm:items-center flex-1'>
 					<NavLink
-						to='/about'
+						to='/community'
 						className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
-						About
+						Community
 					</NavLink>
 				</div>
 				<p className='moon-icon hidden group  items-center text-gray-600 hover:text-sky-600 font-medium dark:text-gray-400 dark:hover:text-sky-500 cursor-pointer'>
