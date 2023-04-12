@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 export const Login = async (email, password, rememberMe) => {
 	try {
@@ -11,7 +12,6 @@ export const Login = async (email, password, rememberMe) => {
 
 		if (response) {
 			Cookies.set('token', response.data.authToken)
-			Cookies.set('username', response.data.username)
 			return true
 		}
 	} catch (error) {
@@ -24,4 +24,13 @@ export const Logout = () => {
 	Cookies.remove('token')
 	Cookies.remove('username')
 	window.location.reload()
+}
+
+export const GetCurrentUser = () => {
+	try {
+		const token = Cookies.get('token')
+		return jwtDecode(token)
+	} catch (error) {
+		return null
+	}
 }

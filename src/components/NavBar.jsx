@@ -1,9 +1,18 @@
 import { NavLink } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { Logout } from '../Auth'
+import { GetCurrentUser } from '../Auth'
+import { useEffect, useState } from 'react'
 
 export const NavBar = () => {
 	const username = Cookies.get('username')
+
+	const [userData, setUserData] = useState(null)
+
+	useEffect(() => {
+		const currentUser = GetCurrentUser()
+		setUserData(currentUser)
+	}, [])
 
 	return (
 		<div className='bg-white dark:bg-gray-800 shadow p-0 m-0'>
@@ -49,8 +58,13 @@ export const NavBar = () => {
 				</p>
 
 				<div className='hidden sm:flex sm:items-center'>
-					{username ? (
+					{userData ? (
 						<>
+							<NavLink
+								to={`/profile`}
+								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								{userData.username}
+							</NavLink>
 							<NavLink
 								onClick={Logout}
 								to=''
@@ -90,13 +104,29 @@ export const NavBar = () => {
 					</NavLink>
 				</div>
 				<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>
-					<>
-						<NavLink
-							to='/signin'
-							className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
-							Sign in
-						</NavLink>
-					</>
+					{userData ? (
+						<>
+							<NavLink
+								to='/profile'
+								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								{userData.username}
+							</NavLink>
+							<NavLink
+								to=''
+								onClick={Logout}
+								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								Sign Out
+							</NavLink>
+						</>
+					) : (
+						<>
+							<NavLink
+								to='/signin'
+								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								Sign in
+							</NavLink>
+						</>
+					)}
 				</div>
 			</div>
 		</div>

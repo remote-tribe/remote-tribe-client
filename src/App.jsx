@@ -4,6 +4,7 @@ import { SignInPage } from './pages/SignInPage'
 import { CommunityPage } from './pages/CommunityPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { NavBar } from './components/NavBar'
+import { ProfilePage } from './pages/ProfilePage'
 
 function App() {
 	return (
@@ -14,6 +15,10 @@ function App() {
 					<Route
 						path='/'
 						element={<HomePage />}
+					/>
+					<Route
+						path='/profile'
+						element={<ProfilePage />}
 					/>
 					<Route
 						path='/community'
