@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import { Login } from '../Auth'
 
 export const SignInForm = ({ handleShowRegister }) => {
+	const navigate = useNavigate()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [rememberMe, setRememberMe] = useState(false)
@@ -11,9 +12,14 @@ export const SignInForm = ({ handleShowRegister }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			await axios.post(`http://localhost:5005/auth/login`, { email, password, rememberMe })
+			const isLoggedIn = await Login(email, password, rememberMe)
+			if (isLoggedIn) {
+				console.log('Logged In')
+				navigate('/')
+				window.location.reload()
+			}
 		} catch (error) {
-			setError(error.response.data.message)
+			setError(error.message)
 		}
 	}
 

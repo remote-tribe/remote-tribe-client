@@ -1,5 +1,10 @@
 import { NavLink } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import { Logout } from '../Auth'
+
 export const NavBar = () => {
+	const username = Cookies.get('username')
+
 	return (
 		<div className='bg-white dark:bg-gray-800 shadow p-0 m-0'>
 			<div className='flex items-center justify-between py-2 px-6'>
@@ -44,13 +49,22 @@ export const NavBar = () => {
 				</p>
 
 				<div className='hidden sm:flex sm:items-center'>
-					<>
+					{username ? (
+						<>
+							<NavLink
+								onClick={Logout}
+								to=''
+								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								Sign Out
+							</NavLink>
+						</>
+					) : (
 						<NavLink
 							to='/signin'
 							className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
 							Sign in
 						</NavLink>
-					</>
+					)}
 				</div>
 
 				<div className='sm:hidden cursor-pointer'>

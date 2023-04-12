@@ -29,8 +29,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 				termsAgreed,
 			})
 			if (response) {
-				console.log(response)
-				setMessage(response.data)
+				setMessage(response.data.message)
 			}
 		} catch (error) {
 			if (error) console.log(error)
