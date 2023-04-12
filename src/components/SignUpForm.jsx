@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const SignUpForm = ({ handleShowRegister }) => {
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
 	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -23,6 +25,8 @@ export const SignUpForm = ({ handleShowRegister }) => {
 		}
 		try {
 			const response = await axios.post('api/auth/register', {
+				firstName,
+				lastName,
 				username,
 				email,
 				password,
@@ -39,8 +43,8 @@ export const SignUpForm = ({ handleShowRegister }) => {
 		}
 	}
 	return (
-		<section className='bg-gray-50 dark:bg-gray-900 pt-20'>
-			<div className='flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+		<section className='pt-20'>
+			<div className='flex flex-col items-center px-6 py-8 mx-auto md:h-full lg:py-0'>
 				<Link
 					to={'/'}
 					className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'>
@@ -55,7 +59,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 					</svg>
 					Remote Tribe
 				</Link>
-				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
+				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  dark:bg-gray-800 dark:border-gray-700'>
 					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
 						<h1 className='text-xl font-semibold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center'>
 							Create an Account
@@ -63,69 +67,90 @@ export const SignUpForm = ({ handleShowRegister }) => {
 						<form
 							className='space-y-4 md:space-y-6'
 							onSubmit={handleSubmit}>
-							<div>
-								<label
-									htmlFor='username'
-									className='block mb-2 text-sm font-medium text-center text-gray-900 dark:text-white'>
-									Username
-								</label>
-								<input
-									value={username}
-									onChange={(e) => setUsername(e.target.value)}
-									type='text'
-									name='username'
-									id='username'
-									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
-								/>
+							<div className='flex justify-between  '>
+								<div className='flex flex-col items-center '>
+									<label
+										htmlFor='firstName'
+										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
+										First Name
+									</label>
+									<input
+										value={firstName}
+										onChange={(e) => setFirstName(e.target.value)}
+										type='text'
+										name='firstName'
+										id='firstName'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									/>
+								</div>
+								<div className='flex flex-col items-center '>
+									<label
+										htmlFor='lastName'
+										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
+										Last Name
+									</label>
+									<input
+										value={lastName}
+										onChange={(e) => setLastName(e.target.value)}
+										type='text'
+										name='lastName'
+										id='lastName'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									/>
+								</div>
 							</div>
-							<div>
-								<label
-									htmlFor='email'
-									className='block mb-2 text-sm font-medium text-center text-gray-900 dark:text-white'>
-									Email
-								</label>
-								<input
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									type='email'
-									name='email'
-									id='email'
-									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
-								/>
-							</div>
-							<div>
-								<label
-									htmlFor='password'
-									className=' text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
-									Password
-								</label>
-								<input
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									type='password'
-									name='password'
-									id='password'
-									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
-								/>
-							</div>
-							<div>
-								<label
-									htmlFor='password'
-									className=' text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
-									Confirm Password
-								</label>
-								<input
-									value={confirmPassword}
-									onChange={(e) => setConfirmPassword(e.target.value)}
-									type='password'
-									name='confirmPassword'
-									id='confirmPassword'
-									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
-								/>
+							<div className='flex flex-col justify-center '>
+								<div className='flex flex-col items-center'>
+									<label
+										htmlFor='username'
+										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
+										Username
+									</label>
+									<input
+										value={username}
+										onChange={(e) => setUsername(e.target.value)}
+										type='text'
+										name='username'
+										id='username'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									/>
+								</div>
+								<div className='flex flex-col items-center'>
+									<label
+										htmlFor='email'
+										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
+										Email
+									</label>
+									<input
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										type='email'
+										name='email'
+										id='email'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									/>
+								</div>
+
+								<div className='flex flex-col items-center'>
+									<label
+										htmlFor='password'
+										className=' text-center block my-1 text-sm font-medium text-gray-900 dark:text-white'>
+										Password
+									</label>
+									<input
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+										type='password'
+										name='password'
+										id='password'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									/>
+								</div>
 							</div>
 							<div className='flex items-start justify-center'>
 								<div className='flex items-center h-5'>
