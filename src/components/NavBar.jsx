@@ -46,7 +46,7 @@ export const NavBar = () => {
 				<div className='hidden sm:flex sm:items-center'>
 					<>
 						<NavLink
-							to='/login'
+							to='/signin'
 							className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
 							Sign in
 						</NavLink>
@@ -78,7 +78,7 @@ export const NavBar = () => {
 				<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>
 					<>
 						<NavLink
-							to='/login'
+							to='/signin'
 							className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
 							Sign in
 						</NavLink>
