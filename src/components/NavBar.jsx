@@ -1,12 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import Cookies from 'js-cookie'
 import { Logout } from '../Auth'
 import { GetCurrentUser } from '../Auth'
 import { useEffect, useState } from 'react'
 
 export const NavBar = () => {
-	const username = Cookies.get('username')
-
 	const [userData, setUserData] = useState(null)
 
 	useEffect(() => {

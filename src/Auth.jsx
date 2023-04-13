@@ -11,7 +11,7 @@ export const Login = async (email, password, rememberMe) => {
 		})
 
 		if (response) {
-			Cookies.set('token', response.data.authToken)
+			localStorage.setItem('token', response.data.authToken)
 			return true
 		}
 	} catch (error) {
@@ -21,14 +21,15 @@ export const Login = async (email, password, rememberMe) => {
 }
 
 export const Logout = () => {
-	Cookies.remove('token')
-	Cookies.remove('username')
+	localStorage.removeItem('token')
+	localStorage.removeItem('username')
 	window.location.reload()
 }
 
 export const GetCurrentUser = () => {
 	try {
-		const token = Cookies.get('token')
+		const token = localStorage.getItem('token')
+
 		return jwtDecode(token)
 	} catch (error) {
 		return null
