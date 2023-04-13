@@ -1,26 +1,25 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GetCurrentUser } from '../Auth';
 
-const CreateArticle = (props) => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const navigate = useNavigate();
+const UpdateArticle = (props) => {
+
+    const currentUser = GetCurrentUser();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const articleToBeCreated = {
+            author: currentUser._id,
             title: title,
             content: content,
-            imageUrl: imageUrl
+            imageUrl: imageUrl,
         };
 
         axios
-            .post('/community/articles/:articleId', articleToBeCreated)
+            .post(`http://localhost:5005/api/community/articles`, articleToBeCreated)
             .then((e) => {
-                navigate('/apartments');
             })
             .catch((e) => {
                 console.log(e);
@@ -64,7 +63,7 @@ const CreateArticle = (props) => {
                     Image URL
                 </label>
                 <input
-                    type="text"
+                    type="file"
                     id="imageUrl"
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
@@ -81,4 +80,4 @@ const CreateArticle = (props) => {
     );
 };
 
-export default CreateArticle;
+export default UpdateArticle;

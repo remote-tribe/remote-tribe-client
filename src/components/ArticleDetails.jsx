@@ -1,7 +1,10 @@
-
+import { useState } from 'react';
 
 const ArticleList = (props) => {
 
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
 
     return (
         <div className="space-y-4">

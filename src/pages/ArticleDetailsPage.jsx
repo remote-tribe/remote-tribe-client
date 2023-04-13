@@ -1,21 +1,27 @@
-import React from 'react';
-import ArticleList from './components/ArticleList';
-import CreateArticle from './components/CreateArticle';
+import { useParams } from 'react-router-dom';
 
-const articles = [
-    // Add your articles here
-];
 
-function App() {
-    const handleCreateArticle = (newArticle) => {
-        // Handle article creation logic here
-        console.log('New article:', newArticle);
+
+
+function () {
+
+    const { projectId } = useParams();
+    const deleteProject = () => {                    //  <== ADD
+        // Make a DELETE request to delete the project
+
+        axios
+            .delete(`/community/article/${articleId}`)
+            .then(() => {
+                // Once the delete request is resolved successfully
+                // navigate back to the list of projects.
+                navigate("/projects");
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
         <div className="container mx-auto p-4 space-y-8">
-            <CreateArticle onSubmit={handleCreateArticle} />
-            <ArticleList articles={articles} />
+
         </div>
     );
 }
