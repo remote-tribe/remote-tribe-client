@@ -7,6 +7,7 @@ import { NavBar } from './components/NavBar'
 import { ProfilePage } from './pages/ProfilePage'
 import UserContextProvider from './context/UserContext'
 
+
 function App() {
 	return (
 		<UserContextProvider>
