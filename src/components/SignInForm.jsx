@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Login } from '../Auth'
+import React, { useState, useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 
 export const SignInForm = ({ handleShowRegister }) => {
 	const navigate = useNavigate()
+	const { handleLogin } = useContext(UserContext)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [rememberMe, setRememberMe] = useState(false)
@@ -12,11 +13,9 @@ export const SignInForm = ({ handleShowRegister }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		try {
-			const isLoggedIn = await Login(email, password, rememberMe)
+			const isLoggedIn = await handleLogin(email, password, rememberMe)
 			if (isLoggedIn) {
-				console.log('Logged In')
 				navigate('/')
-				window.location.reload()
 			}
 		} catch (error) {
 			setError(error.message)

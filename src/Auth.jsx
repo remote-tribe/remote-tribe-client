@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
+
 import jwtDecode from 'jwt-decode'
 
 export const Login = async (email, password, rememberMe) => {
@@ -12,7 +12,8 @@ export const Login = async (email, password, rememberMe) => {
 
 		if (response) {
 			localStorage.setItem('token', response.data.authToken)
-			return true
+
+			return response.data
 		}
 	} catch (error) {
 		console.error(error)

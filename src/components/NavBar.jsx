@@ -1,15 +1,18 @@
 import { NavLink } from 'react-router-dom'
 import { Logout } from '../Auth'
 import { GetCurrentUser } from '../Auth'
-import { useEffect, useState } from 'react'
+import { UserContext } from '../context/UserContext'
+import { useEffect, useState, useContext } from 'react'
 
 export const NavBar = () => {
+	const { loggedUser } = useContext(UserContext)
 	const [userData, setUserData] = useState(null)
 
 	useEffect(() => {
 		const currentUser = GetCurrentUser()
+
 		setUserData(currentUser)
-	}, [])
+	}, [loggedUser])
 
 	return (
 		<div className='bg-white dark:bg-gray-800 shadow p-0 m-0'>
@@ -64,7 +67,7 @@ export const NavBar = () => {
 							</NavLink>
 							<NavLink
 								onClick={Logout}
-								to=''
+								to='/'
 								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
 								Sign Out
 							</NavLink>

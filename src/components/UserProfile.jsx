@@ -71,13 +71,14 @@ export const UserProfile = ({ userData, handleShowSettings }) => {
 									<h3 className='text-4xl font-semibold leading-normal mb-2 text-blueGray-700 '>
 										{userData.username}
 									</h3>
-									<div className='text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase'>
-										{userData.location}
-									</div>
+									{userData.location && (
+										<div className='text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase'>
+											{userData.location?.city}, {userData.location?.country}
+										</div>
+									)}
 									<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
 										{userData.profession && (
 											<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
-												Profession -{' '}
 												<Link
 													to={``}
 													className='transition-all font-normal text-blueGray-500 hover:text-sky-400'>

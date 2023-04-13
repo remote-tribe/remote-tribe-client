@@ -1,16 +1,17 @@
 import { GetCurrentUser } from '../Auth'
-import { useState, useEffect } from 'react'
+import { useEffect, useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 
 export const HomePage = () => {
-	const [userData, setUserData] = useState(null)
+	const { loggedUser, setLoggedUser } = useContext(UserContext)
 
 	useEffect(() => {
 		const currentUser = GetCurrentUser()
-		setUserData(currentUser)
+		setLoggedUser(currentUser)
 	}, [])
 	return (
 		<div>
-			<h1 className='text-5xl mt-20 text-center'>Hello {userData ? userData.username : 'World'}</h1>
+			<h1 className='text-5xl mt-20 text-center'>Hello {loggedUser ? loggedUser.username : 'World'}</h1>
 		</div>
 	)
 }
