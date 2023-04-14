@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GetCurrentUser } from '../Auth'
 
-const CreateArticle = ({ handleShowCreate }) => {
+const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
@@ -22,6 +22,7 @@ const CreateArticle = ({ handleShowCreate }) => {
 		axios
 			.post(`http://localhost:5005/api/community/articles`, articleToBeCreated)
 			.then(() => {
+				loadAllArticles()
 				handleShowCreate()
 			})
 			.catch((error) => {

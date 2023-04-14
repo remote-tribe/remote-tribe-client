@@ -9,7 +9,11 @@ export const CommunityPage = () => {
 
 	useEffect(() => {
 		getAllArticles()
-	}, [articles])
+	}, [])
+
+	const loadAllArticles = () => {
+		getAllArticles()
+	}
 
 	const getAllArticles = () => {
 		axios
@@ -36,7 +40,10 @@ export const CommunityPage = () => {
 				</h1>
 			</div>
 			{showCreate ? (
-				<CreateArticle handleShowCreate={handleShowCreate} />
+				<CreateArticle
+					handleShowCreate={handleShowCreate}
+					loadAllArticles={loadAllArticles}
+				/>
 			) : (
 				<ArticleList
 					handleShowCreate={handleShowCreate}
