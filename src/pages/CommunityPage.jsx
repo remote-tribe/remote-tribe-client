@@ -9,7 +9,7 @@ export const CommunityPage = () => {
 
 	useEffect(() => {
 		getAllArticles()
-	}, [])
+	}, [articles])
 
 	const getAllArticles = () => {
 		axios

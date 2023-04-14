@@ -3,11 +3,10 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GetCurrentUser } from '../Auth'
 
-const CreateArticle = (props) => {
+const CreateArticle = ({ handleShowCreate }) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
-	const navigate = useNavigate()
 	const currentUser = GetCurrentUser()
 
 	const handleSubmit = (e) => {
@@ -22,11 +21,11 @@ const CreateArticle = (props) => {
 
 		axios
 			.post(`http://localhost:5005/api/community/articles`, articleToBeCreated)
-			.then((e) => {
-				navigate('/community')
+			.then(() => {
+				handleShowCreate()
 			})
-			.catch((e) => {
-				console.log(e)
+			.catch((error) => {
+				console.log(error)
 			})
 
 		setTitle('')
@@ -41,7 +40,7 @@ const CreateArticle = (props) => {
 			<div>
 				<label
 					htmlFor='title'
-					className='block text-center text-sm font-medium text-gray-700'>
+					className='block text-center text-sm font-medium text-gray-800 dark:text-gray-200'>
 					Title
 				</label>
 				<input
@@ -49,28 +48,29 @@ const CreateArticle = (props) => {
 					id='title'
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
-					className='outline-sky-400 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md'
+					className='outline-sky-400 mt-1 block w-full px-3 py-2 border border-gray-300 dark:text-sky-200 dark:bg-gray-700 rounded-md'
 					required
 				/>
 			</div>
 			<div>
 				<label
 					htmlFor='content'
-					className='block text-center text-sm font-medium text-gray-700'>
+					className='block text-center text-sm font-medium text-gray-800 dark:text-gray-200'>
 					Content
 				</label>
 				<textarea
 					id='content'
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
-					className=' outline-sky-400 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md'
+					className=' outline-sky-400 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:text-sky-200 dark:bg-gray-700 '
 					rows='4'
-					required></textarea>
+					required
+				/>
 			</div>
 			<div>
 				<label
 					htmlFor='imageUrl'
-					className='block text-sm text-center font-medium text-gray-700'>
+					className='block text-sm text-center font-medium text-gray-700 dark:text-gray-200'>
 					Image URL
 				</label>
 				<input
@@ -78,7 +78,7 @@ const CreateArticle = (props) => {
 					id='imageUrl'
 					value={imageUrl}
 					onChange={(e) => setImageUrl(e.target.value)}
-					className='mt-1  block w-full px-3 py-2 border border-gray-300 rounded-md'
+					className='mt-1  block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200'
 				/>
 			</div>
 			<div className='flex justify-center'>

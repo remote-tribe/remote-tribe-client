@@ -11,7 +11,9 @@ export const HomePage = () => {
 	}, [])
 	return (
 		<div>
-			<h1 className='text-5xl mt-20 text-center'>Hello {loggedUser ? loggedUser.username : 'World'}</h1>
+			<h1 className='text-gray-800 dark:text-gray-200 text-5xl mt-20 text-center'>
+				Hello {loggedUser ? loggedUser.username : 'World'}
+			</h1>
 		</div>
 	)
 }
