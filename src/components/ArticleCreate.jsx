@@ -11,7 +11,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		const articleToBeCreated = {
+		const data = {
 			userId: currentUser.id,
 			title: title,
 			content: content,
@@ -19,8 +19,9 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 		}
 
 		axios
-			.post(`http://localhost:5005/api/community/articles`, articleToBeCreated)
-			.then(() => {
+			.post(`http://localhost:5005/api/community/articles`, data)
+			.then((response) => {
+				console.log(response.data)
 				loadAllArticles()
 				handleShowCreate()
 			})
