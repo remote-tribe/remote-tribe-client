@@ -44,6 +44,28 @@ export const ArticleDetails = ({ article }) => {
 		setEditedComment(article?.comments.find((c) => c._id === commentId).content)
 	}
 
+	const handleDelete = async (e, commentId) => {
+		e.preventDefault()
+		setEditMode(false)
+		const token = localStorage.getItem('token')
+
+		try {
+			const response = await axios.delete(
+				`http://localhost:5005/api/comment?commentId=${commentId}&articleId=${articleId}&userId=${currentUser.id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			console.log(response.data)
+		} catch (error) {
+			if (error.message.includes('401')) {
+			}
+			console.log(error)
+		}
+	}
+
 	const handleSave = async (e, commentId) => {
 		e.preventDefault()
 		setEditMode(false)
@@ -124,7 +146,7 @@ export const ArticleDetails = ({ article }) => {
 						</form>
 						<div className='space-x-5'>
 							<button onClick={handleEdit}>Edit</button>
-							<button>Delete</button>
+							<button onClick={(e) => handleDelete(e, comment?._id)}>Delete</button>
 						</div>
 					</div>
 				))}
