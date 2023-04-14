@@ -14,7 +14,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 				{articles &&
 					articles.map((article, index) => (
 						<div key={index}>
-							<Link to={`/community/articles/${article._id}`}>
+							<Link to={`/community/article/${article._id}`}>
 								<div
 									key={index}
 									className='p-4 hover:shadow-lg dark:shadow-slate-600 cursor-pointer rounded-lg shadow-md bg-white dark:bg-gray-700 space-y-4'>
