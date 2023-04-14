@@ -30,7 +30,6 @@ const UserContextProvider = ({ children }) => {
 	}
 
 	const handleLogout = () => {
-		setName(null)
 		setToken(null)
 		setLoggedUser(null)
 		setIsLoggedIn(false)

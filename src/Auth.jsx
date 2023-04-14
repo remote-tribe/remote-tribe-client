@@ -25,6 +25,7 @@ export const Logout = () => {
 	localStorage.removeItem('token')
 	localStorage.removeItem('username')
 	window.location.reload()
+	window.location.href = '/signin'
 }
 
 export const GetCurrentUser = () => {

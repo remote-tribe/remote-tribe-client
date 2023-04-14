@@ -24,7 +24,10 @@ export const ProfilePage = () => {
 
 				setUserData(response.data)
 			} catch (error) {
-				console.error(error)
+				if (error.message.includes('401')) {
+					handleLogout()
+				}
+				console.log(error)
 			}
 		}
 

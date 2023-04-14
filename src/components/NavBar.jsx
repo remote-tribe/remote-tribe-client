@@ -72,7 +72,7 @@ export const NavBar = () => {
 							</NavLink>
 							<NavLink
 								onClick={Logout}
-								to='/'
+								to=''
 								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
 								Sign Out
 							</NavLink>
