@@ -2,16 +2,18 @@ import axios from 'axios'
 import { useState, useContext } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { UserContext } from '../context/UserContext'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
-const ArticleDetails = ({ article }) => {
+export const ArticleDetails = ({ article }) => {
 	const [commentValue, setCommentValue] = useState('')
+	const [editMode, setEditMode] = useState(false)
+	const [editedComment, setEditedComment] = useState(article?.comment?.content)
 	const currentUser = GetCurrentUser()
 	const { handleLogout } = useContext(UserContext)
 	const { articleId } = useParams()
 
-	const handleSubmit = async (event) => {
-		event.preventDefault()
+	const handleSubmit = async (e) => {
+		e.preventDefault()
 		const token = localStorage.getItem('token')
 
 		try {
@@ -22,7 +24,40 @@ const ArticleDetails = ({ article }) => {
 					articleId,
 					userId: currentUser.id,
 				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+			console.log(response.data)
+		} catch (error) {
+			if (error.message.includes('401')) {
+				handleLogout()
+			}
+			console.log(error)
+		}
+	}
 
+	const handleEdit = async (commentId) => {
+		setEditMode(true)
+		setEditedComment(article?.comments.find((c) => c._id === commentId).content)
+	}
+
+	const handleSave = async (e, commentId) => {
+		e.preventDefault()
+		setEditMode(false)
+		const token = localStorage.getItem('token')
+
+		try {
+			const response = await axios.put(
+				`http://localhost:5005/api/comment`,
+				{
+					editedComment,
+					commentId,
+					articleId,
+					userId: currentUser.id,
+				},
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -65,6 +100,34 @@ const ArticleDetails = ({ article }) => {
 
 					<button>Submit</button>
 				</form>
+			</div>
+			<div>
+				<h1 className='text-center text-3xl text-sky-500 mb-10'>Comments:</h1>
+				<hr />
+				{article.comments?.map((comment, index) => (
+					<div
+						key={index}
+						className='flex justify-between border-b-2'>
+						<p className='text-sky-400 cursor-pointer'>{comment.author.username}</p>
+						<form onSubmit={(e) => handleSave(e, comment?._id)}>
+							{editMode ? (
+								<input
+									value={comment.content}
+									onChange={(e) => {
+										setEditedComment(e.target.value)
+										comment.content = e.target.value
+									}}
+								/>
+							) : (
+								<p>{comment.content}</p>
+							)}
+						</form>
+						<div className='space-x-5'>
+							<button onClick={handleEdit}>Edit</button>
+							<button>Delete</button>
+						</div>
+					</div>
+				))}
 			</div>
 		</div>
 	)
