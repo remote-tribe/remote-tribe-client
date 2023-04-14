@@ -32,6 +32,7 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 			if (response) {
 				setLoggedUser(response.data.user)
 				localStorage.setItem('token', response.data.authToken)
+				handleShowSettings(false)
 			}
 		} catch (error) {
 			console.error(error)

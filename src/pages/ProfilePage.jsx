@@ -34,7 +34,7 @@ export const ProfilePage = () => {
 		if (token && currentUser) {
 			fetchData()
 		}
-	}, [])
+	}, [showSettings])
 
 	return (
 		<>

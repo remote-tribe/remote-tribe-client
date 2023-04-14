@@ -9,11 +9,10 @@ import UserContextProvider from './context/UserContext'
 import ArticleDetailsPage from './pages/ArticleDetailsPage'
 import ArticleUpdatePage from './pages/ArticleUpdatePage'
 
-
 function App() {
 	return (
 		<UserContextProvider>
-			<div className='App bg-gray-100 dark:bg-gray-900 min-h-screen'>
+			<div className='App bg-gray-100 dark:bg-gray-900 min-h-screen overflow-x-hidden'>
 				<BrowserRouter>
 					<NavBar></NavBar>
 					<Routes>
@@ -44,7 +43,7 @@ function App() {
 					</Routes>
 				</BrowserRouter>
 			</div>
-		</UserContextProvider >
+		</UserContextProvider>
 	)
 }
 

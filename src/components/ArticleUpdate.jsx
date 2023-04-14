@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { GetCurrentUser } from '../Auth'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const UpdateArticle = ({ article }) => {
 	const [title, setTitle] = useState('')
@@ -60,28 +60,30 @@ const UpdateArticle = ({ article }) => {
 	}
 
 	return (
-		<div className='mx-auto max-w-screen-lg'>
+		<div className='mx-auto max-w-screen-md'>
 			<div className='space-y-4'>
 				<div className='flex items-center space-x-4'>
-					<img
-						src='user-avatar.jpg'
-						alt='User Avatar'
-						className='w-12 h-12 rounded-full'
-					/>
-					<div>
+					<Link to={''}>
+						<img
+							src='user-avatar.jpg'
+							alt='User Avatar'
+							className='w-12 h-12 rounded-full'
+						/>
+					</Link>
+					{/* <div>
 						<p className='text-sm text-gray-600 mr-4'>
 							{article.author ? `From ${article.author.username}` : 'From Unknown author'}
 						</p>
 						<p className='text-sm text-gray-500'>{new Date(article.createdAt).toLocaleDateString()}</p>
-					</div>
+					</div> */}
 				</div>
 				<form
 					onSubmit={handleSubmit}
-					className='space-y-4'>
+					className='space-y-4 text-center'>
 					<div>
 						<label
 							htmlFor='title'
-							className='block text-sm font-medium text-gray-700'>
+							className='block text-md font-medium text-gray-700'>
 							Title
 						</label>
 						<input
@@ -89,28 +91,28 @@ const UpdateArticle = ({ article }) => {
 							id='title'
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className='mt-1 block w-full p-2 border border-gray-300 rounded-md'
+							className='mt-1 block w-full p-2 border border-gray-300 rounded-md text-center cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
 							required
 						/>
 					</div>
 					<div>
 						<label
 							htmlFor='content'
-							className='block text-sm font-medium text-gray-700'>
+							className='block text-md font-medium text-gray-700'>
 							Content
 						</label>
 						<textarea
 							id='content'
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
-							className='mt-1 block w-full p-2 border border-gray-300 rounded-md'
+							className='mt-1 block w-full p-2 border border-gray-300 rounded-md text-center cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
 							rows='4'
 							required></textarea>
 					</div>
 					<div>
 						<label
 							htmlFor='imageUrl'
-							className='block text-sm font-medium text-gray-700'>
+							className='block text-md font-medium text-gray-700'>
 							Image URL
 						</label>
 						<input
@@ -118,19 +120,19 @@ const UpdateArticle = ({ article }) => {
 							id='imageUrl'
 							value={imageUrl}
 							onChange={(e) => setImageUrl(e.target.value)}
-							className='mt-1 block w-full p-2 border border-gray-300 rounded-md'
+							className='mt-1 block w-full p-2 border border-gray-300 rounded-md text-center cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
 						/>
 					</div>
-					<div className='flex space-x-4'>
+					<div className='flex space-x-4 justify-center'>
 						<button
 							type='submit'
-							className='w-full p-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-500'>
+							className='w-1/5 p-1 bg-sky-400 text-white font-medium rounded-md hover:bg-sky-500 transition-all duration-150 hover:shadow-md'>
 							Update Article
 						</button>
 						<button
 							type='button'
 							onClick={deleteArticle}
-							className='w-full p-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-500'>
+							className='w-1/5 p-1 bg-rose-400 text-white font-medium rounded-md hover:bg-rose-500 transition-all duration-150 hover:shadow-md'>
 							Delete
 						</button>
 					</div>
