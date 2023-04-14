@@ -1,16 +1,35 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { GetCurrentUser } from '../Auth';
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateArticle = (props) => {
 
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+
     const currentUser = GetCurrentUser();
+
+    const { articleId } = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5005/api/community/article/${articleId}`)
+            .then((response) => {
+                const oneArticle = response.data;
+                setTitle(oneArticle.title);
+                setContent(oneArticle.content);
+                setImageUrl(oneArticle.imageUrl)
+            })
+            .catch((error) => console.log(error));
+
+    }, [articleId]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const articleToBeCreated = {
+        const articleToBeEdit = {
             author: currentUser._id,
             title: title,
             content: content,
@@ -18,8 +37,9 @@ const UpdateArticle = (props) => {
         };
 
         axios
-            .post(`http://localhost:5005/api/community/articles`, articleToBeCreated)
+            .put(`http://localhost:5005/api/community/article/${articleId}`, articleToBeEdit)
             .then((e) => {
+                navigate(`/community/article/${articleId}`)
             })
             .catch((e) => {
                 console.log(e);
