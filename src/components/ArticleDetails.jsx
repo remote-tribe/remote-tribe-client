@@ -3,6 +3,7 @@ import { useState, useContext } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { UserContext } from '../context/UserContext'
 import { useParams, Link } from 'react-router-dom'
+import Comment from './Comment'
 
 export const ArticleDetails = ({ article }) => {
 	const [commentValue, setCommentValue] = useState('')
@@ -26,62 +27,6 @@ export const ArticleDetails = ({ article }) => {
 				'http://localhost:5005/api/comment',
 				{
 					commentValue,
-					articleId,
-					userId: currentUser.id,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
-			)
-			console.log(response.data)
-		} catch (error) {
-			if (error.message.includes('401')) {
-				handleLogout()
-			}
-			console.log(error)
-		}
-	}
-
-	const handleEdit = async (commentId) => {
-		setEditMode(true)
-		setEditedComment(article?.comments.find((c) => c._id === commentId).content)
-	}
-
-	const handleDelete = async (e, commentId) => {
-		e.preventDefault()
-		setEditMode(false)
-		const token = localStorage.getItem('token')
-
-		try {
-			const response = await axios.delete(
-				`http://localhost:5005/api/comment?commentId=${commentId}&articleId=${articleId}&userId=${currentUser.id}`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				},
-			)
-			console.log(response.data)
-		} catch (error) {
-			if (error.message.includes('401')) {
-			}
-			console.log(error)
-		}
-	}
-
-	const handleSave = async (e, commentId) => {
-		e.preventDefault()
-		setEditMode(false)
-		const token = localStorage.getItem('token')
-
-		try {
-			const response = await axios.put(
-				`http://localhost:5005/api/comment`,
-				{
-					editedComment,
-					commentId,
 					articleId,
 					userId: currentUser.id,
 				},
@@ -146,29 +91,30 @@ export const ArticleDetails = ({ article }) => {
 			<div>
 				<h1 className='text-center text-3xl text-sky-500 mb-10'>Comments:</h1>
 				<hr />
+				<form
+					onSubmit={handleSubmit}
+					className='flex justify-center items-center'>
+					<input
+						className='outline-sky-400 text-md rounded px-2 py-1 my-4 '
+						placeholder='Leave a Comment'
+						onChange={(e) => setCommentValue(e.target.value)}
+						value={commentValue}
+						type='text'
+						name='comment'
+					/>
+
+					<button className='bg-sky-500 hover:bg-sky-600  text-white font-bold hover:shadow-md shadow  px-2 py-1 rounded ease-linear transition-all duration-150 w-fit h-fit'>
+						Comment
+					</button>
+				</form>
 				{article.comments?.map((comment, index) => (
-					<div
+					<Comment
+						articleId={article?._id}
+						currentUser={currentUser}
+						comment={comment}
+						handleLogout={handleLogout}
 						key={index}
-						className='flex justify-between border-b-2'>
-						<p className='text-sky-400 cursor-pointer'>{comment.author.username}</p>
-						<form onSubmit={(e) => handleSave(e, comment?._id)}>
-							{editMode ? (
-								<input
-									value={comment.content}
-									onChange={(e) => {
-										setEditedComment(e.target.value)
-										comment.content = e.target.value
-									}}
-								/>
-							) : (
-								<p>{comment.content}</p>
-							)}
-						</form>
-						<div className='space-x-5'>
-							<button onClick={handleEdit}>Edit</button>
-							<button onClick={(e) => handleDelete(e, comment?._id)}>Delete</button>
-						</div>
-					</div>
+					/>
 				))}
 			</div>
 		</div>
