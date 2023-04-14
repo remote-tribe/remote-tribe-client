@@ -1,29 +1,38 @@
 import { useParams } from 'react-router-dom';
+import ArticleDetails from '../components/ArticleDetails';
+import CreateArticle from '../components/ArticleCreate'
+import UpdateArticle from '../components/ArticleUpdate';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
+function ArticleDetailsPage() {
 
+    const [article, setArticle] = useState([])
 
+    const { articleId } = useParams();
 
-function () {
+    useEffect(() => {
+        getArticle()
+    }, [])
 
-    const { projectId } = useParams();
-    const deleteProject = () => {                    //  <== ADD
-        // Make a DELETE request to delete the project
-
+    const getArticle = () => {
         axios
-            .delete(`/community/article/${articleId}`)
-            .then(() => {
-                // Once the delete request is resolved successfully
-                // navigate back to the list of projects.
-                navigate("/projects");
+            .get(`http://localhost:5005/api/community/article/${articleId}`)
+            .then(({ data }) => {
+                setArticle(data)
             })
-            .catch((err) => console.log(err));
-    };
+            .catch((e) => {
+                console.log('fail to access database..', e)
+            })
+    }
+
 
     return (
         <div className="container mx-auto p-4 space-y-8">
-
+            <ArticleDetails article={article} />
         </div>
     );
+
 }
 
-export default App;
+export default ArticleDetailsPage;

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { NavBar } from './components/NavBar'
 import { ProfilePage } from './pages/ProfilePage'
 import UserContextProvider from './context/UserContext'
+import ArticleDetailsPage from './pages/ArticleDetailsPage'
 
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
 						<Route
 							path='/signin'
 							element={<SignInPage />}
+						/>
+						<Route
+							path='/community/article/:articleId'
+							element={<ArticleDetailsPage />}
 						/>
 					</Routes>
 				</BrowserRouter>
