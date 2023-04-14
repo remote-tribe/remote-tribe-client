@@ -2,9 +2,6 @@ import { useState } from 'react';
 
 const ArticleList = (props) => {
 
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
 
     return (
         <div className="space-y-4">
@@ -19,6 +16,7 @@ const ArticleList = (props) => {
                         {new Date(article.createdAt).toLocaleDateString()}
                     </p>
                     <p className="text-sm text-gray-600">{article.likes} likes</p>
+                    <button><a href="/"></a></button>
                 </div>
             ))}
         </div>
