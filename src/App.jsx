@@ -7,6 +7,7 @@ import { NavBar } from './components/NavBar'
 import { ProfilePage } from './pages/ProfilePage'
 import UserContextProvider from './context/UserContext'
 import ArticleDetailsPage from './pages/ArticleDetailsPage'
+import ArticleUpdatePage from './pages/ArticleUpdatePage'
 
 
 function App() {
@@ -36,10 +37,14 @@ function App() {
 							path='/community/article/:articleId'
 							element={<ArticleDetailsPage />}
 						/>
+						<Route
+							path='/community/article/:articleId/edit'
+							element={<ArticleUpdatePage />}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</div>
-		</UserContextProvider>
+		</UserContextProvider >
 	)
 }
 

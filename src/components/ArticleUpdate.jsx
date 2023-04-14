@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { GetCurrentUser } from '../Auth';
 import { useParams, useNavigate } from "react-router-dom";
 
-const UpdateArticle = (props) => {
+const UpdateArticle = ({ article }) => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-
+    const navigate = useNavigate()
     const currentUser = GetCurrentUser();
 
     const { articleId } = useParams();
@@ -50,53 +50,90 @@ const UpdateArticle = (props) => {
         setImageUrl('');
     };
 
+
+    const deleteArticle = () => {
+
+        axios
+            .delete(`http://localhost:5005/api/community/article/${articleId}`)
+            .then(() => {
+                navigate("/community");
+            })
+            .catch((err) => console.log(err));
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                    Title
-                </label>
-                <input
-                    type="text"
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                    required
-                />
+        <div className="mx-auto max-w-screen-lg">
+            <div className="space-y-4">
+                <div className="flex items-center space-x-4">
+                    <img src="user-avatar.jpg" alt="User Avatar" className="w-12 h-12 rounded-full" />
+                    <div>
+                        <p className="text-sm text-gray-600 mr-4">
+                            {article.author ? `From ${article.author.username}` : 'From Unknown author'}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                            {new Date(article.createdAt).toLocaleDateString()}
+                        </p>
+                    </div>
+                </div>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                            Title
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                            Content
+                        </label>
+                        <textarea
+                            id="content"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                            rows="4"
+                            required
+                        ></textarea>
+                    </div>
+                    <div>
+                        <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
+                            Image URL
+                        </label>
+                        <input
+                            type="text"
+                            id="imageUrl"
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)}
+                            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+                        />
+                    </div>
+                    <div className="flex space-x-4">
+                        <button
+                            type="submit"
+                            className="w-full p-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-500"
+                        >
+                            Update Article
+                        </button>
+                        <button
+                            type="button"
+                            onClick={deleteArticle}
+                            className="w-full p-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-500"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div>
-                <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-                    Content
-                </label>
-                <textarea
-                    id="content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                    rows="4"
-                    required
-                ></textarea>
-            </div>
-            <div>
-                <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
-                    Image URL
-                </label>
-                <input
-                    type="file"
-                    id="imageUrl"
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                />
-            </div>
-            <button
-                type="submit"
-                className="w-full p-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-500"
-            >
-                Create Article
-            </button>
-        </form>
+        </div>
+
+
     );
 };
 
