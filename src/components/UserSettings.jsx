@@ -64,7 +64,7 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
 							<h2
 								onClick={handleShowAccountSettings}
-								className=' text-sky-500 hover:text-sky-600 text-lg cursor-pointer ml-auto mr-10 mt-4'>
+								className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover:text-sky-700 text-lg cursor-pointer ml-auto mr-10 mt-4'>
 								Account Settings
 							</h2>
 							<div className='px-6'>

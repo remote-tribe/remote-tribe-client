@@ -1,39 +1,86 @@
 import { useState, useContext } from 'react'
-import { UserContext } from '../context/UserContext'
 import axios from 'axios'
 
 export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 	const [showEmailInputs, setShowEmailInputs] = useState(false)
 	const [showPasswordInputs, setShowPasswordInputs] = useState(false)
 	const [currentEmail, setCurrentEmail] = useState('')
-	const [currentPassword, setCurrentPassword] = useState('')
 	const [newPassword, setNewPassword] = useState('')
 	const [confirmedPassword, setConfirmedPassword] = useState('')
 	const [newEmail, setNewEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [showVerify, setShowVerify] = useState(true)
-	const { setLoggedUser } = useContext(UserContext)
 	const [showButtons, setShowButtons] = useState(true)
-
-	const handleChangeEmailClick = () => {
-		setShowEmailInputs(true)
-		setShowButtons(false)
-	}
-
-	const handleChangePasswordClick = () => {
-		setShowPasswordInputs(true)
-		setShowButtons(false)
-	}
-
-	const handleEmailSubmit = (e) => {
-		e.preventDefault()
-	}
-	const handlePasswordSubmit = (e) => {
-		e.preventDefault()
-	}
 
 	const handleShowVerify = () => {
 		setShowVerify(!showVerify)
+	}
+
+	const handleChangeEmailClick = () => {
+		setShowEmailInputs(!showEmailInputs)
+		setShowButtons(!showButtons)
+	}
+
+	const handleChangePasswordClick = () => {
+		setShowPasswordInputs(!showPasswordInputs)
+		setShowButtons(!showButtons)
+	}
+
+	const handleEmailSubmit = async (e) => {
+		e.preventDefault()
+		const token = localStorage.getItem('token')
+
+		try {
+			const response = await axios.post(
+				`http://localhost:5005/auth/email`,
+				{
+					currentEmail,
+					newEmail,
+					password,
+				},
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
+			if (response) {
+				console.log(response.data)
+				handleChangeEmailClick()
+				setCurrentEmail('')
+				setNewEmail('')
+				setPassword('')
+			}
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	const handlePasswordSubmit = async (e) => {
+		e.preventDefault()
+		const token = localStorage.getItem('token')
+
+		try {
+			const response = await axios.post(
+				`http://localhost:5005/auth/password`,
+
+				{
+					userId: userData._id,
+					password,
+					newPassword,
+					confirmedPassword,
+				},
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
+			if (response) {
+				handleChangePasswordClick()
+				setPassword('')
+				setNewPassword('')
+				setConfirmedPassword('')
+			}
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const verifyPass = async (e) => {
@@ -86,7 +133,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
 							<h2
 								onClick={handleShowAccountSettings}
-								className=' text-sky-500 hover:text-sky-600 text-lg cursor-pointer ml-auto mr-10 mt-4'>
+								className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover-text-sky-700 text-lg cursor-pointer ml-auto mr-10 mt-4'>
 								User Settings
 							</h2>
 							<div className='px-6'>
@@ -132,7 +179,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 			) : (
 				<section className='relative py-16 bg-gray-100 dark:bg-gray-900  '>
 					<div className='container mx-auto px-4 '>
-						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
+						<div className='relative  flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
 							<h2
 								onClick={handleShowAccountSettings}
 								className=' text-sky-500 hover:text-sky-600 text-lg cursor-pointer ml-auto mr-10 mt-4'>
@@ -150,27 +197,34 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 												className='text-lg '
 												onSubmit={handleEmailSubmit}>
 												<div className='flex flex-col items-center'>
-													<label htmlFor='current-email'>Current Email</label>
+													<label
+														className='text-xl text-gray-500 font-semibold mt-6 mb-4'
+														htmlFor='current-email'>
+														Change Email
+													</label>
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
+														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-4'
 														type='email'
 														name='currentEmail'
 														id='currentEmail'
+														placeholder='Current Email'
 														value={currentEmail}
 														onChange={(e) => setCurrentEmail(e.target.value)}
 													/>
-													<label htmlFor='new-email'>New Email</label>
+
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
+														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2 '
+														placeholder='New Email'
 														type='email'
 														name='newEmail'
 														id='newEmail'
 														value={newEmail}
 														onChange={(e) => setNewEmail(e.target.value)}
 													/>
-													<label htmlFor='password'>Password</label>
+
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
+														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2 '
+														placeholder='Password'
 														type='password'
 														name='password'
 														id='password'
@@ -184,10 +238,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 															Submit
 														</button>
 														<button
-															onClick={() => {
-																setShowEmailInputs(false)
-																setShowButtons(true)
-															}}
+															onClick={handleChangeEmailClick}
 															type='button'
 															className='bg-gray-500 hover:bg-gray-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
 															Cancel
@@ -202,27 +253,34 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 												className='text-lg '
 												onSubmit={handlePasswordSubmit}>
 												<div className='flex flex-col items-center'>
-													<label htmlFor='current-password'>Current Password</label>
+													<label
+														className='text-xl text-gray-500 font-semibold mt-6 mb-4'
+														htmlFor='current-password'>
+														Change Password
+													</label>
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
+														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-4'
 														type='password'
+														placeholder='Old Password'
 														id='current-password'
-														value={currentPassword}
-														name='currentPassword'
-														onChange={(e) => setCurrentPassword(e.target.value)}
+														value={password}
+														name='password'
+														onChange={(e) => setPassword(e.target.value)}
 													/>
-													<label htmlFor='new-email'>New Password</label>
+
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
+														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2'
 														type='password'
+														placeholder='New Password'
 														id='new-password'
 														name='newPassword'
 														value={newPassword}
 														onChange={(e) => setNewPassword(e.target.value)}
 													/>
-													<label htmlFor='password'>Confirm new Password</label>
+
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
+														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2'
+														placeholder='Confirm New Password'
 														type='password'
 														name='confirmedPassword'
 														id='confirmedPassword'
@@ -236,10 +294,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 															Submit
 														</button>
 														<button
-															onClick={() => {
-																setShowPasswordInputs(false)
-																setShowButtons(true)
-															}}
+															onClick={handleChangePasswordClick}
 															type='button'
 															className='bg-gray-500 hover:bg-gray-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
 															Cancel
@@ -249,17 +304,17 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 											</form>
 										)}
 										{showButtons && (
-											<div className='flex justify-center items-center pb-10 pt-8'>
+											<div className='flex  justify-center items-center pb-10 pt-8'>
 												<button
 													type='button'
 													onClick={handleChangeEmailClick}
-													className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+													className='bg-sky-500 hover:bg-sky-600 mx-4  text-white hover:shadow-md shadow text-md font-semibold w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 mt-24'>
 													Change Email
 												</button>
 												<button
 													type='button'
 													onClick={handleChangePasswordClick}
-													className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+													className='bg-sky-500 hover:bg-sky-600 mx-4  text-white hover:shadow-md shadow text-md font-semibold w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 mt-24'>
 													Change Password
 												</button>
 											</div>
