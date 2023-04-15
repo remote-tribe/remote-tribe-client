@@ -38,6 +38,12 @@ export const NavBar = () => {
 						className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
 						Community
 					</NavLink>
+
+					<NavLink
+						to='/users'
+						className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
+						Users
+					</NavLink>
 				</div>
 				<p
 					onClick={themeSwitch}
@@ -103,9 +109,16 @@ export const NavBar = () => {
 			<div className='block sm:hidden bg-white dark:bg-gray-800 border-t-2 dark:border-gray-700 py-2'>
 				<div className='flex items-center'>
 					<NavLink
-						to='/about'
+						to='/community'
 						className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
-						About
+						Community
+					</NavLink>
+				</div>
+				<div className='flex items-center'>
+					<NavLink
+						to='/users'
+						className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
+						Users
 					</NavLink>
 				</div>
 				<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>

@@ -1,15 +1,14 @@
-import { GetCurrentUser } from '../Auth'
-import { useEffect, useState, useContext } from 'react'
-import { UserContext } from '../context/UserContext'
 import axios from 'axios'
-
+import { UserContext } from '../context/UserContext'
 import { UserProfile } from '../components/UserProfile'
 import { UserSettings } from '../components/UserSettings'
+import { GetCurrentUser } from '../Auth'
 import { AccountSettings } from '../components/AccountSettings'
+import { useEffect, useState, useContext } from 'react'
 
 export const ProfilePage = () => {
 	const { handleLogout } = useContext(UserContext)
-
+	const currentUser = GetCurrentUser()
 	const [userData, setUserData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
 	const [showAccountSettings, setShowAccountSettings] = useState('false')
@@ -23,7 +22,6 @@ export const ProfilePage = () => {
 
 	useEffect(() => {
 		const token = localStorage.getItem('token')
-		const currentUser = GetCurrentUser()
 		const fetchData = async () => {
 			try {
 				const response = await axios.get(`http://localhost:5005/api/users/current`, {
@@ -62,6 +60,7 @@ export const ProfilePage = () => {
 				)
 			) : (
 				<UserProfile
+					currentUser={currentUser}
 					userData={userData}
 					handleShowSettings={handleShowSettings}
 				/>

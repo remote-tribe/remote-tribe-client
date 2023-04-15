@@ -5,6 +5,8 @@ import { CommunityPage } from './pages/CommunityPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { NavBar } from './components/NavBar'
 import { ProfilePage } from './pages/ProfilePage'
+import { UserPage } from './pages/UserPage'
+import { UsersPage } from './pages/UsersPage'
 import UserContextProvider from './context/UserContext'
 import ArticleDetailsPage from './pages/ArticleDetailsPage'
 import ArticleUpdatePage from './pages/ArticleUpdatePage'
@@ -23,6 +25,14 @@ function App() {
 						<Route
 							path='/profile'
 							element={<ProfilePage />}
+						/>
+						<Route
+							path='/users'
+							element={<UsersPage />}
+						/>
+						<Route
+							path='/users/:userId'
+							element={<UserPage />}
 						/>
 						<Route
 							path='/community'

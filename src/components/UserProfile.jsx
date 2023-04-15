@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export const UserProfile = ({ userData, handleShowSettings }) => {
+export const UserProfile = ({ userData, currentUser, handleShowSettings, sendMessage }) => {
+	const isCurrentUser = userData?._id === currentUser?.id
+
 	return (
 		<main className='profile-page'>
 			<section className='relative block h-80'>
@@ -26,16 +29,29 @@ export const UserProfile = ({ userData, handleShowSettings }) => {
 								<div className='flex flex-wrap justify-center'>
 									<div className='w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center'>
 										<div className='py-6 px-3 mt-32 sm:mt-0'>
-											<>
-												<div className='py-6 px-3 mt-32 sm:mt-0'>
-													<button
-														onClick={handleShowSettings}
-														className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
-														type='button'>
-														Settings
-													</button>
-												</div>
-											</>
+											{isCurrentUser ? (
+												<>
+													<div className='py-6 px-3 mt-32 sm:mt-0'>
+														<button
+															onClick={handleShowSettings}
+															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+															type='button'>
+															Settings
+														</button>
+													</div>
+												</>
+											) : (
+												<>
+													<div className='py-6 px-3 mt-32 sm:mt-0'>
+														<button
+															onClick={() => sendMessage(userData._id)}
+															className='bg-sky-600 hover:bg-sky-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+															type='button'>
+															Message
+														</button>
+													</div>
+												</>
+											)}
 										</div>
 									</div>
 									<div className='w-full lg:w-4/12 px-4 lg:order-1'>
@@ -73,7 +89,9 @@ export const UserProfile = ({ userData, handleShowSettings }) => {
 									</h3>
 									{userData.location && (
 										<div className='text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase'>
-											{userData.location?.city}, {userData.location?.country}
+											{userData.location?.city}
+											{userData.location.city && userData.location.country && ','}{' '}
+											{userData.location?.country}
 										</div>
 									)}
 									<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
