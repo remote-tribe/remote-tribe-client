@@ -1,16 +1,24 @@
 import { GetCurrentUser } from '../Auth'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 import axios from 'axios'
 
 import { UserProfile } from '../components/UserProfile'
 import { UserSettings } from '../components/UserSettings'
+import { AccountSettings } from '../components/AccountSettings'
 
 export const ProfilePage = () => {
+	const { handleLogout } = useContext(UserContext)
+
 	const [userData, setUserData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
+	const [showAccountSettings, setShowAccountSettings] = useState('false')
 
 	const handleShowSettings = () => {
 		setShowSettings(!showSettings)
+	}
+	const handleShowAccountSettings = () => {
+		setShowAccountSettings(!showAccountSettings)
 	}
 
 	useEffect(() => {
@@ -24,6 +32,7 @@ export const ProfilePage = () => {
 
 				setUserData(response.data)
 			} catch (error) {
+				console.log(error.message)
 				if (error.message.includes('401')) {
 					handleLogout()
 				}
@@ -39,10 +48,18 @@ export const ProfilePage = () => {
 	return (
 		<>
 			{showSettings ? (
-				<UserSettings
-					userData={userData}
-					handleShowSettings={handleShowSettings}
-				/>
+				showAccountSettings ? (
+					<UserSettings
+						userData={userData}
+						handleShowSettings={handleShowSettings}
+						handleShowAccountSettings={handleShowAccountSettings}
+					/>
+				) : (
+					<AccountSettings
+						userData={userData}
+						handleShowAccountSettings={handleShowAccountSettings}
+					/>
+				)
 			) : (
 				<UserProfile
 					userData={userData}

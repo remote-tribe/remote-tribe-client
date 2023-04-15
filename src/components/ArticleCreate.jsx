@@ -49,7 +49,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 					id='title'
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
-					className='outline-sky-400 mt-1 block w-full px-3 py-2 border border-gray-300 dark:text-sky-200 dark:bg-gray-700 rounded-md'
+					className='cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block w-full px-3 py-2 border border-gray-300 dark:text-sky-200 dark:bg-gray-700 rounded-md'
 					required
 				/>
 			</div>
@@ -63,7 +63,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 					id='content'
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
-					className=' outline-sky-400 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:text-sky-200 dark:bg-gray-700 '
+					className=' cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:text-sky-200 dark:bg-gray-700 '
 					rows='4'
 					required
 				/>
