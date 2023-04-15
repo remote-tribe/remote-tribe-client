@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 import axios from 'axios'
 
-export const UserSettings = ({ userData, handleShowSettings }) => {
+export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSettings }) => {
 	const { setLoggedUser } = useContext(UserContext)
 
 	const [username, setUsername] = useState(userData?.username || '')
@@ -59,13 +59,21 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 				</div>
 			</section>
 			{userData && (
-				<section className='relative py-16 bg-gray-100 dark:bg-gray-900 '>
+				<section className='relative py-16 bg-gray-100 dark:bg-gray-900  '>
 					<div className='container mx-auto px-4 '>
 						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
+							<h2
+								onClick={handleShowAccountSettings}
+								className=' text-sky-500 hover:text-sky-600 text-lg cursor-pointer ml-auto mr-10 mt-4'>
+								Account Settings
+							</h2>
 							<div className='px-6'>
 								<div className='flex flex-wrap justify-center'>
 									<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
-										<h1 className='text-center text-gray-800 text-3xl font-semibold my-4'>User Settings</h1>
+										<h1 className='text-center  text-gray-800 text-3xl font-semibold my-4'>
+											Profile Settings
+										</h1>
+
 										<form
 											className='text-lg'
 											onSubmit={handleSubmit}>
@@ -76,7 +84,7 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 													Username:
 												</label>
 												<input
-													className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md focus:ring-2 ring-sky-400  cursor-pointer focus:cursor-text'
+													className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
 													id='username'
 													type='text'
 													value={username}
@@ -91,7 +99,7 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 													Profession:
 												</label>
 												<input
-													className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md focus:ring-2 ring-sky-400  cursor-pointer focus:cursor-text'
+													className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 '
 													id='profession'
 													type='text'
 													value={profession}
@@ -107,7 +115,7 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 												</label>
 												<div className='flex justify-center space-x-2'>
 													<input
-														className='border-gray-300 border rounded w-2/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md focus:ring-2 ring-sky-400  cursor-pointer focus:cursor-text'
+														className='border-gray-300 border rounded w-2/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
 														id='location-city'
 														type='text'
 														value={location.city}
@@ -117,7 +125,7 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 													/>
 
 													<input
-														className='border-gray-300 border rounded w-2/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md focus:ring-2 ring-sky-400  cursor-pointer focus:cursor-text'
+														className='border-gray-300 border rounded w-2/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
 														id='location-country'
 														type='text'
 														value={location.country}
@@ -135,7 +143,7 @@ export const UserSettings = ({ userData, handleShowSettings }) => {
 													Description:
 												</label>
 												<textarea
-													className=' border-gray-300 text-center border rounded w-6/12 h-30 resize-none py-4 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-sky-400 cursor-pointer focus:cursor-text'
+													className=' border-gray-300 text-center border rounded w-6/12 h-30 resize-none py-4 px-4 text-gray-700 leading-tight cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
 													id='description'
 													name='description'
 													value={description}
