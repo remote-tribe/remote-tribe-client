@@ -9,7 +9,7 @@ export const SendMessage = ({ userData, currentUser, sendMessage }) => {
 		e.preventDefault()
 		try {
 			const response = await axios.post(
-				`http://localhost:5005/api/message`,
+				`http://localhost:5005/api/conversation`,
 				{
 					senderId: currentUser?.id,
 					recipientId: userData?._id,
