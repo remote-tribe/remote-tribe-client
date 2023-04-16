@@ -112,7 +112,12 @@ export const ArticleDetails = ({ article }) => {
 						</p>
 						<p className='text-sm text-gray-500'>{new Date(article.createdAt).toLocaleDateString()}</p>
 					</div>
-					<p className='text-gray-800 mt-2'>{article.content}</p>
+					<div
+						dangerouslySetInnerHTML={{
+							__html: `<div className='text-gray-800 mt-2'>${article.content}</div>`,
+						}}
+					/>
+
 					{article.image && (
 						<img
 							src={article.image}

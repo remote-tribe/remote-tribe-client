@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { Editor } from './Editor'
 
 const UpdateArticle = ({ article }) => {
 	const [title, setTitle] = useState('')
@@ -59,6 +60,10 @@ const UpdateArticle = ({ article }) => {
 			.catch((err) => console.log(err))
 	}
 
+	const handleContentChange = (newContent) => {
+		setContent(newContent)
+	}
+
 	return (
 		<div className='mx-auto max-w-screen-md'>
 			<div className='space-y-4'>
@@ -101,13 +106,10 @@ const UpdateArticle = ({ article }) => {
 							className='block text-md font-medium text-gray-700'>
 							Content
 						</label>
-						<textarea
-							id='content'
-							value={content}
-							onChange={(e) => setContent(e.target.value)}
-							className='mt-1 block w-full p-2 border border-gray-300 rounded-md text-center cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150'
-							rows='4'
-							required></textarea>
+						<Editor
+							prevContent={content}
+							onContentChange={handleContentChange}
+						/>
 					</div>
 					<div>
 						<label

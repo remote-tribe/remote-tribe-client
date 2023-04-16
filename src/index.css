@@ -26,3 +26,19 @@
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
 	border-radius: 0.25rem;
 }
+
+.ql-editor p {
+	min-height: 16rem;
+}
+
+.ql-container {
+	border-radius: 0.5rem;
+	border-top-right-radius: 0rem;
+	border-top-left-radius: 0rem;
+}
+
+.ql-toolbar {
+	border-radius: 0.5rem;
+	border-bottom-right-radius: 0rem;
+	border-bottom-left-radius: 0rem;
+}

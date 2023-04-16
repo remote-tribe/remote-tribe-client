@@ -1,12 +1,17 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { GetCurrentUser } from '../Auth'
+import { Editor } from './Editor'
 
 const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
 	const currentUser = GetCurrentUser()
+
+	const handleContentChange = (newContent) => {
+		setContent(newContent)
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -37,7 +42,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='mx-auto max-w-lg space-y-4 '>
+			className='mx-auto max-w-5xl space-y-4 '>
 			<div>
 				<label
 					htmlFor='title'
@@ -53,21 +58,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 					required
 				/>
 			</div>
-			<div>
-				<label
-					htmlFor='content'
-					className='block text-center text-sm font-medium text-gray-800 dark:text-gray-200'>
-					Content
-				</label>
-				<textarea
-					id='content'
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-					className=' cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md dark:text-sky-200 dark:bg-gray-700 '
-					rows='4'
-					required
-				/>
-			</div>
+
 			<div>
 				<label
 					htmlFor='imageUrl'
@@ -81,6 +72,14 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 					onChange={(e) => setImageUrl(e.target.value)}
 					className='mt-1  block w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200'
 				/>
+			</div>
+			<div>
+				<label
+					htmlFor='content'
+					className='block text-center text-sm font-medium text-gray-800 dark:text-gray-200'>
+					Content
+				</label>
+				<Editor onContentChange={handleContentChange} />
 			</div>
 			<div className='flex justify-center'>
 				<button
