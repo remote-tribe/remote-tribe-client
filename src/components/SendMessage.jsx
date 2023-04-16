@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-export const SendMessage = ({ userData, currentUser, sendMessage }) => {
-	const [conversation, setConversation] = useState([])
+export const SendMessage = ({ userData, currentUser, fetchUser }) => {
+	const [chat, setChat] = useState([])
 	const [message, setMessage] = useState('')
-	const hasCurrentUser = userData.conversations.find((conversation) =>
+	const conversation = userData.conversations.find((conversation) =>
 		conversation.participants.includes(currentUser.id),
 	)
 
 	useEffect(() => {
-		if (hasCurrentUser) {
-			console.log(hasCurrentUser)
-			setConversation(hasCurrentUser)
+		if (conversation) {
+			setChat(conversation)
 		}
-	}, [hasCurrentUser])
+	}, [userData, chat])
 
 	const handleSubmit = async (e) => {
 		const token = localStorage.getItem('token')
@@ -30,9 +29,9 @@ export const SendMessage = ({ userData, currentUser, sendMessage }) => {
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			)
-
-			console.log(response.data)
+			fetchUser()
 			setMessage('')
+			console.log(response.data)
 		} catch (error) {
 			console.log(error)
 		}
@@ -112,7 +111,7 @@ export const SendMessage = ({ userData, currentUser, sendMessage }) => {
 					<div
 						id='messages'
 						className='flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch'>
-						{conversation?.messages?.map((message, index) => (
+						{chat?.messages?.map((message, index) => (
 							<div
 								key={index}
 								className='chat-message'>
@@ -175,13 +174,13 @@ export const SendMessage = ({ userData, currentUser, sendMessage }) => {
 								<input
 									type='text'
 									placeholder='Write your message!'
-									className='w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3'
+									className='w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-lg  py-3'
 									id='message'
 									name='message'
 									value={message}
 									onChange={(e) => setMessage(e.target.value)}
 								/>
-								<div className='absolute right-0 items-center inset-y-0 hidden sm:flex'>
+								<div className='absolute right-0 items-center inset-y-0 hidden sm:flex rounded-lg'>
 									<button
 										type='button'
 										className='inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none'>
@@ -237,7 +236,7 @@ export const SendMessage = ({ userData, currentUser, sendMessage }) => {
 									</button>
 									<button
 										type='submit'
-										className='inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none'>
+										className='inline-flex items-center justify-center rounded-e-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none'>
 										<span className='font-bold'>Send</span>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'

@@ -11,15 +11,16 @@ export const UserPage = () => {
 	const { userId } = useParams()
 	const currentUser = GetCurrentUser()
 
-	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const response = await axios.get(`http://localhost:5005/api/user?userId=${userId}`)
-				setUserData(response.data)
-			} catch (error) {
-				console.error(error)
-			}
+	const fetchUser = async () => {
+		try {
+			const response = await axios.get(`http://localhost:5005/api/user?userId=${userId}`)
+			setUserData(response.data)
+		} catch (error) {
+			console.error(error)
 		}
+	}
+
+	useEffect(() => {
 		fetchUser()
 	}, [])
 
@@ -28,6 +29,7 @@ export const UserPage = () => {
 			userData={userData}
 			currentUser={currentUser}
 			sendMessage={setShowSendMessage}
+			fetchUser={fetchUser}
 		/>
 	) : (
 		<UserProfile
