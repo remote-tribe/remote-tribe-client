@@ -20,6 +20,7 @@ function ArticleDetailsPage() {
 		axios
 			.get(`http://localhost:5005/api/community/article/${articleId}`)
 			.then(({ data }) => {
+				data.comments = data.comments.reverse()
 				setArticle(data)
 			})
 			.catch((e) => {
@@ -29,7 +30,10 @@ function ArticleDetailsPage() {
 
 	return (
 		<div className='container mx-auto p-4 space-y-8'>
-			<ArticleDetails article={article} />
+			<ArticleDetails
+				article={article}
+				getArticle={getArticle}
+			/>
 		</div>
 	)
 }
