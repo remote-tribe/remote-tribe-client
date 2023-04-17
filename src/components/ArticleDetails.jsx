@@ -5,6 +5,7 @@ import { UserContext } from '../context/UserContext'
 import { useParams, Link } from 'react-router-dom'
 import Comment from './Comment'
 
+
 export const ArticleDetails = ({ article, getArticle }) => {
 	const [commentValue, setCommentValue] = useState('')
 	const currentUser = GetCurrentUser()
@@ -162,7 +163,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 
 							<figure>
 								<img
-									src='https://flowbite.s3.amazonaws.com/typography-plugin/typography-image-1.png'
+									src={article.imageUrl}
 									alt=''
 								/>
 								<figcaption>Digital art by Anonymous</figcaption>
