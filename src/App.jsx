@@ -10,6 +10,7 @@ import { UsersPage } from './pages/UsersPage'
 import UserContextProvider from './context/UserContext'
 import ArticleDetailsPage from './pages/ArticleDetailsPage'
 import ArticleUpdatePage from './pages/ArticleUpdatePage'
+import { InboxPage } from './pages/InboxPage'
 
 function App() {
 	return (
@@ -25,6 +26,10 @@ function App() {
 						<Route
 							path='/profile'
 							element={<ProfilePage />}
+						/>
+						<Route
+							path='/inbox'
+							element={<InboxPage />}
 						/>
 						<Route
 							path='/users'

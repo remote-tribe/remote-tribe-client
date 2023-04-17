@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { UserProfile } from '../components/UserProfile'
-import { SendMessage } from '../components/SendMessage'
+import { Conversation } from '../components/Conversation'
 import { GetCurrentUser } from '../Auth'
 
 export const UserPage = () => {
-	const [showSendMessage, setShowSendMessage] = useState(false)
+	const [showConversation, setShowConversation] = useState(false)
 	const [userData, setUserData] = useState(null)
 	const { userId } = useParams()
 	const currentUser = GetCurrentUser()
@@ -24,18 +24,17 @@ export const UserPage = () => {
 		fetchUser()
 	}, [])
 
-	return showSendMessage ? (
-		<SendMessage
+	return showConversation ? (
+		<Conversation
 			userData={userData}
 			currentUser={currentUser}
-			sendMessage={setShowSendMessage}
 			fetchUser={fetchUser}
 		/>
 	) : (
 		<UserProfile
 			userData={userData}
 			currentUser={currentUser}
-			sendMessage={setShowSendMessage}
+			conversation={setShowConversation}
 		/>
 	)
 }

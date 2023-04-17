@@ -42,3 +42,7 @@
 	border-bottom-right-radius: 0rem;
 	border-bottom-left-radius: 0rem;
 }
+
+.conversation {
+	height: 100% !important;
+}
