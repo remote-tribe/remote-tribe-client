@@ -16,7 +16,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	const initialLikesNum = parseInt(typeof article.likes === 'number' ? article.likes : 0);
 	const [likesNum, setLikesNum] = useState(initialLikesNum);
 
-	// set article data
+	// set article date
 	const [articleDate, setArticleDate] = useState('');
 
 	const [isOpen, setIsOpen] = useState(false)
@@ -77,17 +77,14 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	//START handle article data function
 	useEffect(() => {
 		const date = new Date(article.createdAt);
-		console.log(article.createdAt);
 		const formattedDate = date.toLocaleString("en-US", {
 			month: "short",
 			day: "numeric",
 			year: "numeric",
 		});
 		setArticleDate(formattedDate);
-		console.log(formattedDate);
 	}, [article]);
 	// END!!! article data function
-	console.log(article.createdAt);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -241,7 +238,11 @@ export const ArticleDetails = ({ article, getArticle }) => {
 														pubdate
 														datetime='2022-02-08'
 														title='February 8th, 2022'>
-														Feb. 8, 2022
+														{new Date(comment?.createdAt).toLocaleString("en-US", {
+															month: "short",
+															day: "numeric",
+															year: "numeric",
+														})}
 													</time>
 												</p>
 											</div>
