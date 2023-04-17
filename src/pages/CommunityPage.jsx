@@ -19,7 +19,7 @@ export const CommunityPage = () => {
 		axios
 			.get('http://localhost:5005/api/community/articles')
 			.then(({ data }) => {
-				setArticles(data)
+				setArticles(data.reverse())
 			})
 			.catch((e) => {
 				console.log('fail to access database..', e)

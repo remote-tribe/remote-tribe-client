@@ -54,7 +54,7 @@ export const InboxPage = () => {
 								<span
 									href='#'
 									className='flex justify-between items-center'>
-									<h3 className='text-lg font-semibold'>{otherParticipant?.username}</h3>
+									<h3 className='text-lg font-semibold text-sky-500'>{otherParticipant?.username}</h3>
 									<p className='text-md text-gray-400'>23m ago</p>
 								</span>
 								<div className='text-md italic text-gray-400'>Sent you a message!</div>

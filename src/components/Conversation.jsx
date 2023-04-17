@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUser }) => {
 	const [chat, setChat] = useState([])
 	const [message, setMessage] = useState('')
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen)
+	}
+
+	const deleteConversation = (e) => {
+		e.preventDefault()
+	}
 
 	useEffect(() => {
 		const conversation = userData?.conversations?.find((conversation) => {
@@ -42,13 +52,17 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 	}
 
 	return (
-		<div className='w-full h-full  '>
+		<div
+			className='w-full h-full'
+			onClick={() => isMenuOpen && setIsMenuOpen(false)}>
 			<div className='  bg-white dark:bg-gray-800 rounded-lg h-full'>
 				{userData && (
 					<div className='flex-1 p:2 sm:p-6 justify-between last flex flex-col h-full '>
 						<div className='flex sm:items-center justify-between py-3 border-b-2 border-gray-200'>
-							<div className='relative flex items-center space-x-4'>
-								<div className='relative'>
+							<Link
+								to={`/users/${userData?._id}`}
+								className='relative flex items-center space-x-4 cursor-pointer'>
+								<div className='relative '>
 									<img
 										src='https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144'
 										alt=''
@@ -61,13 +75,32 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 									</div>
 									<span className='text-lg text-gray-600'>{userData?.profession}</span>
 								</div>
-							</div>
-							<div className='flex items-center space-x-2'>
+							</Link>
+							<div className='relative'>
 								<button
 									type='button'
-									className='inline-flex items-center justify-center rounded-full  h-8 w-8 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none mr-4 scale-125'>
+									onClick={toggleMenu}
+									className='inline-flex items-center justify-center rounded-full h-8 w-8 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none mr-4 scale-125'>
 									<i className='fa-solid fa-ellipsis-vertical'></i>
 								</button>
+								{isMenuOpen && (
+									<div className='absolute right-0 mt-2  w-48 bg-white  shadow-lg z-10'>
+										<Link
+											to={`/users/${userData?._id}`}
+											className='block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 w-full text-left'>
+											View Profile
+										</Link>
+										<button className='block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 w-full text-left'>
+											Report
+										</button>
+										<hr />
+										<button
+											onClick={deleteConversation}
+											className='block px-4 py-2 text-md text-rose-500 hover:bg-gray-100 w-full text-left'>
+											Delete Conversation
+										</button>
+									</div>
+								)}
 							</div>
 						</div>
 						<div
@@ -81,7 +114,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										<div className='flex items-end'>
 											<div className='flex flex-col space-y-2 text-md max-w-xs mx-2 order-2 items-start'>
 												<div>
-													<span className='px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white '>
+													<span className='px-4 py-2 rounded-lg inline-block rounded-br-none bg-sky-500 text-white '>
 														{message?.message}
 													</span>
 												</div>
