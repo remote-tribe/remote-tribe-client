@@ -17,15 +17,19 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='w-96 h-96 flex flex-col rounded overflow-hidden shadow hover:shadow-lg cursor-pointer transition-all duration-150'>
-							<img
-								className='w-full h-64 object-cover object-center'
-								src={article?.imageUrl}
-								alt={article?.title}
-							/>
+							className='w-96 h-96 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150'>
+							{article?.imageUrl ? (
+								<img
+									className='w-full h-64 object-cover object-center'
+									src={article?.imageUrl}
+									alt={article?.title}
+								/>
+							) : (
+								<div className='w-full h-64 object-cover object-center bg-sky-800'></div>
+							)}
 
 							<div className='px-4 py-4 flex justify-between'>
-								<div className='font-bold text-2xl mb-2'>{article?.title}</div>
+								<div className='font-semibold text-2xl mb-2'>{article?.title}</div>
 								<span className=' px-2 py-2 text-sm font-semibold text-gray-700'>07/02/2023</span>
 							</div>
 							<div className='flex justify-between mt-auto'>
@@ -36,12 +40,12 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 								</Link>
 								<div className='space-x-4 text-lg mr-4 mt-1'>
 									<span className='space-x-1 text-gray-600'>
-										<i className='fa-solid fa-thumbs-up text-sky-400' />
+										<i className='fa-solid fa-thumbs-up text-sky-400 mx-1' />
 										{article?.likes}
 									</span>
 									<span className='space-x-1  text-gray-600'>
-										<i className='fa-solid fa-comment text-sky-400' />
-										{article?.likes}
+										<i className='fa-solid fa-comment text-sky-400 mx-1' />
+										{article?.comments?.length}
 									</span>
 								</div>
 							</div>
