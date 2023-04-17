@@ -70,7 +70,7 @@ export const NavBar = () => {
 				</p>
 				<NavLink
 					to={`/inbox`}
-					className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4 mr-7'>
+					className='dark:hover:text-sky-300 text-gray-500 dark:text-gray-400 text-lg  hover:text-sky-500 mx-4 mr-7'>
 					<i className='fa-solid fa-envelope'></i>
 				</NavLink>
 

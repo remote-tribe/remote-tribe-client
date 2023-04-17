@@ -64,7 +64,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 								className='relative flex items-center space-x-4 cursor-pointer'>
 								<div className='relative '>
 									<img
-										src='https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144'
+										src={userData?.profilePicture}
 										alt=''
 										className='w-10 sm:w-16 h-10 sm:h-16 rounded-full'
 									/>
@@ -120,7 +120,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 												</div>
 											</div>
 											<img
-												src='https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144'
+												src={currentUser?.profilePicture}
 												alt='My profile'
 												className='w-6 h-6 rounded-full order-1'
 											/>
@@ -135,7 +135,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 												</div>
 											</div>
 											<img
-												src='https://images.unsplash.com/photo-1587397845856-e6cf49176c70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+												src={userData?.profilePicture}
 												alt='My profile'
 												className='w-6 h-6 rounded-full order-1'
 											/>

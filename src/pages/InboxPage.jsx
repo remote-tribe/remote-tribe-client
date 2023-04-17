@@ -2,11 +2,13 @@ import { Conversation } from '../components/Conversation'
 import { GetCurrentUser } from '../Auth'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 
 export const InboxPage = () => {
 	const [currentUser, setCurrentUser] = useState(null)
 	const [userData, setUserData] = useState(null)
 	const { id: userId } = GetCurrentUser()
+	const location = useLocation()
 
 	const fetchCurrentUser = async () => {
 		try {
@@ -19,6 +21,9 @@ export const InboxPage = () => {
 
 	const fetchUser = async (userId) => {
 		try {
+			if (location) {
+				setUserData(location?.state?.user)
+			}
 			const response = await axios.get(`http://localhost:5005/api/user?userId=${userId}`)
 			setUserData(response.data)
 			console.log(response.data)
@@ -28,6 +33,10 @@ export const InboxPage = () => {
 	}
 
 	useEffect(() => {
+		if (location) {
+			setUserData(location?.state?.user)
+			fetchUser(location?.state?.user?._id)
+		}
 		fetchCurrentUser()
 	}, [])
 
@@ -42,13 +51,28 @@ export const InboxPage = () => {
 				</label>
 
 				<ul className='mt-6'>
+					{location?.state?.user && (
+						<li
+							onClick={() => fetchUser(location?.state?.user?._id)}
+							className='py-5 cursor-pointer border-b px-3 transition hover:bg-sky-100'>
+							<span
+								href='#'
+								className='flex justify-between items-center'>
+								<h3 className='text-lg font-semibold text-sky-500'>{location?.state?.user?.username}</h3>
+								<p className='text-md text-gray-400'>23m ago</p>
+							</span>
+							<div className='text-md italic text-gray-400'>Sent you a message!</div>
+						</li>
+					)}
 					{currentUser?.conversations?.map((conversation, index) => {
 						const otherParticipant = conversation.participants.find(
 							(participant) => participant._id !== userId,
 						)
 						return (
 							<li
-								onClick={() => fetchUser(otherParticipant?._id)}
+								onClick={() => {
+									fetchUser(otherParticipant?._id)
+								}}
 								key={index}
 								className='py-5 cursor-pointer border-b px-3 transition hover:bg-sky-100'>
 								<span
