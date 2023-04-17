@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { UserContext } from '../context/UserContext'
 import { useParams, Link } from 'react-router-dom'
@@ -10,7 +10,13 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	const currentUser = GetCurrentUser()
 	const { handleLogout } = useContext(UserContext)
 	const { articleId } = useParams()
+
+	// set likes 
 	const [isLiked, setIsLiked] = useState(false)
+	const initialLikesNum = parseInt(typeof article.likes === 'number' ? article.likes : 0);
+	const [likesNum, setLikesNum] = useState(initialLikesNum);
+
+
 	const [isOpen, setIsOpen] = useState(false)
 
 	const toggleDropdown = () => {
@@ -29,9 +35,43 @@ export const ArticleDetails = ({ article, getArticle }) => {
 		// Code to handle delete functionality
 	}
 
-	function handleLike() {
-		setIsLiked((prevIsLiked) => !prevIsLiked)
+
+	// START!!! handle likes function
+	useEffect(() => {
+		if (typeof article.likes === 'number') {
+			setLikesNum(article.likes);
+		}
+		if (article.likedBy && article.likedBy.includes(currentUser.id)) {
+			setIsLiked(true);
+		} else {
+			setIsLiked(false);
+		}
+	}, [article.likes, article.likedBy, currentUser.id]);
+
+	async function addLikesNumInDataBase() {
+		await axios.post(`http://localhost:5005/api/community/article/${article._id}/like`, { userId: currentUser.id });
 	}
+
+	async function addDislikesNumInDataBase() {
+		await axios.put(`http://localhost:5005/api/community/article/${article._id}/like`, { userId: currentUser.id });
+	}
+
+	async function handleLike() {
+		if (isLiked === false) {
+			await addLikesNumInDataBase();
+			const addedNum = likesNum + 1;
+			setLikesNum(addedNum);
+			setIsLiked((prevIsLiked) => !prevIsLiked);
+		} else {
+			await addDislikesNumInDataBase();
+			const addedNum = likesNum - 1;
+			setLikesNum(addedNum);
+			setIsLiked((prevIsLiked) => !prevIsLiked);
+		}
+	}
+	// END!!! handle likes function
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const token = localStorage.getItem('token')
@@ -113,6 +153,22 @@ export const ArticleDetails = ({ article, getArticle }) => {
 								/>
 								<figcaption>Digital art by Anonymous</figcaption>
 							</figure>
+							<div className='flex items-center mt-2'>
+								<button
+									className={`inline-flex items-center scale-125  justify-center w-fit mx-4 transition-all duration-300 transform-gpu  ${isLiked ? 'text-rose-600' : 'text-gray-600 '
+										}`}
+									onClick={handleLike}>
+									<i className='fa-solid fa-heart scale-150'></i>
+								</button>
+
+								<p className='text-sm text-gray-600 mr-4'>
+									{likesNum} {likesNum === 1 ? 'like' : 'likes'}
+								</p>
+
+								{/* <button className='w-24 p-2 border rounded-md border-blue-500 text-blue-500'>
+							<Link to={`/community/article/${article._id}/edit`}>Edit</Link>
+						</button> */}
+							</div>
 							<div
 								className='my-10 dark:text-white prose'
 								dangerouslySetInnerHTML={{ __html: article?.content }}
