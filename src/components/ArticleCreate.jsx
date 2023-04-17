@@ -8,7 +8,6 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [content, setContent] = useState('')
-	const [imageUrl, setImageUrl] = useState('')
 	const currentUser = GetCurrentUser()
 
 	// set upload images
@@ -69,7 +68,9 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 
 		setTitle('')
 		setContent('')
-		setImageUrl('')
+		setSelectedImage(null)
+		setUploadedImage('')
+		setUploaded(false)
 	}
 
 	return (
