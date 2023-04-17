@@ -1,8 +1,91 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import React, { useRef } from 'react';
+import axios from 'axios';
 export const UserProfile = ({ userData, currentUser, handleShowSettings, conversation }) => {
 	const isCurrentUser = userData?._id === currentUser?.id
+	const token = localStorage.getItem('token')
+	// set upload images
+	const [selectedImage, setSelectedImage] = useState(null);
+	const [uploadedImage, setUploadedImage] = useState(null);
+	const [uploadedImageURL, setUploadedImageURL] = useState('')
+	//START!! handle images
+	const fileInputRef = useRef(null);
+
+	const handleImageChange = async (e) => {
+		setSelectedImage(e.target.files[0]);
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			setUploadedImage(reader.result);
+		};
+		reader.readAsDataURL(e.target.files[0]);
+		// 立即上传图片
+		await handleImageUpload(e.target.files[0]);
+	};
+
+
+	const handleImageClick = () => {
+		fileInputRef.current.click();
+	};
+	const handleImageUpload = async (imageFile) => {
+		if (!imageFile) return;
+
+		// create a FormData
+		const formData = new FormData();
+		formData.append('file', imageFile);
+		formData.append('upload_preset', 'fsgqertv');
+
+		// sent POST request to Cloudinary
+		try {
+			const res = await axios.post(
+				`https://api.cloudinary.com/v1_1/dxeejm8ef/image/upload`,
+				formData
+			);
+			setUploadedImageURL(res.data.url);
+			const transformedUrl = `${res.data.url.replace(
+				'/image/upload/',
+				'/image/upload/c_fill,ar_1:1,h_160,w_160/'
+			)}`;
+			setUploadedImage(transformedUrl);
+		} catch (err) {
+			console.error('Error uploading image: ', err);
+		}
+	};
+
+	useEffect(() => {
+		if (uploadedImageURL) {
+			updateUserProfile();
+		}
+	}, [uploadedImageURL]);
+
+	const updateUserProfile = async () => {
+		const updatedUserData = {
+			profilePicture: uploadedImageURL,
+		};
+		console.log(updatedUserData);
+		try {
+			const res = await axios.put(
+				"http://localhost:5005/api/users/current",
+				updatedUserData,
+				{
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`, //！！！！
+					},
+				}
+			);
+
+			if (res.data) {
+				console.log("User profile updated successfully");
+			}
+		} catch (err) {
+			console.error("Error updating user profile: ", err);
+		}
+	};
+
+
+	//END!! handle images
+
 
 	return (
 		<main className='profile-page'>
@@ -28,10 +111,18 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 							<div className='px-6'>
 								<div className='flex flex-wrap justify-center'>
 									<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center'>
+										<input
+											type='file'
+											accept='image/*'
+											ref={fileInputRef}
+											onChange={handleImageChange}
+											style={{ display: 'none' }}
+										/>
 										<img
 											alt='...'
-											src='https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg'
+											src={uploadedImage || 'https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg'}
 											className='shadow-xl rounded-full h-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px cursor-pointer'
+											onClick={handleImageClick}
 										/>
 									</div>
 									<div className='w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center'>

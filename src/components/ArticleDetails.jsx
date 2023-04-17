@@ -75,7 +75,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	// END!!! handle likes function
 
 
-	//START handle article data function
+	//START handle article date function
 	useEffect(() => {
 		const date = new Date(article.createdAt);
 		const formattedDate = date.toLocaleString("en-US", {
