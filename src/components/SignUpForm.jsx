@@ -14,7 +14,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-
+		console.log(import.meta.env.VITE_BASE_URL)
 		if (!termsAgreed) {
 			setError('Please agree to the terms and conditions.')
 			return
