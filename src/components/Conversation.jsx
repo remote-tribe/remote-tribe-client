@@ -32,7 +32,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		e.preventDefault()
 		try {
 			const response = await axios.post(
-				`http://localhost:5005/api/conversation`,
+				`${import.meta.env.VITE_BASE_URL}/api/conversation`,
 				{
 					senderId: currentUser?._id,
 					recipientId: userData?._id,

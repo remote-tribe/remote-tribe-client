@@ -56,7 +56,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 		}
 
 		axios
-			.post(`http://localhost:5005/api/community/articles`, data)
+			.post(`${import.meta.env.VITE_BASE_URL}/api/community/articles`, data)
 			.then((response) => {
 				console.log(response.data)
 				loadAllArticles()

@@ -50,13 +50,13 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	}, [article.likes, article.likedBy, currentUser.id])
 
 	async function addLikesNumInDataBase() {
-		await axios.post(`http://localhost:5005/api/community/article/${article._id}/like`, {
+		await axios.post(`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}/like`, {
 			userId: currentUser.id,
 		})
 	}
 
 	async function addDislikesNumInDataBase() {
-		await axios.put(`http://localhost:5005/api/community/article/${article._id}/like`, {
+		await axios.put(`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}/like`, {
 			userId: currentUser.id,
 		})
 	}
@@ -94,7 +94,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 
 		try {
 			const response = await axios.post(
-				'http://localhost:5005/api/comment',
+				`${import.meta.env.VITE_BASE_URL}/api/comment`,
 				{
 					commentValue,
 					articleId,

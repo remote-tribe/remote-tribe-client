@@ -15,7 +15,7 @@ const UpdateArticle = ({ article }) => {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:5005/api/community/article/${articleId}`)
+			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
 			.then((response) => {
 				const oneArticle = response.data
 				setTitle(oneArticle.title)
@@ -36,7 +36,7 @@ const UpdateArticle = ({ article }) => {
 		}
 
 		axios
-			.put(`http://localhost:5005/api/community/article/${articleId}`, data)
+			.put(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`, data)
 			.then(() => {
 				navigate(`/community/article/${articleId}`)
 			})
@@ -52,7 +52,9 @@ const UpdateArticle = ({ article }) => {
 	const deleteArticle = () => {
 		axios
 			.delete(
-				`http://localhost:5005/api/community/article/${article._id}?articleId=${article?._id}&userId=${currentUser.id}&comments=${article?.comments}`,
+				`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}?articleId=${
+					article?._id
+				}&userId=${currentUser.id}&comments=${article?.comments}`,
 			)
 			.then(() => {
 				navigate('/community')

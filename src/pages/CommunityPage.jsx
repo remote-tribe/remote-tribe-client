@@ -17,7 +17,7 @@ export const CommunityPage = () => {
 
 	const getAllArticles = () => {
 		axios
-			.get('http://localhost:5005/api/community/articles')
+			.get(`${import.meta.env.VITE_BASE_URL}/api/community/articles`)
 			.then(({ data }) => {
 				setArticles(data.reverse())
 			})

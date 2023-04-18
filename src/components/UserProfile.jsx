@@ -61,7 +61,7 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 		}
 		console.log(updatedUserData)
 		try {
-			const res = await axios.put('http://localhost:5005/api/users/current', updatedUserData, {
+			const res = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/users/current`, updatedUserData, {
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`, //！！！！

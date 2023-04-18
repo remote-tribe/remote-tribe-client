@@ -9,7 +9,7 @@ export const UsersPage = () => {
 
 	useEffect(() => {
 		const fetchUsers = async () => {
-			const response = await axios.get('http://localhost:5005/api/users')
+			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/users`)
 			console.log(response.data)
 			setUsers(response.data)
 		}

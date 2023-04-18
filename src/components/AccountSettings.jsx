@@ -32,7 +32,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 
 		try {
 			const response = await axios.post(
-				`http://localhost:5005/auth/email`,
+				`${import.meta.env.VITE_BASE_URL}/auth/email`,
 				{
 					currentEmail,
 					newEmail,
@@ -60,7 +60,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 
 		try {
 			const response = await axios.post(
-				`http://localhost:5005/auth/password`,
+				`${import.meta.env.VITE_BASE_URL}/auth/password`,
 
 				{
 					userId: userData._id,
@@ -89,7 +89,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 
 		try {
 			const response = await axios.post(
-				`http://localhost:5005/auth/verifyPass`,
+				`${import.meta.env.VITE_BASE_URL}/auth/verifyPass`,
 				{
 					email: userData.email,
 					password,

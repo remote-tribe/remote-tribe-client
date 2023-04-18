@@ -4,6 +4,7 @@ import { UserContext } from '../context/UserContext'
 
 export const HomePage = () => {
 	const { loggedUser, setLoggedUser } = useContext(UserContext)
+	console.log(import.meta.env.VITE_BASE_URL)
 
 	useEffect(() => {
 		const currentUser = GetCurrentUser()

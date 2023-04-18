@@ -13,7 +13,7 @@ export const UserPage = () => {
 
 	const fetchUser = async () => {
 		try {
-			const response = await axios.get(`http://localhost:5005/api/user?userId=${userId}`)
+			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
 			setUserData(response.data)
 		} catch (error) {
 			console.error(error)

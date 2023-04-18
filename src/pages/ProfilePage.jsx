@@ -24,7 +24,7 @@ export const ProfilePage = () => {
 		const token = localStorage.getItem('token')
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`http://localhost:5005/api/users/current`, {
+				const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/users/current`, {
 					headers: { Authorization: `Bearer ${token}` },
 				})
 

@@ -18,7 +18,9 @@ const Comment = ({ comment, articleId, currentUser, handleLogout }) => {
 
 		try {
 			const response = await axios.delete(
-				`http://localhost:5005/api/comment?commentId=${comment?._id}&articleId=${articleId}&userId=${currentUser?.id}`,
+				`${import.meta.env.VITE_BASE_URL}/api/comment?commentId=${
+					comment?._id
+				}&articleId=${articleId}&userId=${currentUser?.id}`,
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -42,7 +44,7 @@ const Comment = ({ comment, articleId, currentUser, handleLogout }) => {
 
 		try {
 			const response = await axios.put(
-				`http://localhost:5005/api/comment`,
+				`${import.meta.env.VITE_BASE_URL}/api/comment`,
 				{
 					editedComment,
 					commentId: comment?._id,

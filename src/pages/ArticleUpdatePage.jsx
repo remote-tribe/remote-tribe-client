@@ -14,7 +14,7 @@ function ArticleUpdatePage() {
 
 	const getArticle = () => {
 		axios
-			.get(`http://localhost:5005/api/community/article/${articleId}`)
+			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
 			.then(({ data }) => {
 				setArticle(data)
 			})

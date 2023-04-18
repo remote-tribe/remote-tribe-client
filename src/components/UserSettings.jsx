@@ -18,7 +18,7 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 		const token = localStorage.getItem('token')
 		try {
 			const response = await axios.put(
-				`http://localhost:5005/api/users/current`,
+				`${import.meta.env.VITE_BASE_URL}/api/users/current`,
 				{
 					username,
 					description,
