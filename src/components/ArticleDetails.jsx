@@ -123,7 +123,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	return (
 		article && (
 			<div>
-				<main className='pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900'>
+				<main className='pt-8 pb-16 lg:pt-16 lg:pb-24 '>
 					<div className='flex justify-between px-4 mx-auto max-w-screen-xl '>
 						<article className='mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert'>
 							<header className='mb-4 lg:mb-6 not-format'>
@@ -144,13 +144,13 @@ export const ArticleDetails = ({ article, getArticle }) => {
 											<Link
 												to={`/users/${article?.author?._id}`}
 												rel='author'
-												className='text-xl font-semibold text-sky-500 '>
+												className='text-xl font-semibold text-sky-500 dark:text-sky-400'>
 												{article?.author?.username}
 											</Link>
-											<p className='text-base font-light text-gray-500 dark:text-gray-400'>
+											<p className='text-base font-light text-gray-600 dark:text-gray-400 '>
 												{article?.author?.profession}
 											</p>
-											<p className='text-base font-light text-gray-500 dark:text-gray-400'>
+											<p className='text-base font-light text-gray-600 dark:text-gray-400 '>
 												<time
 													dateTime={articleDate}
 													title={articleDate}>
@@ -160,7 +160,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 										</div>
 									</div>
 								</address>
-								<h1 className='mb-4 text-3xl font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white'>
+								<h1 className='mb-4 text-3xl font-semibold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white'>
 									{article?.title}
 								</h1>
 							</header>
@@ -170,23 +170,22 @@ export const ArticleDetails = ({ article, getArticle }) => {
 									src={article.imageUrl}
 									alt=''
 								/>
-								<figcaption>Digital art by Anonymous</figcaption>
 							</figure>
 
 							<div
-								className='my-10 dark:text-white prose'
+								className='my-10 dark:text-gray-200 prose dark:prose-headings:text-gray-200 '
 								dangerouslySetInnerHTML={{ __html: article?.content }}
 							/>
 							<div className='flex items-center my-4 text-4xl'>
 								<button
 									className={`inline-flex items-center   justify-center w-fit mx-4 transition-all duration-300 transform-gpu  ${
-										isLiked ? 'text-sky-400' : 'text-slate-400 '
+										isLiked ? 'text-sky-400 dark:text-sky-300' : 'text-slate-400 dark:text-slate-200 '
 									}`}
 									onClick={handleLike}>
 									<i className='fa-solid fa-thumbs-up  '></i>
 								</button>
 
-								<p className=' text-gray-600 mr-4 text-3xl'>{likesNum}</p>
+								<p className=' text-gray-600 dark:text-white mr-4 text-3xl'>{likesNum}</p>
 							</div>
 							<section className='not-format'>
 								<div className='flex justify-between items-center mb-6'>
@@ -197,7 +196,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 								<form
 									className='mb-6'
 									onSubmit={handleSubmit}>
-									<div className='ring-sky-400 focus-within:ring-2 py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition-all duration-150'>
+									<div className='ring-sky-400 focus-within:ring-2 py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-700 transition-all duration-150'>
 										<label
 											htmlFor='comment'
 											className='sr-only'>
@@ -208,7 +207,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 											rows='6'
 											onChange={(e) => setCommentValue(e.target.value)}
 											value={commentValue}
-											className='px-0 w-full text-sm text-gray-900 border-0  outline-none dark:text-white dark:placeholder-gray-400  dark:bg-gray-800'
+											className='px-0 w-full text-sm text-gray-900 border-0  outline-none dark:text-gray-200 dark:placeholder-gray-300  dark:bg-gray-700 resize-none '
 											placeholder='Write a comment...'
 										/>
 									</div>
@@ -340,7 +339,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 								</p>
 								<a
 									href='#'
-									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline'>
+									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline dark:text-gray-200'>
 									Read in 2 minutes
 								</a>
 							</article>
@@ -355,12 +354,12 @@ export const ArticleDetails = ({ article, getArticle }) => {
 								<h2 className='mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white'>
 									<a href='#'>Enterprise design tips</a>
 								</h2>
-								<p className='mb-4 font-light text-gray-500 dark:text-gray-400'>
+								<p className='mb-4 font-light text-gray-500 dark:text-gray-300'>
 									Over the past year, Volosoft has undergone many changes! After months of preparation.
 								</p>
 								<a
 									href='#'
-									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline'>
+									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline dark:text-gray-200'>
 									Read in 12 minutes
 								</a>
 							</article>
@@ -375,12 +374,12 @@ export const ArticleDetails = ({ article, getArticle }) => {
 								<h2 className='mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white'>
 									<a href='#'>We partnered with Google</a>
 								</h2>
-								<p className='mb-4 font-light text-gray-500 dark:text-gray-400'>
+								<p className='mb-4 font-light text-gray-500 dark:text-gray-300'>
 									Over the past year, Volosoft has undergone many changes! After months of preparation.
 								</p>
 								<a
 									href='#'
-									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline'>
+									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline dark:text-gray-200'>
 									Read in 8 minutes
 								</a>
 							</article>
@@ -395,12 +394,12 @@ export const ArticleDetails = ({ article, getArticle }) => {
 								<h2 className='mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white'>
 									<a href='#'>Our first project with React</a>
 								</h2>
-								<p className='mb-4 font-light text-gray-500 dark:text-gray-400'>
+								<p className='mb-4 font-light text-gray-500 dark:text-gray-300'>
 									Over the past year, Volosoft has undergone many changes! After months of preparation.
 								</p>
 								<a
 									href='#'
-									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline'>
+									className='inline-flex items-center font-medium hover:text-sky-400 transition-all duration-150 text-primary-600 dark:text-primary-500 hover:no-underline dark:text-gray-200'>
 									Read in 4 minutes
 								</a>
 							</article>
@@ -408,10 +407,10 @@ export const ArticleDetails = ({ article, getArticle }) => {
 					</div>
 				</aside>
 
-				<section className='bg-white dark:bg-gray-900'>
+				<section className='bg-white dark:bg-gray-900 rounded-xl'>
 					<div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
 						<div className='mx-auto max-w-screen-md sm:text-center'>
-							<h2 className='mb-4 text-3xl font-bold tracking-tight text-sky-400 sm:text-4xl dark:text-white'>
+							<h2 className='mb-4 text-3xl font-semibold tracking-tight text-sky-400 sm:text-4xl dark:text-white'>
 								Sign up for our newsletter
 							</h2>
 							<p className='mx-auto mb-8 max-w-2xl font-light text-gray-500 md:mb-12 sm:text-xl dark:text-gray-400'>
@@ -420,7 +419,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 							</p>
 							<form action='#'>
 								<div className='items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0 focus-within:ring-1 ring-sky-400 rounded-md transition-all duration-150 shadow-md'>
-									<div className='relative w-full '>
+									<div className='relative w-full dark:bg-gray-700 rounded-s-md '>
 										<label
 											htmlFor='email'
 											className='hidden mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
@@ -437,7 +436,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 											</svg>
 										</div>
 										<input
-											className=' ml-8 outline-none text-lg w-full rounded-s border-none py-2 px-4  '
+											className=' ml-8 outline-none text-lg w-full rounded-s-md border-none py-3 px-4 dark:bg-gray-700  dark:text-gray-100 '
 											placeholder='Enter your email'
 											type='email'
 											id='email'
@@ -447,7 +446,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 
 									<button
 										type='submit'
-										className='w-1/5 p-3 ml-8 bg-sky-400 text-white font-medium rounded-e-md hover:bg-sky-500 transition-all duration-150 hover:shadow-md'>
+										className='w-1/5 p-3 ml-8 border-2 border-sky-400 bg-sky-400 text-white font-medium rounded-e-md hover:bg-sky-500 transition-all duration-150 hover:shadow-md'>
 										Subscribe
 									</button>
 								</div>

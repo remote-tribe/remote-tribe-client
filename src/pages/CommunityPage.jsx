@@ -58,13 +58,6 @@ export const CommunityPage = () => {
 		</div>
 	) : (
 		<div>
-			<div className='flex justify-center'>
-				<h1
-					onClick={() => setShowCreate(false)}
-					className='text-4xl text-sky-400 my-5 cursor-pointer'>
-					Community Page
-				</h1>
-			</div>
 			{showCreate ? (
 				<CreateArticle
 					handleShowCreate={handleShowCreate}

@@ -47,7 +47,7 @@ function ArticleDetailsPage() {
 			/>
 		</div>
 	) : (
-		<div className='container mx-auto p-4 space-y-8'>
+		<div className='container mx-auto space-y-8'>
 			<ArticleDetails
 				article={article}
 				getArticle={getArticle}
