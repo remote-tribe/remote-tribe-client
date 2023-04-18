@@ -16,8 +16,7 @@ export const Login = async (email, password, rememberMe) => {
 			return response.data
 		}
 	} catch (error) {
-		console.error(error)
-		throw new Error(error.response.data.message)
+		throw { message: error?.response?.data?.message }
 	}
 }
 

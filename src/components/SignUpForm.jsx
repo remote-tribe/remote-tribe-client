@@ -1,21 +1,30 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ClipLoader } from 'react-spinners'
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
-export const SignUpForm = ({ handleShowRegister }) => {
+export const SignUpForm = ({ handleShowRegister, setMessage }) => {
+	const [isLoading, setIsLoading] = useState(false)
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
 	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
-	const [message, setMessage] = useState('')
+
 	const [termsAgreed, setTermsAgreed] = useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		setIsLoading(true)
 		console.log(import.meta.env.VITE_BASE_URL)
 		if (!termsAgreed) {
+			setIsLoading(false)
 			setError('Please agree to the terms and conditions.')
 			return
 		}
@@ -29,15 +38,26 @@ export const SignUpForm = ({ handleShowRegister }) => {
 				termsAgreed,
 			})
 			if (response) {
+				handleShowRegister()
 				setMessage(response.data.message)
 			}
 		} catch (error) {
-			if (error) console.log(error)
-			setError(error.response.data.message)
+			setError(error?.response?.data?.message)
+		} finally {
+			setIsLoading(false)
 		}
 	}
 	return (
-		<section className='pt-20'>
+		<section className='pt-10'>
+			{error ? (
+				<div
+					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3'
+					role='alert'>
+					<span className='block sm:inline'>{error}</span>
+				</div>
+			) : (
+				<div className='h-[3.1rem] my-3'></div>
+			)}
 			<div className='flex flex-col items-center px-6 py-8 mx-auto md:h-full lg:py-0'>
 				<Link
 					to={'/'}
@@ -61,8 +81,8 @@ export const SignUpForm = ({ handleShowRegister }) => {
 						<form
 							className='space-y-4 md:space-y-6'
 							onSubmit={handleSubmit}>
-							<div className='flex justify-between  '>
-								<div className='flex flex-col items-center '>
+							<div className='flex justify-center space-x-1  '>
+								<div className='flex flex-col items-center w-full'>
 									<label
 										htmlFor='firstName'
 										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
@@ -75,10 +95,10 @@ export const SignUpForm = ({ handleShowRegister }) => {
 										name='firstName'
 										id='firstName'
 										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
-								<div className='flex flex-col items-center '>
+								<div className='flex flex-col items-center w-full'>
 									<label
 										htmlFor='lastName'
 										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
@@ -91,7 +111,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 										name='lastName'
 										id='lastName'
 										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
 							</div>
@@ -109,7 +129,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 										name='username'
 										id='username'
 										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
 								<div className='flex flex-col items-center'>
@@ -125,7 +145,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 										name='email'
 										id='email'
 										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
 
@@ -142,7 +162,7 @@ export const SignUpForm = ({ handleShowRegister }) => {
 										name='password'
 										id='password'
 										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
 							</div>
@@ -171,18 +191,28 @@ export const SignUpForm = ({ handleShowRegister }) => {
 									<br />
 								</div>
 							</div>
-							{message && <p className='text-center text-green-500'>{message}</p>}
-							{error && <p className='text-center text-red-500'>{error}</p>}
+							{isLoading ? (
+								<div className='flex justify-center '>
+									<ClipLoader
+										color='#00a8e8'
+										css={override}
+										size={48}
+									/>
+								</div>
+							) : (
+								<div className='h-12' />
+							)}
+
 							<button
 								type='submit'
-								className='w-auto mx-auto flex text-sky-500 hover:text-sky-600 font-medium rounded-lg text-xl px-8 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 '>
+								className='w-auto mx-auto flex text-sky-500 hover:text-sky-300 font-medium rounded-xl text-xl px-6 py-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 border-sky-500 hover:border-sky-400 border hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5'>
 								Sign Up
 							</button>
 							<p className='text-sm text-center font-light text-gray-500 dark:text-gray-400'>
 								Already have an Account?
 								<span
 									onClick={handleShowRegister}
-									className='font-medium text-primary-600 text-sky-500 hover:text-sky-600  dark:text-primary-500 ml-2 cursor-pointer'>
+									className='font-medium text-primary-600 text-sky-500 hover:text-sky-600  dark:text-primary-500 text-lg ml-2 cursor-pointer transition-all duration-150'>
 									Sign In
 								</span>
 							</p>

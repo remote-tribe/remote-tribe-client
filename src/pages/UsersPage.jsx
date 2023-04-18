@@ -5,7 +5,8 @@ import { GetCurrentUser } from '../Auth'
 
 export const UsersPage = () => {
 	const [users, setUsers] = useState([])
-	const { id: currentUserId } = GetCurrentUser()
+	const currentUser = GetCurrentUser()
+	const currentUserId = currentUser?.id
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -16,7 +17,7 @@ export const UsersPage = () => {
 		fetchUsers()
 	}, [])
 
-	const filteredUsers = users.filter((user) => user._id !== currentUserId)
+	const filteredUsers = users.filter((user) => user?._id !== currentUserId)
 
 	return (
 		<div className='flex flex-col items-center sm:max-w-md mx-auto space-y-2 mt-10'>

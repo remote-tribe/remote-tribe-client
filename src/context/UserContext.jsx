@@ -17,15 +17,14 @@ const UserContextProvider = ({ children }) => {
 
 	const handleLogin = async (email, password, rememberMe) => {
 		try {
-			const success = await Login(email, password, rememberMe)
+			const response = await Login(email, password, rememberMe)
 
-			if (success) {
-				setIsLoggedIn(true)
-				setLoggedUser(success.user)
-			}
-			return success
+			setIsLoggedIn(true)
+			setLoggedUser(response?.user)
+
+			return response
 		} catch (error) {
-			console.error(error)
+			throw { message: error?.message }
 		}
 	}
 
