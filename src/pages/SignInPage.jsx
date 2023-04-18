@@ -4,6 +4,7 @@ import { SignUpForm } from '../components/SignUpForm'
 
 export const SignInPage = () => {
 	const [showRegister, setShowRegister] = useState(false)
+	const [message, setMessage] = useState(null)
 
 	const handleShowRegister = () => {
 		setShowRegister(!showRegister)
@@ -12,9 +13,16 @@ export const SignInPage = () => {
 	return (
 		<>
 			{showRegister ? (
-				<SignUpForm handleShowRegister={handleShowRegister} />
+				<SignUpForm
+					handleShowRegister={handleShowRegister}
+					setMessage={setMessage}
+				/>
 			) : (
-				<SignInForm handleShowRegister={handleShowRegister} />
+				<SignInForm
+					handleShowRegister={handleShowRegister}
+					setMessage={setMessage}
+					message={message}
+				/>
 			)}
 		</>
 	)

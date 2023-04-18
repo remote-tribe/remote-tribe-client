@@ -1,24 +1,36 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useState, useContext } from 'react'
+import { ClipLoader } from 'react-spinners'
 import { UserContext } from '../context/UserContext'
 
-export const SignInForm = ({ handleShowRegister }) => {
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
+
+export const SignInForm = ({ handleShowRegister, message }) => {
 	const navigate = useNavigate()
 	const { handleLogin } = useContext(UserContext)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [rememberMe, setRememberMe] = useState(false)
 	const [error, setError] = useState('')
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		setIsLoading(true)
 		try {
 			const isLoggedIn = await handleLogin(email, password, rememberMe)
 			if (isLoggedIn) {
 				navigate('/')
 			}
 		} catch (error) {
-			setError(error.message)
+			setError(error?.message)
+			console.log(error)
+		} finally {
+			setIsLoading(false)
 		}
 	}
 
@@ -27,7 +39,23 @@ export const SignInForm = ({ handleShowRegister }) => {
 	}
 
 	return (
-		<section className='pt-20 '>
+		<section className='pt-10  '>
+			{message && (
+				<div
+					className='bg-green-100 dark:bg-green-400 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3'
+					role='alert'>
+					<span className='block sm:inline'>{message}</span>
+				</div>
+			)}
+			{error ? (
+				<div
+					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3'
+					role='alert'>
+					<span className='block sm:inline'>{error}</span>
+				</div>
+			) : (
+				<div className='h-[3.1rem] my-3'></div>
+			)}
 			<div className='flex flex-col items-center px-6 py-8 mx-auto md:h-full lg:py-0'>
 				<Link
 					to={'/'}
@@ -43,7 +71,7 @@ export const SignInForm = ({ handleShowRegister }) => {
 					</svg>
 					Remote Tribe
 				</Link>
-				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
+				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 '>
 					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
 						<h1 className='text-xl text-center font-semibold mb-8 leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
 							Sign In to your Account
@@ -60,11 +88,11 @@ export const SignInForm = ({ handleShowRegister }) => {
 								<input
 									onChange={(e) => setEmail(e.target.value)}
 									value={email}
-									type='email'
+									type='text'
 									name='email'
 									id='email'
 									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 								/>
 							</div>
 							<div>
@@ -80,7 +108,7 @@ export const SignInForm = ({ handleShowRegister }) => {
 									name='password'
 									id='password'
 									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2'
+									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 								/>
 							</div>
 							<div className='flex items-center justify-between'>
@@ -106,16 +134,28 @@ export const SignInForm = ({ handleShowRegister }) => {
 									</div>
 								</div>
 								<Link
+									onClick={() => setIsLoading(!isLoading)}
 									to={'#'}
 									className='text-sm font-medium text-sky-500 text-primary-600 hover:text-sky-600  dark:text-primary-500'>
 									Forgot password?
 								</Link>
 							</div>
-							{error && <p className='text-center text-red-500'>{error}</p>}
+							{isLoading ? (
+								<div className='flex justify-center '>
+									<ClipLoader
+										color='#00a8e8'
+										css={override}
+										size={48}
+									/>
+								</div>
+							) : (
+								<div className='h-12' />
+							)}
+
 							<div className='button-div'>
 								<button
 									type='submit'
-									className='w-auto mx-auto flex text-sky-500 hover:text-sky-600 font-medium rounded-lg text-xl px-8 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 '>
+									className='w-auto mx-auto flex text-sky-500 hover:text-sky-300 font-medium rounded-lg text-xl px-6 py-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 border-sky-500 hover:border-sky-400 border hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5'>
 									Sign In
 								</button>
 							</div>
@@ -124,7 +164,7 @@ export const SignInForm = ({ handleShowRegister }) => {
 								Don’t have an account yet?
 								<span
 									onClick={handleShowRegister}
-									className='font-medium text-primary-600 text-sky-500 hover:text-sky-600  dark:text-primary-500 ml-2 cursor-pointer'>
+									className='font-medium text-primary-600 text-sky-500 text-lg hover:text-sky-600  dark:text-primary-500 ml-2 cursor-pointer transition-all duration-150'>
 									Sign up
 								</span>
 							</p>
