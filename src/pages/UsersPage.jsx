@@ -2,24 +2,47 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { GetCurrentUser } from '../Auth'
+import { ClipLoader } from 'react-spinners'
+
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
 export const UsersPage = () => {
+	const [loading, setLoading] = useState(true)
 	const [users, setUsers] = useState([])
 	const currentUser = GetCurrentUser()
 	const currentUserId = currentUser?.id
 
 	useEffect(() => {
+		setLoading(true)
 		const fetchUsers = async () => {
-			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/users`)
-			console.log(response.data)
-			setUsers(response.data)
+			try {
+				const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/users`)
+				setLoading(false)
+				setUsers(response.data)
+			} catch (error) {
+				setLoading(false)
+				console.log(error)
+			}
 		}
 		fetchUsers()
 	}, [])
 
 	const filteredUsers = users.filter((user) => user?._id !== currentUserId)
 
-	return (
+	return loading ? (
+		<div className='text-center text-sky-400 mt-20'>
+			<ClipLoader
+				color={'#00a8e8'}
+				loading={loading}
+				css={override}
+				size={150}
+			/>
+		</div>
+	) : (
 		<div className='flex flex-col items-center sm:max-w-md mx-auto space-y-2 mt-10'>
 			{filteredUsers?.map((user, index) => (
 				<Link

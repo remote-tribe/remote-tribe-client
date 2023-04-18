@@ -4,18 +4,29 @@ import { useParams } from 'react-router-dom'
 import { UserProfile } from '../components/UserProfile'
 import { Conversation } from '../components/Conversation'
 import { GetCurrentUser } from '../Auth'
+import { ClipLoader } from 'react-spinners'
+
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
 export const UserPage = () => {
+	const [loading, setLoading] = useState(true)
 	const [showConversation, setShowConversation] = useState(false)
 	const [userData, setUserData] = useState(null)
 	const { userId } = useParams()
 	const currentUser = GetCurrentUser()
 
 	const fetchUser = async () => {
+		setLoading(true)
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
+			setLoading(false)
 			setUserData(response.data)
 		} catch (error) {
+			setLoading(false)
 			console.error(error)
 		}
 	}
@@ -24,12 +35,15 @@ export const UserPage = () => {
 		fetchUser()
 	}, [])
 
-	return showConversation ? (
-		<Conversation
-			userData={userData}
-			currentUser={currentUser}
-			fetchUser={fetchUser}
-		/>
+	return loading ? (
+		<div className='text-center text-sky-400 mt-20'>
+			<ClipLoader
+				color={'#00a8e8'}
+				loading={loading}
+				css={override}
+				size={150}
+			/>
+		</div>
 	) : (
 		<UserProfile
 			userData={userData}

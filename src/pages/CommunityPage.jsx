@@ -3,8 +3,16 @@ import CreateArticle from '../components/ArticleCreate'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { ClipLoader } from 'react-spinners'
+
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
 export const CommunityPage = () => {
+	const [loading, setLoading] = useState(true)
 	const navigate = useNavigate()
 	const token = localStorage.getItem('token')
 	const [articles, setArticles] = useState([])
@@ -19,13 +27,16 @@ export const CommunityPage = () => {
 	}
 
 	const getAllArticles = () => {
+		setLoading(true)
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/community/articles`)
 			.then(({ data }) => {
+				setLoading(false)
 				setArticles(data.reverse())
 			})
-			.catch((e) => {
-				console.log('fail to access database..', e)
+			.catch((error) => {
+				setLoading(false)
+				console.log(error)
 			})
 	}
 
@@ -36,7 +47,16 @@ export const CommunityPage = () => {
 		setShowCreate(!showCreate)
 	}
 
-	return (
+	return loading ? (
+		<div className='text-center text-sky-400 mt-20'>
+			<ClipLoader
+				color={'#00a8e8'}
+				loading={loading}
+				css={override}
+				size={150}
+			/>
+		</div>
+	) : (
 		<div>
 			<div className='flex justify-center'>
 				<h1

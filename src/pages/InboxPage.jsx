@@ -3,8 +3,16 @@ import { GetCurrentUser } from '../Auth'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { ClipLoader } from 'react-spinners'
+
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
 export const InboxPage = () => {
+	const [loading, setLoading] = useState(true)
 	const navigate = useNavigate()
 	const token = localStorage.getItem('token')
 	if (!token) {
@@ -17,10 +25,13 @@ export const InboxPage = () => {
 	const location = useLocation()
 
 	const fetchCurrentUser = async () => {
+		setLoading(true)
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
+			setLoading(false)
 			setCurrentUser(response.data)
 		} catch (error) {
+			setLoading(false)
 			console.error(error)
 		}
 	}
@@ -46,7 +57,16 @@ export const InboxPage = () => {
 		fetchCurrentUser()
 	}, [])
 
-	return (
+	return loading ? (
+		<div className='text-center text-sky-400 mt-20'>
+			<ClipLoader
+				color={'#00a8e8'}
+				loading={loading}
+				css={override}
+				size={150}
+			/>
+		</div>
+	) : (
 		<main className='flex w-full h-[94vh] shadow-lg rounded-3xl'>
 			<section className='flex flex-col pt-3 w-4/12 bg-gray-50 h-full overflow-y-scroll'>
 				<label className='px-3'>

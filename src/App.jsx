@@ -11,8 +11,23 @@ import UserContextProvider from './context/UserContext'
 import ArticleDetailsPage from './pages/ArticleDetailsPage'
 import ArticleUpdatePage from './pages/ArticleUpdatePage'
 import { InboxPage } from './pages/InboxPage'
+import { ClipLoader } from 'react-spinners'
+import { useState, useEffect } from 'react'
+
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
 function App() {
+	const [isLoading, setIsLoading] = useState(true)
+
+	useEffect(() => {
+		window.addEventListener('load', () => {
+			setIsLoading(false)
+		})
+	}, [])
 	return (
 		<UserContextProvider>
 			<div className='App bg-gray-100 dark:bg-gray-900 min-h-screen overflow-x-hidden'>
