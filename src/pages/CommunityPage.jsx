@@ -2,8 +2,11 @@ import ArticleList from '../components/ArticlesList'
 import CreateArticle from '../components/ArticleCreate'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export const CommunityPage = () => {
+	const navigate = useNavigate()
+	const token = localStorage.getItem('token')
 	const [articles, setArticles] = useState([])
 	const [showCreate, setShowCreate] = useState(false)
 
@@ -27,6 +30,9 @@ export const CommunityPage = () => {
 	}
 
 	const handleShowCreate = () => {
+		if (!token) {
+			navigate('/signin')
+		}
 		setShowCreate(!showCreate)
 	}
 

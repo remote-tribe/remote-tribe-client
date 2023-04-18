@@ -2,12 +2,18 @@ import { Conversation } from '../components/Conversation'
 import { GetCurrentUser } from '../Auth'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const InboxPage = () => {
+	const navigate = useNavigate()
+	const token = localStorage.getItem('token')
+	if (!token) {
+		navigate('/signin')
+	}
 	const [currentUser, setCurrentUser] = useState(null)
 	const [userData, setUserData] = useState(null)
-	const { id: userId } = GetCurrentUser()
+	const currUser = GetCurrentUser()
+	const userId = currUser?.id
 	const location = useLocation()
 
 	const fetchCurrentUser = async () => {

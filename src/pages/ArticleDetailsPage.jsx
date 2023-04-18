@@ -10,8 +10,6 @@ function ArticleDetailsPage() {
 
 	const { articleId } = useParams()
 
-	console.log(articleId)
-
 	useEffect(() => {
 		getArticle()
 	}, [])

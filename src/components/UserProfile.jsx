@@ -76,7 +76,11 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 		}
 	}
 
-	//END!! handle images
+	const handleMessage = () => {
+		if (!token) {
+			return navigate('/signin')
+		} else navigate('/inbox', { state: { user: userData } })
+	}
 
 	return (
 		<main className='profile-page'>
@@ -141,7 +145,7 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 												<>
 													<div className='py-6 px-3 mt-32 sm:mt-0'>
 														<button
-															onClick={() => navigate('/inbox', { state: { user: userData } })}
+															onClick={handleMessage}
 															className='bg-sky-600 hover:bg-sky-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
 															type='button'>
 															Message

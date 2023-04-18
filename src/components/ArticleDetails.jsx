@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState, useContext, useEffect } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { UserContext } from '../context/UserContext'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import Comment from './Comment'
 
 export const ArticleDetails = ({ article, getArticle }) => {
@@ -10,6 +10,8 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	const currentUser = GetCurrentUser()
 	const { handleLogout } = useContext(UserContext)
 	const { articleId } = useParams()
+	const token = localStorage.getItem('token')
+	const navigate = useNavigate()
 
 	// set likes
 	const [isLiked, setIsLiked] = useState(false)
@@ -42,12 +44,12 @@ export const ArticleDetails = ({ article, getArticle }) => {
 		if (typeof article.likes === 'number') {
 			setLikesNum(article.likes)
 		}
-		if (article.likedBy && article.likedBy.includes(currentUser.id)) {
+		if (article.likedBy && article.likedBy.includes(currentUser?.id)) {
 			setIsLiked(true)
 		} else {
 			setIsLiked(false)
 		}
-	}, [article.likes, article.likedBy, currentUser.id])
+	}, [article.likes, article.likedBy, currentUser?.id])
 
 	async function addLikesNumInDataBase() {
 		await axios.post(`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}/like`, {
@@ -62,17 +64,19 @@ export const ArticleDetails = ({ article, getArticle }) => {
 	}
 
 	async function handleLike() {
-		if (isLiked === false) {
-			await addLikesNumInDataBase()
-			const addedNum = likesNum + 1
-			setLikesNum(addedNum)
-			setIsLiked((prevIsLiked) => !prevIsLiked)
-		} else {
-			await addDislikesNumInDataBase()
-			const addedNum = likesNum - 1
-			setLikesNum(addedNum)
-			setIsLiked((prevIsLiked) => !prevIsLiked)
-		}
+		if (token) {
+			if (isLiked === false) {
+				await addLikesNumInDataBase()
+				const addedNum = likesNum + 1
+				setLikesNum(addedNum)
+				setIsLiked((prevIsLiked) => !prevIsLiked)
+			} else {
+				await addDislikesNumInDataBase()
+				const addedNum = likesNum - 1
+				setLikesNum(addedNum)
+				setIsLiked((prevIsLiked) => !prevIsLiked)
+			}
+		} else navigate('/signin')
 	}
 	// END!!! handle likes function
 
@@ -90,30 +94,30 @@ export const ArticleDetails = ({ article, getArticle }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		const token = localStorage.getItem('token')
-
-		try {
-			const response = await axios.post(
-				`${import.meta.env.VITE_BASE_URL}/api/comment`,
-				{
-					commentValue,
-					articleId,
-					userId: currentUser.id,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
+		if (token) {
+			try {
+				const response = await axios.post(
+					`${import.meta.env.VITE_BASE_URL}/api/comment`,
+					{
+						commentValue,
+						articleId,
+						userId: currentUser.id,
 					},
-				},
-			)
-			console.log(response.data)
-			getArticle()
-		} catch (error) {
-			if (error.message.includes('401')) {
-				handleLogout()
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				)
+
+				getArticle()
+			} catch (error) {
+				if (error.message.includes('401')) {
+					handleLogout()
+				}
+				console.log(error)
 			}
-			console.log(error)
-		}
+		} else navigate('/signin')
 	}
 
 	return (
@@ -148,8 +152,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 											</p>
 											<p className='text-base font-light text-gray-500 dark:text-gray-400'>
 												<time
-													pubdate
-													datetime={articleDate}
+													dateTime={articleDate}
 													title={articleDate}>
 													{articleDate}
 												</time>
@@ -207,7 +210,6 @@ export const ArticleDetails = ({ article, getArticle }) => {
 											value={commentValue}
 											className='px-0 w-full text-sm text-gray-900 border-0  outline-none dark:text-white dark:placeholder-gray-400  dark:bg-gray-800'
 											placeholder='Write a comment...'
-											required
 										/>
 									</div>
 									<button
@@ -232,8 +234,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 												</p>
 												<p className='text-sm text-gray-600 dark:text-gray-400'>
 													<time
-														pubdate
-														datetime='2022-02-08'
+														dateTime='2022-02-08'
 														title='February 8th, 2022'>
 														{new Date(comment?.createdAt).toLocaleString('en-US', {
 															month: 'short',
