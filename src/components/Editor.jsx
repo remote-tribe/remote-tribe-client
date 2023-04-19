@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.core.css'
+import 'react-quill/dist/quill.snow.css'
 
 export function Editor({ onContentChange, prevContent }) {
 	const [content, setContent] = useState(prevContent || '')
@@ -17,7 +17,7 @@ export function Editor({ onContentChange, prevContent }) {
 
 	return (
 		<ReactQuill
-			className='bg-white dark:bg-gray-300 dark:text-black text-xl focus-within:ring-2 rounded-lg transition-all duration-150 ring-sky-400 outline-none border-none dark:ring-sky-600'
+			className='bg-white    text-xl rounded-lg transition-all duration-150  outline-none border-none '
 			value={content}
 			onChange={handleContentChange}
 		/>
