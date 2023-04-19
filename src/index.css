@@ -60,3 +60,7 @@
 .control-arrow:hover {
 	background: transparent !important;
 }
+
+.ReactModal__Overlay--before-close {
+	pointer-events: none;
+}

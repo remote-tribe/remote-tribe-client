@@ -13,6 +13,9 @@ import ArticleUpdatePage from './pages/ArticleUpdatePage'
 import { InboxPage } from './pages/InboxPage'
 import { ClipLoader } from 'react-spinners'
 import { useState, useEffect } from 'react'
+import Modal from 'react-modal'
+
+Modal.setAppElement('#root')
 
 const override = {
 	display: 'block',

@@ -70,19 +70,13 @@ const UpdateArticle = ({ article }) => {
 		<div className='mx-auto max-w-screen-md'>
 			<div className='space-y-4'>
 				<div className='flex items-center space-x-4'>
-					<Link to={''}>
+					<Link to={`/users/${article?.author?._id}`}>
 						<img
-							src='user-avatar.jpg'
+							src={article?.author?.profilePicture}
 							alt='User Avatar'
 							className='w-12 h-12 rounded-full'
 						/>
 					</Link>
-					{/* <div>
-						<p className='text-sm text-gray-600 mr-4'>
-							{article.author ? `From ${article.author.username}` : 'From Unknown author'}
-						</p>
-						<p className='text-sm text-gray-500'>{new Date(article.createdAt).toLocaleDateString()}</p>
-					</div> */}
 				</div>
 				<form
 					onSubmit={handleSubmit}
@@ -135,9 +129,9 @@ const UpdateArticle = ({ article }) => {
 						</button>
 						<button
 							type='button'
-							onClick={deleteArticle}
-							className='w-1/5 p-1 bg-rose-400 text-white font-medium rounded-md hover:bg-rose-500 transition-all duration-150 hover:shadow-md'>
-							Delete
+							onClick={() => navigate(`/community/article/${article?._id}`)}
+							className='w-1/5 p-1 bg-gray-400 text-white font-medium rounded-md hover:bg-gray-500 transition-all duration-150 hover:shadow-md'>
+							Cancel
 						</button>
 					</div>
 				</form>

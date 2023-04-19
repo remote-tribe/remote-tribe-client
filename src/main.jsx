@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
+import Modal from 'react-modal'
 
 const sunIcon = document.querySelector('.sun-icon')
 const moonIcon = document.querySelector('.moon-icon')

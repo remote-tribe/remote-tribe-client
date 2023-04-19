@@ -4,16 +4,17 @@ import { GetCurrentUser } from '../Auth'
 import { UserContext } from '../context/UserContext'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import Comment from './Comment'
+import { DeleteModal } from './DeleteModal'
 
-export const ArticleDetails = ({ article, getArticle }) => {
+export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 	const [commentValue, setCommentValue] = useState('')
 	const currentUser = GetCurrentUser()
 	const { handleLogout } = useContext(UserContext)
 	const { articleId } = useParams()
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
+	const [modalOpen, setModalOpen] = useState(false)
 
-	// set likes
 	const [isLiked, setIsLiked] = useState(false)
 	const initialLikesNum = parseInt(typeof article.likes === 'number' ? article.likes : 0)
 	const [likesNum, setLikesNum] = useState(initialLikesNum)
@@ -23,22 +24,33 @@ export const ArticleDetails = ({ article, getArticle }) => {
 
 	const [isOpen, setIsOpen] = useState(false)
 
-	const toggleDropdown = () => {
-		setIsOpen(!isOpen)
+	const openModal = () => {
+		setModalOpen(true)
 	}
 
-	const closeDropdown = () => {
-		if (isOpen) setIsOpen(false)
+	const closeModal = () => {
+		setModalOpen(false)
 	}
 
-	const handleEditClick = () => {
-		// Code to handle edit functionality
+	const handleDeleteClick = async () => {
+		closeModal()
+		setLoading(true)
+		try {
+			await axios.delete(
+				`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}?articleId=${articleId}&userId=${
+					currentUser?.id
+				}`,
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
+			setLoading(false)
+			navigate('/community')
+		} catch (error) {
+			setLoading(false)
+			console.log(error)
+		}
 	}
-
-	const handleDeleteClick = () => {
-		// Code to handle delete functionality
-	}
-
 	// START!!! handle likes function
 	useEffect(() => {
 		if (typeof article.likes === 'number') {
@@ -120,14 +132,22 @@ export const ArticleDetails = ({ article, getArticle }) => {
 		} else navigate('/signin')
 	}
 
+	const toggleDropdown = () => {
+		setIsOpen(!isOpen)
+	}
+
+	const closeDropdown = () => {
+		if (isOpen) setIsOpen(false)
+	}
+
 	return (
 		article && (
-			<div>
+			<div onClick={closeDropdown}>
 				<main className='pt-8 pb-16 lg:pt-16 lg:pb-24 '>
 					<div className='flex justify-between px-4 mx-auto max-w-screen-xl '>
 						<article className='mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert'>
 							<header className='mb-4 lg:mb-6 not-format'>
-								<address className='flex items-center mb-6 not-italic'>
+								<address className='flex items-center justify-between mb-6 not-italic'>
 									<div className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
 										<Link
 											to={`/users/${article?.author?._id}`}
@@ -157,6 +177,53 @@ export const ArticleDetails = ({ article, getArticle }) => {
 													{articleDate}
 												</time>
 											</p>
+										</div>
+									</div>
+									<div className='relative inline-block text-left'>
+										<button
+											type='button'
+											onClick={toggleDropdown}
+											className='inline-flex justify-center w-full rounded-full    px-4 py-2 text-sm font-medium hover:bg-gray-200 text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition-all duration-150'
+											id='options-menu'
+											aria-haspopup='true'
+											aria-expanded='true'>
+											<i className='fa-solid fa-ellipsis-vertical text-2xl'></i>
+										</button>
+										<div>
+											{/* Dropdown menu */}
+											{isOpen && (
+												<div className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
+													<div
+														className='py-1'
+														role='menu'
+														aria-orientation='vertical'
+														aria-labelledby='options-menu'>
+														<Link
+															to={`/community/article/${article?._id}/edit`}
+															className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'>
+															Edit
+														</Link>
+														<Link
+															onClick={openModal}
+															className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+															role='menuitem'>
+															Delete
+														</Link>
+														<Link
+															className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+															role='menuitem'>
+															Report
+														</Link>
+													</div>
+												</div>
+											)}
+
+											{/* Conditionally render the modal */}
+											<DeleteModal
+												isOpen={modalOpen}
+												closeModal={closeModal}
+												handleDeleteClick={handleDeleteClick}
+											/>
 										</div>
 									</div>
 								</address>

@@ -51,6 +51,7 @@ function ArticleDetailsPage() {
 			<ArticleDetails
 				article={article}
 				getArticle={getArticle}
+				setLoading={setLoading}
 			/>
 		</div>
 	)
