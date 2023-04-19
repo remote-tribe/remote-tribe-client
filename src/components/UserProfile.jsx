@@ -2,7 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useRef } from 'react'
 
-export const UserProfile = ({ userData, currentUser, handleShowSettings, handleShowArticlesSettings, conversation }) => {
+export const UserProfile = ({ userData, currentUser }) => {
 	const isCurrentUser = userData?._id === currentUser?.id
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
@@ -38,7 +38,7 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, handleS
 
 						<div className='text-center mt-12'>
 							<h3 className='text-4xl font-semibold leading-normal mb-2 text-blueGray-700 '>
-								{userData.username}
+								Hi {userData.username}
 							</h3>
 							{userData.location && (
 								<div className='text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase'>
@@ -64,11 +64,6 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, handleS
 							<div className='flex flex-wrap justify-center'>
 								<div className='w-full lg:w-9/12 px-4'>
 									<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>{userData.description}</p>
-									<Link
-										to={''}
-										className='font-normal text-sky-400 cursor-pointer'>
-										Show more
-									</Link>
 								</div>
 							</div>
 						</div>

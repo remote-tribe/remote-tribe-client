@@ -26,15 +26,22 @@ export const ProfilePage = () => {
 	const [showAccountSettings, setShowAccountSettings] = useState(false)
 	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
 	const handleShowSettings = () => {
-		setShowSettings(!showSettings)
+		setShowSettings(!showSettings);
+		setShowArticlesSettings(false)
 	}
 	const handleShowAccountSettings = () => {
 		setShowAccountSettings(!showAccountSettings)
+		setShowArticlesSettings(false)
+
 	}
 
 	const handleShowArticlesSettings = () => {
 		setShowArticlesSettings(!showArticlesSettings)
+		setShowSettings(false)
+		setShowAccountSettings(false)
 	}
+
+
 
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
@@ -236,7 +243,7 @@ export const ProfilePage = () => {
 												<div className='flex justify-center py-4 lg:pt-4 pt-8'>
 													<div className='lg:mr-4 p-3 text-center'>
 														<Link to={''}>
-															<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600 '>
+															<span className='text-sky-400 text-xl font-bold block uppercase tracking-wide text-blueGray-600 '>
 
 																{userData.friends?.length}
 															</span>
@@ -247,7 +254,7 @@ export const ProfilePage = () => {
 														<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
 															<button
 																onClick={handleShowArticlesSettings}
-																className='bg-transparent border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
+																className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
 																type='button'>
 																{userData.articles?.length}
 															</button>
@@ -260,7 +267,7 @@ export const ProfilePage = () => {
 													</div>
 													<div className='mr-4 p-3 text-center'>
 														<Link to={''}>
-															<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
+															<span className='text-xl text-sky-400 font-bold block uppercase tracking-wide text-blueGray-600'>
 																{userData.events?.length}
 															</span>
 															<span className='text-sm text-blueGray-400'>Events</span>
@@ -295,6 +302,7 @@ export const ProfilePage = () => {
 													currentUser={currentUser}
 													userData={userData}
 													handleShowArticlesSettings={handleShowArticlesSettings}
+
 												/>
 											)
 										}

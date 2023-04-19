@@ -64,8 +64,16 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
                             </div>
                         </Link>
                     ))}
+                    <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
+                        <button
+                            onClick={handleShowArticlesSettings}
+                            className=' font-normal text-sky-400 cursor-pointer'>
+                            back
+                        </button>
+                    </div>
                 </div>
             )}
+
         </div>
     )
 }
