@@ -28,10 +28,12 @@
 }
 
 .ql-editor p {
-	min-height: 16rem;
+	min-height: 2rem;
 }
 
 .ql-container {
+	cursor: text;
+	padding-bottom: 5rem;
 	border-radius: 0.5rem;
 	border-top-right-radius: 0rem;
 	border-top-left-radius: 0rem;

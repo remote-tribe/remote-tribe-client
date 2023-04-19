@@ -100,7 +100,7 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 				</div>
 			</section>
 			{userData && (
-				<section className='relative py-16 bg-gray-100 dark:bg-gray-900 '>
+				<section className='relative py-16 bg-gray-100 dark:bg-gray-800 '>
 					<div className='container mx-auto px-4 '>
 						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64'>
 							<div className='px-6'>

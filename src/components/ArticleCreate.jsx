@@ -6,7 +6,6 @@ import { Image } from 'cloudinary-react'
 
 const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const [title, setTitle] = useState('')
-	const [description, setDescription] = useState('')
 	const [content, setContent] = useState('')
 	const currentUser = GetCurrentUser()
 
@@ -78,10 +77,10 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 			<form
 				onSubmit={handleSubmit}
 				className='mx-auto max-w-5xl space-y-4 '>
-				<div>
+				<div className='mt-20'>
 					<label
 						htmlFor='title'
-						className='block text-center text-sm font-medium text-gray-800 dark:text-gray-200'>
+						className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
 						Title
 					</label>
 					<input
@@ -89,57 +88,62 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						id='title'
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className='cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block w-full px-3 py-2 border border-gray-300 dark:text-sky-200 dark:bg-gray-700 rounded-md'
+						className=' outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block w-full px-3 py-2  border-gray-300 dark:text-black dark:bg-gray-300 rounded-md '
 						required
 					/>
+				</div>
+				<label
+					htmlFor='title'
+					className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+					Image
+				</label>
+				<div className='flex justify-center'>
+					{uploaded ? (
+						<img
+							src={uploadedImage && uploadedImage}
+							alt='Uploaded thumbnail'
+							className='w-24 h-24 object-cover  rounded'
+						/>
+					) : (
+						<>
+							{' '}
+							<input
+								className='bg-white dark:bg-gray-300 '
+								type='file'
+								onChange={handleImageChange}
+							/>
+							<button
+								type='button'
+								onClick={handleImageUpload}
+								className='bg-sky-400 dark:bg-sky-500 hover:bg-sky-500 dark:hover:bg-sky-600 px-4 py-1 text-white font-medium rounded-e-md transition-all duration-150'>
+								Upload
+							</button>
+						</>
+					)}
 				</div>
 
 				<div>
 					<label
 						htmlFor='content'
-						className='block text-center text-sm font-medium text-gray-800 dark:text-gray-200'>
+						className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
 						Content
 					</label>
 					<Editor onContentChange={handleContentChange} />
 				</div>
-				<div className='flex justify-center'>
+				<div className='flex justify-center space-x-2'>
 					<button
 						type='submit'
-						className=' w-1/3  px-4 py-1 bg-sky-400 text-white font-medium rounded-md hover:bg-sky-500'>
+						className=' w-40  px-4 py-1 bg-sky-400 dark:bg-sky-500 dark:hover:bg-sky-600 text-white font-medium rounded-md hover:bg-sky-500 transition-all duration-150'>
 						Create Article
+					</button>
+					<button
+						onClick={handleShowCreate}
+						type='submit'
+						className=' w-40  px-4 py-1 bg-gray-400 text-white font-medium rounded-md hover:bg-gray-500 transition-all duration-150'>
+						Cancel
 					</button>
 				</div>
 			</form>
-			<div>
-				<h1>Image Upload with Cloudinary</h1>
-
-				{/* Choose file input，仅在未上传图片时显示 */}
-				{!uploaded && (
-					<input
-						type='file'
-						onChange={handleImageChange}
-					/>
-				)}
-
-				{/* 缩略图 */}
-				{uploadedImage && (
-					<img
-						src={uploadedImage}
-						alt='Uploaded thumbnail'
-						className='w-24 h-24 object-cover mt-4 rounded'
-					/>
-				)}
-
-				{/* 上传按钮 */}
-				<button
-					onClick={handleImageUpload}
-					disabled={uploaded} // 添加 disabled 属性
-					className={`${
-						uploaded ? 'bg-gray-400 cursor-not-allowed' : 'bg-sky-400 hover:bg-sky-500'
-					} px-4 py-2 text-white font-medium rounded-md transition-all duration-150`}>
-					{uploaded ? 'Uploaded' : 'Upload Image'} {/* 根据上传状态修改按钮文字 */}
-				</button>
-			</div>
 		</div>
 	)
 }

@@ -147,7 +147,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 												className='text-xl font-semibold text-sky-500 dark:text-sky-400'>
 												{article?.author?.username}
 											</Link>
-											<p className='text-base font-light text-gray-600 dark:text-gray-400 '>
+											<p className='text-base font-light text-gray-600 dark:text-gray-200 '>
 												{article?.author?.profession}
 											</p>
 											<p className='text-base font-light text-gray-600 dark:text-gray-400 '>
@@ -213,25 +213,25 @@ export const ArticleDetails = ({ article, getArticle }) => {
 									</div>
 									<button
 										type='submit'
-										className='w-1/5 p-1 bg-sky-400 text-white font-medium rounded-md hover:bg-sky-500 transition-all duration-150 hover:shadow-md'>
+										className='w-1/5 p-1 bg-sky-400 dark:bg-sky-500 text-white font-medium rounded-md hover:bg-sky-500 dark:hover:bg-sky-600 transition-all duration-150 hover:shadow-md'>
 										Post Comment
 									</button>
 								</form>
 								{article?.comments?.map((comment, index) => (
 									<article
 										key={index}
-										className='p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900'>
+										className='p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-700'>
 										<footer className='flex justify-between items-center mb-2'>
 											<div className='flex items-center'>
-												<p className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
+												<p className='inline-flex items-center mr-3 text-sm text-gray-700 dark:text-gray-100 '>
 													<img
 														className='mr-2 w-6 h-6 rounded-full'
-														src='https://flowbite.com/docs/images/people/profile-picture-2.jpg'
+														src={comment?.author?.profilePicture}
 														alt='Michael Gough'
 													/>
 													{comment?.author?.username}
 												</p>
-												<p className='text-sm text-gray-600 dark:text-gray-400'>
+												<p className='text-sm text-gray-600 dark:text-gray-300'>
 													<time
 														dateTime='2022-02-08'
 														title='February 8th, 2022'>
@@ -246,7 +246,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 											<button
 												id='dropdownComment1Button'
 												data-dropdown-toggle='dropdownComment1'
-												className='inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
+												className='inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 dark:hover:text-gray-100 rounded-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-800 '
 												type='button'>
 												<svg
 													className='w-5 h-5'
@@ -289,11 +289,11 @@ export const ArticleDetails = ({ article, getArticle }) => {
 												</ul>
 											</div>
 										</footer>
-										<p className='dark:text:white'>{comment?.content}</p>
+										<p className='dark:text-white'>{comment?.content}</p>
 										<div className='flex items-center mt-4 space-x-4'>
 											<button
 												type='button'
-												className='flex items-center text-sm text-gray-500 hover:text-sky-400 dark:text-gray-400'>
+												className='flex items-center text-sm text-gray-500 hover:text-sky-400 dark:text-gray-300'>
 												<svg
 													aria-hidden='true'
 													className='mr-1 w-4 h-4'
@@ -446,7 +446,7 @@ export const ArticleDetails = ({ article, getArticle }) => {
 
 									<button
 										type='submit'
-										className='w-1/5 p-3 ml-8 border-2 border-sky-400 bg-sky-400 text-white font-medium rounded-e-md hover:bg-sky-500 transition-all duration-150 hover:shadow-md'>
+										className='w-1/5 p-3 ml-8 border-2 border-sky-400 dark:border-sky-400 bg-sky-400 dark:bg-sky-400 text-white font-medium rounded-e-md hover:bg-sky-500 dark:hover:bg-sky-500 transition-all duration-150 hover:shadow-md'>
 										Subscribe
 									</button>
 								</div>
