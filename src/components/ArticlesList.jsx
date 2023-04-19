@@ -12,7 +12,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 				</button>
 			</div>
 			{articles && (
-				<div class='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
+				<div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
 					{articles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}

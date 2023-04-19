@@ -13,8 +13,8 @@ export const ProfilePage = () => {
 	const currentUser = GetCurrentUser()
 	const [userData, setUserData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
-	const [showAccountSettings, setShowAccountSettings] = useState('false')
-	const [showArticlesSettings, setShowArticlesSettings] = (false)
+	const [showAccountSettings, setShowAccountSettings] = useState(false)
+	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
 	const handleShowSettings = () => {
 		setShowSettings(!showSettings)
 	}

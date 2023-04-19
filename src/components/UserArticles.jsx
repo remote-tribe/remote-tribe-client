@@ -14,7 +14,7 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
         axios
             .get(`${import.meta.env.VITE_BASE_URL}/api/users/${currentUser.id}/articles`)
             .then(({ data }) => {
-                setArticles(data.reverse())
+                setArticles(data.article.reverse())
             })
             .catch((e) => {
                 console.log('fail to access database..', e)
@@ -25,7 +25,7 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
     return (
         <div className='mx-auto'>
             {articles && (
-                <div class='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
+                <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
                     {articles?.map((article, index) => (
                         <Link
                             to={`/community/article/${article?._id}`}
