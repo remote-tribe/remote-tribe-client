@@ -4,7 +4,7 @@ import CreateArticle from '../components/ArticleCreate'
 import UpdateArticle from '../components/ArticleUpdate'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { ClipLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 
 const override = {
 	display: 'block',
@@ -38,8 +38,8 @@ function ArticleDetailsPage() {
 	}
 
 	return loading ? (
-		<div className='text-center mt-20'>
-			<ClipLoader
+		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
 				css={override}

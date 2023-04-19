@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SignInForm } from '../components/SignInForm'
 import { SignUpForm } from '../components/SignUpForm'
-import { ClipLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 
 const override = {
 	display: 'block',
@@ -23,8 +23,8 @@ export const SignInPage = () => {
 	}
 
 	return loading ? (
-		<div className='text-center text-sky-400 mt-20'>
-			<ClipLoader
+		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
 				css={override}

@@ -1,7 +1,7 @@
 import { GetCurrentUser } from '../Auth'
 import { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
-import { ClipLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import axios from 'axios'
@@ -46,8 +46,8 @@ export const HomePage = () => {
 	return (
 		<div>
 			{loading ? (
-				<div className='text-center mt-20'>
-					<ClipLoader
+				<div className='text-center text-sky-400 flex justify-center mt-60 '>
+					<FadeLoader
 						color={'#00a8e8'}
 						loading={loading}
 						css={override}

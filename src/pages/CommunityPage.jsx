@@ -3,11 +3,11 @@ import CreateArticle from '../components/ArticleCreate'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { ClipLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 
 const override = {
 	display: 'block',
-	margin: '0 auto',
+	margin: ' auto',
 	borderColor: 'red',
 }
 
@@ -48,8 +48,8 @@ export const CommunityPage = () => {
 	}
 
 	return loading ? (
-		<div className='text-center text-sky-400 mt-20'>
-			<ClipLoader
+		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
 				css={override}

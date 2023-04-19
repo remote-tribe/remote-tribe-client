@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { GetCurrentUser } from '../Auth'
-import { ClipLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 
 const override = {
 	display: 'block',
@@ -34,8 +34,8 @@ export const UsersPage = () => {
 	const filteredUsers = users.filter((user) => user?._id !== currentUserId)
 
 	return loading ? (
-		<div className='text-center text-sky-400 mt-20'>
-			<ClipLoader
+		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
 				css={override}
