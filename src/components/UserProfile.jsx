@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useRef } from 'react'
 import axios from 'axios'
-export const UserProfile = ({ userData, currentUser, handleShowSettings, conversation }) => {
+export const UserProfile = ({ userData, currentUser, handleShowSettings, handleShowArticlesSettings, conversation }) => {
 	const isCurrentUser = userData?._id === currentUser?.id
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
@@ -20,7 +20,7 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 			setUploadedImage(reader.result)
 		}
 		reader.readAsDataURL(e.target.files[0])
-		// 立即上传图片
+
 		await handleImageUpload(e.target.files[0])
 	}
 
@@ -161,18 +161,22 @@ export const UserProfile = ({ userData, currentUser, handleShowSettings, convers
 											<div className='lg:mr-4 p-3 text-center'>
 												<Link to={''}>
 													<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600 '>
-														{userData.friends?.length}
+														<button
+															onClick={handleShowArticlesSettings}
+															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+															type='button'>
+															{userData.friends?.length}
+														</button>
+
 													</span>
 													<span className='text-sm text-blueGray-400'>Friends</span>
 												</Link>
 											</div>
 											<div className='mr-4 p-3 text-center'>
-												<Link to={''}>
-													<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
-														{userData.articles?.length}
-													</span>
-													<span className='text-sm text-blueGray-400'>Articles</span>
-												</Link>
+												<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
+													{userData.articles?.length}
+												</span>
+												<span className='text-sm text-blueGray-400'>Articles</span>
 											</div>
 											<div className='mr-4 p-3 text-center'>
 												<Link to={''}>

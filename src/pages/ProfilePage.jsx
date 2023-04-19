@@ -4,7 +4,9 @@ import { UserProfile } from '../components/UserProfile'
 import { UserSettings } from '../components/UserSettings'
 import { GetCurrentUser } from '../Auth'
 import { AccountSettings } from '../components/AccountSettings'
+import UserArticles from '../components/UserArticles'
 import { useEffect, useState, useContext } from 'react'
+
 
 export const ProfilePage = () => {
 	const { handleLogout } = useContext(UserContext)
@@ -12,12 +14,16 @@ export const ProfilePage = () => {
 	const [userData, setUserData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
 	const [showAccountSettings, setShowAccountSettings] = useState('false')
-
+	const [showArticlesSettings, setShowArticlesSettings] = (false)
 	const handleShowSettings = () => {
 		setShowSettings(!showSettings)
 	}
 	const handleShowAccountSettings = () => {
 		setShowAccountSettings(!showAccountSettings)
+	}
+
+	const handleShowArticlesSettings = () => {
+		setShowArticlesSettings(!showArticlesSettings)
 	}
 
 	useEffect(() => {
@@ -45,26 +51,38 @@ export const ProfilePage = () => {
 
 	return (
 		<>
-			{showSettings ? (
-				showAccountSettings ? (
-					<UserSettings
-						userData={userData}
-						handleShowSettings={handleShowSettings}
-						handleShowAccountSettings={handleShowAccountSettings}
-					/>
-				) : (
-					<AccountSettings
-						userData={userData}
-						handleShowAccountSettings={handleShowAccountSettings}
-					/>
-				)
-			) : (
+			{showAccountSettings && (
+				<AccountSettings
+					userData={userData}
+					handleShowAccountSettings={handleShowAccountSettings}
+				/>
+			)}
+
+			{showSettings && !showAccountSettings && (
+				<UserSettings
+					userData={userData}
+					handleShowSettings={handleShowSettings}
+					handleShowAccountSettings={handleShowAccountSettings}
+				/>
+			)}
+
+			{showArticlesSettings && (
+				<UserArticles
+					currentUser={currentUser}
+					userData={userData}
+					handleShowArticlesSettings={handleShowArticlesSettings}
+				/>
+			)}
+
+			{!showSettings && !showAccountSettings && !showArticlesSettings && (
 				<UserProfile
 					currentUser={currentUser}
 					userData={userData}
 					handleShowSettings={handleShowSettings}
+					handleShowArticlesSettings={handleShowArticlesSettings}
 				/>
 			)}
 		</>
+
 	)
 }
