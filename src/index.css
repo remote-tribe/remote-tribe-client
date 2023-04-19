@@ -48,3 +48,15 @@
 .conversation {
 	height: 100% !important;
 }
+
+.carousel .control-prev.control-arrow:before {
+	border-right: 8px solid #a5a5a5;
+}
+
+.carousel .control-next.control-arrow:before {
+	border-left: 8px solid #a5a5a5;
+}
+
+.control-arrow:hover {
+	background: transparent !important;
+}

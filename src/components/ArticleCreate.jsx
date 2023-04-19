@@ -88,7 +88,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						id='title'
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className=' outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block w-full px-3 py-2  border-gray-300 dark:text-black dark:bg-gray-300 rounded-md '
+						className=' outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block mx-auto  px-3 py-2  border-gray-300 dark:text-black dark:bg-gray-300 rounded-md w-2/3'
 						required
 					/>
 				</div>
