@@ -1,12 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 
 export const UserProfile = ({ userData, currentUser }) => {
 	const isCurrentUser = userData?._id === currentUser?.id
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
-
+	const [currentUserFollowing, setCurrentUserFollowing] = useState([])
+	const [isFollowing, setIsFollowing] = useState(false)
+	console.log(currentUser);
 	const handleMessage = () => {
 		if (!token) {
 			return navigate('/signin')
@@ -25,12 +27,58 @@ export const UserProfile = ({ userData, currentUser }) => {
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			)
-
+			fetchCurrentUserFollowing()
 			console.log(response.data.message)
 		} catch (err) {
 			console.error('Error updating user profile: ', err)
 		}
 	}
+
+	const handleUnfollow = async () => {
+		const token = localStorage.getItem('token')
+		try {
+			const response = await axios.post(
+				`${import.meta.env.VITE_BASE_URL}/api/user/unfollowing`,
+				{
+					userId: userData?._id,
+					currentUserId: currentUser?.id,
+				},
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
+			fetchCurrentUserFollowing()
+			console.log(response.data.message)
+		} catch (err) {
+			console.error('Error updating user profile: ', err)
+		}
+	}
+	const fetchCurrentUserFollowing = async () => {
+		const token = localStorage.getItem('token')
+		try {
+			const response = await axios.get(
+				`${import.meta.env.VITE_BASE_URL}/api/user/${currentUser?.id}/following`,
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				}
+			)
+			setCurrentUserFollowing(response.data.following)
+		} catch (err) {
+			console.error('Error fetching user following list: ', err)
+		}
+	}
+
+	useEffect(() => {
+		fetchCurrentUserFollowing()
+	}, [currentUser])
+
+	useEffect(() => {
+		if (currentUserFollowing.includes(userData?._id)) {
+			setIsFollowing(true)
+		} else {
+			setIsFollowing(false)
+		}
+	}, [currentUserFollowing, userData])
 
 	return (
 		<main className='profile-page'>
@@ -83,12 +131,22 @@ export const UserProfile = ({ userData, currentUser }) => {
 						</div>
 						<div className='mr-4 p-3 text-center'>
 							<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
-								<button
-									onClick={handleFollowUp}
-									className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
-									type='button'>
-									Follow Up
-								</button>
+								{isFollowing ? (
+									<button
+										onClick={handleUnfollow}
+										className='bg-transparent text-gray-400 border-none hover:text-gray-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
+										type='button'>
+										Unfollow
+									</button>
+								) : (
+									<button
+										onClick={handleFollowUp}
+										className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
+										type='button'>
+										Follow Up
+									</button>
+								)}
+
 							</span>
 						</div>
 					</div>

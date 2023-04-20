@@ -1,22 +1,46 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
-
+import axios from 'axios'
 const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) => {
     const navigate = useNavigate()
 
+    const [userFollowers, setUserFollowers] = useState([])
+
+    const fetchFollowingUsers = async () => {
+        const token = localStorage.getItem('token')
+        try {
+            const response = await axios.get(
+                `${import.meta.env.VITE_BASE_URL}/api/user/${currentUser?.id}/followers`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            )
+
+            setUserFollowers(response.data.followers)
+        } catch (err) {
+            console.error('Error fetching following users: ', err)
+        }
+    }
+
+    useEffect(() => {
+        fetchFollowingUsers()
+    }, [])
 
 
     return (
         <div className='mx-auto'>
-            {userData && (
+            {userFollowers && (
                 <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
-                    {userData.following?.map((following, index) => (
-                        <Link
-                            to={`/community/article/${article?._id}`}
-                            key={index}
-                            className='w-96 h-96 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150'>
-
-                        </Link>
+                    {userFollowers?.map((user, index) => (
+                        <li key={index} className='flex items-center'>
+                            <Link
+                                to={`/user/${user?._id}`} // 根据你的路由设置进行调整
+                                className='hover:text-blue-600 transition-all duration-150'>
+                                <h3>{user.username}</h3>
+                            </Link>
+                            <span className='mx-4 text-gray-600'>{user.location.city}, {user.location.country}</span>
+                            <span className='text-gray-600'>{user.profession}</span>
+                        </li>
                     ))}
 
                     <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
