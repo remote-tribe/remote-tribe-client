@@ -23,12 +23,12 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 			</div>
 
 			{articles && (
-				<div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
+				<div className='flex flex-wrap mx-auto my-6 justify-center w-10/12'>
 					{articles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='w-96 h-96 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150 bg-white dark:bg-gray-700 dark:text-gray-50 mb-16'>
+							className='w-96 h-96 mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150 bg-white dark:bg-gray-700 dark:text-gray-50 mb-16'>
 							{article?.imageUrl ? (
 								<img
 									className='w-full h-64 object-cover object-center'
