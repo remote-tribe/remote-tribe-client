@@ -30,7 +30,7 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
                         <Link
                             to={`/community/article/${article?._id}`}
                             key={index}
-                            className='w-96 h-96 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150'>
+                            className='w-96 h-96 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150 bg-white dark:bg-gray-700 dark:text-gray-50 mb-16'>
                             {article?.imageUrl ? (
                                 <img
                                     className='w-full h-64 object-cover object-center'
