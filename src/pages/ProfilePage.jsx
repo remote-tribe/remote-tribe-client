@@ -9,6 +9,8 @@ import { useEffect, useState, useContext } from 'react'
 import { FadeLoader } from 'react-spinners'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useRef } from 'react'
+import UserFollowing from '../components/UserFollowing'
+import UserFollowers from '../components/UserFollowers'
 
 const override = {
 	display: 'block',
@@ -24,19 +26,45 @@ export const ProfilePage = () => {
 	const [showSettings, setShowSettings] = useState(false)
 	const [showAccountSettings, setShowAccountSettings] = useState(false)
 	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
+	const [showFollowing, SetShowFollowing] = useState(false);
+	const [showFollowers, SetShowFollowers] = useState(false);
+
 	const handleShowSettings = () => {
 		setShowSettings(!showSettings)
 		setShowArticlesSettings(false)
+		SetShowFollowing(false)
+
 	}
 	const handleShowAccountSettings = () => {
 		setShowAccountSettings(!showAccountSettings)
 		setShowArticlesSettings(false)
+		SetShowFollowing(false)
+		SetShowFollowers(false)
 	}
 
 	const handleShowArticlesSettings = () => {
 		setShowArticlesSettings(!showArticlesSettings)
 		setShowSettings(false)
 		setShowAccountSettings(false)
+		SetShowFollowing(false)
+		SetShowFollowers(false)
+
+	}
+
+	const handleShowFollowingSettings = () => {
+		SetShowFollowing(!showFollowing)
+		setShowSettings(false)
+		setShowAccountSettings(false)
+		setShowArticlesSettings(false)
+		SetShowFollowers(false)
+	}
+
+	const handleShowFollowersSettings = () => {
+		SetShowFollowers(!showFollowers)
+		SetShowFollowing(false)
+		setShowSettings(false)
+		setShowAccountSettings(false)
+		setShowArticlesSettings(false)
 	}
 
 	const token = localStorage.getItem('token')
@@ -236,6 +264,7 @@ export const ProfilePage = () => {
 												<div className='lg:mr-4 p-3 text-center'>
 													<Link to={''}>
 														<span className='text-sky-400 text-xl font-bold block uppercase tracking-wide text-blueGray-600 '>
+
 															{userData.friends?.length}
 														</span>
 														<span className='text-sm text-blueGray-400'>Friends</span>
@@ -249,8 +278,12 @@ export const ProfilePage = () => {
 															type='button'>
 															{userData.articles?.length}
 														</button>
+
 													</span>
-													<span className='text-sm text-blueGray-400'>Articles</span>
+													<span className='text-sm text-blueGray-400'>
+
+														Articles
+													</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
 													<Link to={''}>
@@ -287,20 +320,37 @@ export const ProfilePage = () => {
 										/>
 									)}
 
-									{!showSettings && !showAccountSettings && !showArticlesSettings && (
-										<UserProfile
-											currentUser={currentUser}
-											userData={userData}
-											handleShowSettings={handleShowSettings}
-											handleShowArticlesSettings={handleShowArticlesSettings}
-										/>
-									)}
+									{
+										!showSettings && !showAccountSettings && !showArticlesSettings && (
+											<UserProfile
+												currentUser={currentUser}
+												userData={userData}
+												handleShowSettings={handleShowSettings}
+												handleShowArticlesSettings={handleShowArticlesSettings}
+											/>
+										)
+									}
 								</div>
 							</div>
 						</div>
 					</section>
 				)}
 			</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		</>
+	)
 	)
 }

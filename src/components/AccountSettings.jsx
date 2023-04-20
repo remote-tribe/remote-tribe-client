@@ -110,27 +110,13 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 
 	return (
 		<main className='profile-page '>
-			<section className='relative block h-80'>
-				<div className='w-full h-full bg-center bg-cover'>
-					<span
-						id='blackOverlay'
-						className='w-full h-full absolute opacity-50 dark:bg-sky-800 bg-sky-400'></span>
-				</div>
-				<div className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16'>
-					<svg
-						className='absolute bottom-0 overflow-hidden '
-						xmlns='http://www.w3.org/2000/svg'
-						preserveAspectRatio='none'
-						version='1.1'
-						viewBox='0 0 2560 100'
-						x='0'
-						y='0'></svg>
-				</div>
+			<section className='relative block h-60'>
+
 			</section>
 			{userData && showVerify ? (
-				<section className='relative py-16 bg-gray-100 dark:bg-gray-900  '>
+				<section className='relative py-16 bg-gray-100  '>
 					<div className='container mx-auto px-4 '>
-						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
+						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64 '>
 							<h2
 								onClick={handleShowAccountSettings}
 								className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover-text-sky-700 text-lg cursor-pointer ml-auto mr-10 mt-4'>

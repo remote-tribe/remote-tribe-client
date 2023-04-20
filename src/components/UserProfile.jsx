@@ -41,7 +41,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 								Hi {userData.username}
 							</h3>
 							{userData.location && (
-								<div className='text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase'>
+								<div className='text-sm leading-normal mt-10 mb-2 text-blueGray-400 font-bold uppercase'>
 									{userData.location?.city}
 									{userData.location.city && userData.location.country && ','}{' '}
 									{userData.location?.country}
