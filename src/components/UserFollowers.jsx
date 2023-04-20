@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) => {
     const navigate = useNavigate()
 
+
+
     return (
         <div className='mx-auto'>
             {userData && (

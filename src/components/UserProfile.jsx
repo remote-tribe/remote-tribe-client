@@ -1,6 +1,7 @@
 
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useRef } from 'react'
+import axios from 'axios'
 
 export const UserProfile = ({ userData, currentUser }) => {
 	const isCurrentUser = userData?._id === currentUser?.id
@@ -12,6 +13,24 @@ export const UserProfile = ({ userData, currentUser }) => {
 		if (!token) {
 			return navigate('/signin')
 		} else navigate('/inbox', { state: { user: userData } })
+	}
+	const handleFollowUp = async () => {
+		console.log("handle follow up")
+		const token = localStorage.getItem('token')
+		try {
+			const res = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/user/following`, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`, //！！！！
+				},
+			})
+
+			if (res.data) {
+				console.log('User profile updated successfully')
+			}
+		} catch (err) {
+			console.error('Error updating user profile: ', err)
+		}
 	}
 
 	return (
@@ -66,6 +85,17 @@ export const UserProfile = ({ userData, currentUser }) => {
 									<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>{userData.description}</p>
 								</div>
 							</div>
+						</div>
+						<div className='mr-4 p-3 text-center'>
+							<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
+								<button
+									onClick={handleFollowUp}
+									className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
+									type='button'>
+									Follow Up
+								</button>
+
+							</span>
 						</div>
 					</div>
 				</div>
