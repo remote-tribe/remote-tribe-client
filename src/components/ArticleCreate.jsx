@@ -3,11 +3,18 @@ import React, { useState } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { Editor } from './Editor'
 import { Image } from 'cloudinary-react'
+import { FadeLoader } from 'react-spinners'
 
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const currentUser = GetCurrentUser()
+	const [loading, setLoading] = useState(false)
 
 	// set upload images
 	const [selectedImage, setSelectedImage] = useState(null)
@@ -17,25 +24,29 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	//START!! handle images
 	const handleImageChange = (e) => {
 		setSelectedImage(e.target.files[0])
+		handleImageUpload(e.target.files[0])
 	}
 
-	const handleImageUpload = async () => {
-		if (!selectedImage) return
+	const handleImageUpload = async (file) => {
+		setLoading(true)
+		if (!file) return
 
 		// create a FormData
 		const formData = new FormData()
-		formData.append('file', selectedImage)
+		formData.append('file', file)
 		formData.append('upload_preset', 'fsgqertv')
 
-		//  sent POST request to Cloudinary
+		// sent POST request to Cloudinary
 		try {
 			const res = await axios.post(`https://api.cloudinary.com/v1_1/dxeejm8ef/image/upload`, formData)
 			setUploadedImage(res.data.url)
 			setUploaded(true)
+			setLoading(false)
 		} catch (err) {
 			console.error('Error uploading image: ', err)
 		}
 	}
+
 
 	//END!! handle images
 
@@ -73,7 +84,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	}
 
 	return (
-		<div>
+		< div >
 			<form
 				onSubmit={handleSubmit}
 				className='mx-auto max-w-5xl space-y-4 '>
@@ -104,6 +115,15 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 							alt='Uploaded thumbnail'
 							className='w-24 h-24 object-cover  rounded'
 						/>
+					) : (loading ? (
+						<div className='text-center text-sky-400 flex justify-center mt-5 '>
+							<FadeLoader
+								color={'#00a8e8'}
+								loading={loading}
+								css={override}
+								size={50}
+							/>
+						</div>
 					) : (
 						<>
 							{' '}
@@ -112,14 +132,8 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 								type='file'
 								onChange={handleImageChange}
 							/>
-							<button
-								type='button'
-								onClick={handleImageUpload}
-								className='bg-sky-400 dark:bg-sky-500 hover:bg-sky-500 dark:hover:bg-sky-600 px-4 py-1 text-white font-medium rounded-e-md transition-all duration-150'>
-								Upload
-							</button>
 						</>
-					)}
+					))}
 				</div>
 
 				<div>
@@ -143,8 +157,8 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						Cancel
 					</button>
 				</div>
-			</form>
-		</div>
+			</form >
+		</ div >
 	)
 }
 
