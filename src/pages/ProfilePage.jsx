@@ -6,7 +6,7 @@ import { GetCurrentUser } from '../Auth'
 import { AccountSettings } from '../components/AccountSettings'
 import UserArticles from '../components/UserArticles'
 import { useEffect, useState, useContext } from 'react'
-import { ClipLoader } from 'react-spinners'
+import { FadeLoader } from 'react-spinners'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useRef } from 'react'
 import UserFollowing from '../components/UserFollowing'
@@ -173,8 +173,8 @@ export const ProfilePage = () => {
 	const isCurrentUser = userData?._id === currentUser?.id
 
 	return loading ? (
-		<div className='text-center text-sky-400 mt-20'>
-			<ClipLoader
+		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
 				css={override}
