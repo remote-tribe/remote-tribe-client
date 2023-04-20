@@ -55,25 +55,26 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		<div
 			className='w-full h-full'
 			onClick={() => isMenuOpen && setIsMenuOpen(false)}>
-			<div className='  bg-white dark:bg-gray-800 rounded-lg h-full'>
+			<div className='  bg-gray-100 dark:bg-gray-800  h-full'>
 				{userData && (
 					<div className='flex-1 p:2 sm:p-6 justify-between last flex flex-col h-full '>
-						<div className='flex sm:items-center justify-between py-3 border-b-2 border-gray-200'>
+						<div className='flex sm:items-center justify-between py-3 border-b dark:border-gray-700 border-gray-200'>
 							<Link
 								to={`/users/${userData?._id}`}
-								className='relative flex items-center space-x-4 cursor-pointer'>
-								<div className='relative '>
-									<img
-										src={userData?.profilePicture}
-										alt=''
-										className='w-10 sm:w-16 h-10 sm:h-16 rounded-full'
-									/>
-								</div>
-								<div className='flex flex-col leading-tight'>
-									<div className='text-2xl mt-1 flex items-center'>
-										<span className='text-gray-700 mr-3'>{userData?.username}</span>
+								className='relative flex items-center space-x-4 cursor-pointer  '>
+								<img
+									src={userData?.profilePicture}
+									alt=''
+									className='w-10 sm:w-16 h-10 sm:h-16 rounded-full'
+								/>
+
+								<div className='flex flex-col leading-tight hover:text-sky-500 dark:hover:text-sky-400 text-gray-700 dark:text-gray-300 transition-all duration-150 '>
+									<div className='text-2xl mt-1 flex items-center '>
+										<span className=' mr-3  '>{userData?.username}</span>
 									</div>
-									<span className='text-lg text-gray-600'>{userData?.profession}</span>
+									<span className='text-lg text-gray-700 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-300 '>
+										{userData?.profession}
+									</span>
 								</div>
 							</Link>
 							<div className='relative'>
@@ -114,7 +115,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										<div className='flex items-end'>
 											<div className='flex flex-col space-y-2 text-md max-w-xs mx-2 order-2 items-start'>
 												<div>
-													<span className='px-4 py-2 rounded-lg inline-block rounded-br-none bg-sky-500 text-white '>
+													<span className='px-4 py-2 rounded-lg inline-block rounded-br-none bg-sky-500 dark:bg-sky-700 text-white '>
 														{message?.message}
 													</span>
 												</div>
@@ -129,7 +130,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										<div className='flex items-end justify-end'>
 											<div className='flex flex-col space-y-2 text-md max-w-xs mx-2 order-1 items-end'>
 												<div>
-													<span className='px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600'>
+													<span className='px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 dark:bg-gray-500 text-gray-600 dark:text-gray-50'>
 														{message?.message}
 													</span>
 												</div>
@@ -150,13 +151,13 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 									<span className='absolute inset-y-0 flex items-center'>
 										<button
 											type='button'
-											className='inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none'>
+											className='inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500  hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none'>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
 												fill='none'
 												viewBox='0 0 24 24'
 												stroke='currentColor'
-												className='h-6 w-6 text-gray-600'>
+												className='h-6 w-6 text-gray-600 dark:text-gray-400'>
 												<path
 													strokeLinecap='round'
 													strokeLinejoin='round'
@@ -169,7 +170,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 									<input
 										type='text'
 										placeholder='Write your message!'
-										className='w-full focus:outline-none focus:placeholder-sky-600 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-lg  py-3 transition-all duration-150 outline-none'
+										className='w-full focus:outline-none focus:placeholder-sky-600 text-gray-600 dark:text-gray-200  placeholder-gray-600 dark:placeholder-gray-400 pl-12 bg-gray-200 dark:bg-gray-600 rounded-lg  py-3 transition-all duration-150 outline-none'
 										id='message'
 										name='message'
 										value={message}
@@ -231,7 +232,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										</button>
 										<button
 											type='submit'
-											className='inline-flex items-center justify-center rounded-e-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-sky-500 hover:bg-sky-600 focus:outline-none'>
+											className='inline-flex items-center justify-center rounded-e-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-sky-500 hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-700 focus:outline-none'>
 											<span className='font-bold'>Send</span>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'

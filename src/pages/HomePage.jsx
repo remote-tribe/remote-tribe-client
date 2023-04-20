@@ -126,7 +126,7 @@ export const HomePage = () => {
 								<Link
 									to={`/community/article/${article?._id}`}
 									key={index}
-									className=' mt-4 w-52 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105'>
+									className=' mt-4 w-52 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-md cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105 dark:hover:shadow-gray-600'>
 									{article?.imageUrl ? (
 										<img
 											className='w-full h-2/3  object-cover object-center'
@@ -134,7 +134,7 @@ export const HomePage = () => {
 											alt={article?.title}
 										/>
 									) : (
-										<div className='w-full h-2/3 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
+										<div className='w-full h-64 object-cover object-center bg-gradient-to-tl from-sky-300 dark:from-sky-500 to-sky-700 dark:to-sky-900 '></div>
 									)}
 
 									<div className='px-4 py-4 flex justify-center'>

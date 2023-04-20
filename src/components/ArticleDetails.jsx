@@ -183,7 +183,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 										<button
 											type='button'
 											onClick={toggleDropdown}
-											className='inline-flex justify-center w-full rounded-full    px-4 py-2 text-sm font-medium hover:bg-gray-200 text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition-all duration-150'
+											className='inline-flex justify-center w-full rounded-full    px-4 py-2 text-sm font-medium hover:bg-gray-200 text-gray-400 dark:text-gray-500 dark:hover:bg-gray-700 focus:outline-none transition-all duration-150'
 											id='options-menu'
 											aria-haspopup='true'
 											aria-expanded='true'>

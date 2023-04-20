@@ -37,7 +37,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='w-96 h-96 mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-150 bg-white dark:bg-gray-700 dark:text-gray-50 mb-16'>
+							className='w-96 h-96 mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-700 dark:text-gray-50 mb-16 hover:-translate-y-1 dark:hover:shadow-gray-700 '>
 							{article?.imageUrl ? (
 								<img
 									className='w-full h-64 object-cover object-center'
@@ -45,7 +45,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 									alt={article?.title}
 								/>
 							) : (
-								<div className='w-full h-64 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
+								<div className='w-full h-64 object-cover object-center bg-gradient-to-tl from-sky-300 dark:from-sky-500 to-sky-700 dark:to-sky-900 '></div>
 							)}
 
 							<div className='px-4 py-4 flex justify-between'>
@@ -55,13 +55,13 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 								</span>
 							</div>
 							<div className='flex justify-between mt-auto ml-2 mb-2'>
-								<div className='space-x-4 text-lg mr-4 mb-1'>
+								<div className='space-x-4 text-xl mr-4 mb-1'>
 									<span className='space-x-1 text-gray-600 dark:text-gray-50'>
-										<i className='fa-solid fa-thumbs-up text-sky-400 dark:text-sky-300 mx-1' />
+										<i className='fa-solid fa-thumbs-up text-sky-400  mx-1' />
 										{article?.likes}
 									</span>
 									<span className='space-x-1  text-gray-600 dark:text-gray-50'>
-										<i className='fa-solid fa-comment text-sky-400 dark:text-sky-300 mx-1' />
+										<i className='fa-solid fa-comment text-sky-400 mx-1' />
 										{article?.comments?.length}
 									</span>
 								</div>

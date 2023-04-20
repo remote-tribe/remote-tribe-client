@@ -136,11 +136,7 @@ export const NavBar = () => {
 							<NavLink
 								onClick={Logout}
 								to=''
-								className={({ isActive }) =>
-									isActive
-										? ' text-sky-400 text-lg font-semibold  mx-4'
-										: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
-								}>
+								className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
 								Sign Out
 							</NavLink>
 						</>

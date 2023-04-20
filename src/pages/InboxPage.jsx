@@ -12,6 +12,7 @@ const override = {
 }
 
 export const InboxPage = () => {
+	const [searchQuery, setSearchQuery] = useState('')
 	const [loading, setLoading] = useState(true)
 	const navigate = useNavigate()
 	const token = localStorage.getItem('token')
@@ -68,11 +69,13 @@ export const InboxPage = () => {
 		</div>
 	) : (
 		<main className='flex w-full h-[94vh] shadow-lg rounded-3xl'>
-			<section className='flex flex-col pt-3 w-4/12 bg-gray-50 h-full overflow-y-scroll'>
+			<section className='flex flex-col pt-3 w-4/12 bg-gray-200 dark:bg-gray-700 h-full overflow-y-scroll'>
 				<label className='px-3'>
 					<input
-						className='rounded-lg p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full'
+						className='rounded-lg p-4 dark:text-gray-100 bg-white dark:bg-gray-600 shadow transition duration-200 focus:outline-none focus:ring-2 w-full ring-sky-400'
 						placeholder='Search...'
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
 					/>
 				</label>
 
@@ -80,37 +83,45 @@ export const InboxPage = () => {
 					{location?.state?.user && (
 						<li
 							onClick={() => fetchUser(location?.state?.user?._id)}
-							className='py-5 cursor-pointer border-b px-3 transition hover:bg-sky-100'>
+							className='py-5 cursor-pointer border-b  px-3 transition hover:bg-sky-100 dark:hover:bg-sky-900'>
 							<span
 								href='#'
 								className='flex justify-between items-center'>
-								<h3 className='text-lg font-semibold text-sky-500'>{location?.state?.user?.username}</h3>
-								<p className='text-md text-gray-400'>23m ago</p>
+								<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
+									{location?.state?.user?.username}
+								</h3>
 							</span>
 							<div className='text-md italic text-gray-400'>Sent you a message!</div>
 						</li>
 					)}
-					{currentUser?.conversations?.map((conversation, index) => {
-						const otherParticipant = conversation.participants.find(
-							(participant) => participant._id !== userId,
+					{currentUser?.conversations
+						.filter((conversation) =>
+							conversation.participants.some((participant) =>
+								participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
+							),
 						)
-						return (
-							<li
-								onClick={() => {
-									fetchUser(otherParticipant?._id)
-								}}
-								key={index}
-								className='py-5 cursor-pointer border-b px-3 transition hover:bg-sky-100'>
-								<span
-									href='#'
-									className='flex justify-between items-center'>
-									<h3 className='text-lg font-semibold text-sky-500'>{otherParticipant?.username}</h3>
-									<p className='text-md text-gray-400'>23m ago</p>
-								</span>
-								<div className='text-md italic text-gray-400'>Sent you a message!</div>
-							</li>
-						)
-					})}
+						.map((conversation, index) => {
+							const otherParticipant = conversation.participants.find(
+								(participant) => participant._id !== userId,
+							)
+							return (
+								<li
+									onClick={() => {
+										fetchUser(otherParticipant?._id)
+									}}
+									key={index}
+									className='py-5 cursor-pointer border-b border-gray-300 dark:border-gray-600 px-3 transition hover:bg-sky-100 dark:hover:bg-sky-900'>
+									<span
+										href='#'
+										className='flex justify-between items-center'>
+										<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
+											{otherParticipant?.username}
+										</h3>
+									</span>
+									<div className='text-md italic text-gray-400'>Sent you a message!</div>
+								</li>
+							)
+						})}
 				</ul>
 			</section>
 			<Conversation
