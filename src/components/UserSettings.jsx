@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSettings }) => {
 	const { setLoggedUser } = useContext(UserContext)
@@ -40,24 +41,20 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 	}
 
 	return (
-		<main className='profile-page '>
-			<section className='relative block h-60'>
-			</section>
+		<main className='profile-page z-0'>
+			<section className='relative block h-60'></section>
 			{userData && (
-
 				<div className='container mx-auto px-4 '>
-					<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64 '>
-						<h2
+					<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-4  rounded-lg -mt-64 '>
+						<Link
 							onClick={handleShowAccountSettings}
-							className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover:text-sky-700 text-lg cursor-pointer ml-auto mr-10 mt-4'>
+							className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover:text-sky-700 text-xl absolute  -top-20 -right-12 cursor-pointer ml-auto mr-10 '>
 							Account Settings
-						</h2>
+						</Link>
 						<div className='px-6'>
 							<div className='flex flex-wrap justify-center'>
 								<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
-									<h1 className='text-center  text-gray-800 text-3xl font-semibold my-4'>
-										Profile Settings
-									</h1>
+									<h1 className='text-center  text-gray-800 text-3xl font-semibold my-4'>Profile Settings</h1>
 
 									<form
 										className='text-lg'
@@ -135,7 +132,7 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 												onChange={(e) => setDescription(e.target.value)}
 											/>
 										</div>
-										<div className='flex justify-center items-center pb-10 pt-8'>
+										<div className='flex justify-center items-center '>
 											<button
 												type='submit'
 												className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
@@ -154,7 +151,6 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 						</div>
 					</div>
 				</div>
-
 			)}
 		</main>
 	)

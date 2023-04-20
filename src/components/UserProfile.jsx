@@ -8,12 +8,13 @@ export const UserProfile = ({ userData, currentUser }) => {
 	const navigate = useNavigate()
 	const [currentUserFollowing, setCurrentUserFollowing] = useState([])
 	const [isFollowing, setIsFollowing] = useState(false)
-	console.log(currentUser);
+
 	const handleMessage = () => {
 		if (!token) {
 			return navigate('/signin')
 		} else navigate('/inbox', { state: { user: userData } })
 	}
+
 	const handleFollowUp = async () => {
 		const token = localStorage.getItem('token')
 		try {
@@ -60,7 +61,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 				`${import.meta.env.VITE_BASE_URL}/api/user/${currentUser?.id}/following`,
 				{
 					headers: { Authorization: `Bearer ${token}` },
-				}
+				},
 			)
 			setCurrentUserFollowing(response.data.following)
 		} catch (err) {
@@ -100,11 +101,10 @@ export const UserProfile = ({ userData, currentUser }) => {
 						<div className='flex flex-wrap justify-center'></div>
 
 						<div className='text-center mt-12'>
-							<h3 className='text-4xl font-semibold leading-normal mb-2 text-blueGray-700 '>
-								Hi {userData.username}
-							</h3>
+							<h3 className='text-4xl font-semibold leading-normal mb-2 '>Hi {userData.username}</h3>
 							{userData.location && (
 								<div className='text-sm leading-normal mt-10 mb-2 text-blueGray-400 font-bold uppercase'>
+									<i className='fas fa-solid fa-location-dot text-sky-500 text-2xl mr-2'></i>
 									{userData.location?.city}
 									{userData.location.city && userData.location.country && ','} {userData.location?.country}
 								</div>
@@ -129,24 +129,27 @@ export const UserProfile = ({ userData, currentUser }) => {
 								</div>
 							</div>
 						</div>
-						<div className='mr-4 p-3 text-center'>
+						<div className=' p-3 text-center '>
 							<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
-								{isFollowing ? (
-									<button
-										onClick={handleUnfollow}
-										className='bg-transparent text-gray-400 border-none hover:text-gray-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
-										type='button'>
-										Unfollow
-									</button>
-								) : (
-									<button
-										onClick={handleFollowUp}
-										className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
-										type='button'>
-										Follow Up
-									</button>
+								{!isCurrentUser && (
+									<>
+										{isFollowing ? (
+											<button
+												onClick={handleUnfollow}
+												className='bg-transparent text-rose-400 border-none hover:text-rose-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
+												type='button'>
+												Unfollow
+											</button>
+										) : (
+											<button
+												onClick={handleFollowUp}
+												className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
+												type='button'>
+												Follow
+											</button>
+										)}
+									</>
 								)}
-
 							</span>
 						</div>
 					</div>

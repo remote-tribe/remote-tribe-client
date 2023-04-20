@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 	const [showEmailInputs, setShowEmailInputs] = useState(false)
@@ -110,18 +111,16 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 
 	return (
 		<main className='profile-page '>
-			<section className='relative block h-60'>
-
-			</section>
+			<section className='relative block h-60'></section>
 			{userData && showVerify ? (
 				<section className='relative py-16 bg-gray-100  '>
 					<div className='container mx-auto px-4 '>
 						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64 '>
-							<h2
+							<Link
 								onClick={handleShowAccountSettings}
-								className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover-text-sky-700 text-lg cursor-pointer ml-auto mr-10 mt-4'>
+								className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover-text-sky-700  text-xl absolute -top-36 -right-12 cursor-pointer ml-auto mr-10'>
 								User Settings
-							</h2>
+							</Link>
 							<div className='px-6'>
 								<div className='flex flex-wrap justify-center'>
 									<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
