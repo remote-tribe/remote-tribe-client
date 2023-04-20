@@ -1,9 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { FadeLoader } from 'react-spinners'
+
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 
 const ArticleList = ({ articles, handleShowCreate }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const navigate = useNavigate()
+	const [loading, setLoading] = useState(true)
 
 	const filteredArticles = articles?.filter((article) => {
 		const titleMatch = article?.title?.toLowerCase().includes(searchQuery.toLowerCase())

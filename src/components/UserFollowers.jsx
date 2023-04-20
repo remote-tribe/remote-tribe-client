@@ -15,8 +15,8 @@ const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) =
                     headers: { Authorization: `Bearer ${token}` },
                 }
             )
-
-            setUserFollowers(response.data.followers)
+            console.log(response.data);
+            setUserFollowers(response.data)
         } catch (err) {
             console.error('Error fetching following users: ', err)
         }
@@ -34,7 +34,7 @@ const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) =
                     {userFollowers?.map((user, index) => (
                         <li key={index} className='flex items-center'>
                             <Link
-                                to={`/user/${user?._id}`} // 根据你的路由设置进行调整
+                                to={`/users/${user?._id}`} // 根据你的路由设置进行调整
                                 className='hover:text-blue-600 transition-all duration-150'>
                                 <h3>{user.username}</h3>
                             </Link>

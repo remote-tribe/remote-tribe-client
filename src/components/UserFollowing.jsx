@@ -30,12 +30,12 @@ const UserFollowing = ({ userData, currentUser, handleShowFollowingSettings }) =
     return (
         <div className='mx-auto'>
             {followingUsers && (
-                <div className='mx-auto my-6 w-10/12'>
+                <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
                     <ul className='space-y-4'>
                         {followingUsers.map((user, index) => (
                             <li key={index} className='flex items-center'>
                                 <Link
-                                    to={`/user/${user?._id}`} // 根据你的路由设置进行调整
+                                    to={`/users/${user?._id}`} // 根据你的路由设置进行调整
                                     className='hover:text-blue-600 transition-all duration-150'>
                                     <h3>{user.username}</h3>
                                 </Link>
@@ -44,7 +44,13 @@ const UserFollowing = ({ userData, currentUser, handleShowFollowingSettings }) =
                             </li>
                         ))}
                     </ul>
-                    {/* ... */}
+                    <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
+                        <button
+                            onClick={handleShowFollowingSettings}
+                            className=' font-normal text-sky-400 cursor-pointer'>
+                            back
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
