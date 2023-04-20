@@ -182,7 +182,7 @@ export const UserPage = () => {
 				{userData && (
 					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 '>
 						<div className='container mx-auto px-4 '>
-							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64'>
+							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6 shadow-lg rounded-lg -mt-64 dark:text-gray-200'>
 								<div className='px-6'>
 									<div className='flex flex-wrap justify-center'>
 										<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center'>
@@ -205,7 +205,7 @@ export const UserPage = () => {
 														<>
 															<button
 																onClick={handleMessage}
-																className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+																className='bg-sky-400 hover:bg-sky-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
 																type='button'>
 																Message
 															</button>
@@ -219,7 +219,7 @@ export const UserPage = () => {
 															) : (
 																<button
 																	onClick={handleFollow}
-																	className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+																	className='bg-sky-600 hover:bg-sky-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
 																	type='button'>
 																	Follow
 																</button>
@@ -286,7 +286,7 @@ export const UserPage = () => {
 										)}
 
 										{userData && !showArticlesSettings && !showFollowers && !showFollowing && (
-											<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64'>
+											<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6  rounded-lg -mt-64 dark:text-gray-200'>
 												<div className='px-6'>
 													<div className='flex flex-wrap justify-center'></div>
 
@@ -315,7 +315,7 @@ export const UserPage = () => {
 															)}
 														</div>
 													</div>
-													<div className='mt-10 py-10 border-t border-blueGray-200 text-center'>
+													<div className='mt-10 py-10 border-t dark:border-slate-600 border-blueGray-200 text-center'>
 														<div className='flex flex-wrap justify-center'>
 															<div className='w-full lg:w-9/12 px-4'>
 																<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>

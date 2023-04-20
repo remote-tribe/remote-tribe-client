@@ -33,6 +33,7 @@ export const ProfilePage = () => {
 		setShowSettings(!showSettings)
 		setShowArticlesSettings(false)
 		SetShowFollowing(false)
+		SetShowFollowers(false)
 	}
 	const handleShowAccountSettings = () => {
 		setShowAccountSettings(!showAccountSettings)
@@ -200,9 +201,9 @@ export const ProfilePage = () => {
 					</div>
 				</section>
 				{userData && (
-					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 '>
+					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 dark:text-gray-200'>
 						<div className='container mx-auto px-4 '>
-							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64'>
+							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6 shadow-lg rounded-lg -mt-64'>
 								<div className='px-6'>
 									<div className='flex flex-wrap justify-center'>
 										<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center'>
@@ -249,7 +250,7 @@ export const ProfilePage = () => {
 													<Link className=' text-xl font-bold block uppercase tracking-wide  '>
 														<button
 															onClick={handleShowFollowersSettings}
-															className='bg-transparent text-sky-500 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='bg-transparent text-sky-500 dark:text-sky-400 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
 															type='button'>
 															{userData.followers?.length}
 														</button>
@@ -260,7 +261,7 @@ export const ProfilePage = () => {
 													<Link className='text-xl font-bold block uppercase tracking-wide '>
 														<button
 															onClick={handleShowFollowingSettings}
-															className='bg-transparent text-sky-500 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='bg-transparent text-sky-500 dark:text-sky-400 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
 															type='button'>
 															{userData.following?.length}
 														</button>
@@ -271,7 +272,7 @@ export const ProfilePage = () => {
 													<Link className='text-xl font-bold block uppercase tracking-wide '>
 														<button
 															onClick={handleShowArticlesSettings}
-															className='bg-transparent text-sky-500 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='bg-transparent text-sky-500 dark:text-sky-400 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
 															type='button'>
 															{userData.articles?.length}
 														</button>

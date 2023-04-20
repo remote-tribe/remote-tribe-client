@@ -97,26 +97,26 @@ export const UserProfile = ({ userData, currentUser }) => {
 			</section>
 
 			{userData && (
-				<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64'>
+				<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 dark:text-gray-200 w-full mb-6  rounded-lg -mt-64'>
 					<div className='px-6'>
 						<div className='flex flex-wrap justify-center'></div>
 
 						<div className='text-center mt-12'>
-							<h3 className='text-4xl font-semibold leading-normal mb-2 '>Hi {userData?.username}</h3>
+							<h3 className='text-4xl font-semibold leading-normal mb-2 '>{userData?.username}</h3>
 							{userData.location && (
-								<div className='text-sm leading-normal mt-10 mb-2 text-blueGray-400 font-bold uppercase'>
-									<i className='fas fa-solid fa-location-dot text-sky-500 text-2xl mr-2'></i>
+								<div className='text-sm leading-normal mt-10 mb-2  font-bold uppercase'>
+									<i className='fas fa-solid fa-location-dot text-sky-500 dark:text-sky-400 text-2xl mr-2'></i>
 									{userData?.location?.city}
 									{userData?.location?.city && userData?.location?.country && ','}{' '}
 									{userData?.location?.country}
 								</div>
 							)}
-							<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
+							<div className='mb-2 text-lg  font-medium mt-10'>
 								{userData?.profession && (
-									<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
+									<div className='mb-2 text-lg font-medium mt-10'>
 										<Link
 											to={``}
-											className='transition-all font-normal text-blueGray-500 hover:text-sky-400'>
+											className='transition-all font-normal hover:text-sky-400'>
 											{' '}
 											{userData?.profession}
 										</Link>
@@ -124,7 +124,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 								)}
 							</div>
 						</div>
-						<div className='mt-10 py-10 border-t border-blueGray-200 text-center'>
+						<div className='mt-10 py-10 border-t dark:border-slate-600 text-center mx-auto'>
 							<div className='flex flex-wrap justify-center'>
 								<div className='w-full lg:w-9/12 px-4'>
 									<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>{userData?.description}</p>

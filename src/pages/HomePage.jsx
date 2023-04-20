@@ -192,7 +192,7 @@ export const HomePage = () => {
 							<ul className='flex justify-center mt-5 space-x-5 text-xl '>
 								<li>
 									<Link
-										to={'https://github.com/valyy151'}
+										to={'https://www.linkedin.com/in/marin-valenta'}
 										target='_blank'
 										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
 										<svg
@@ -209,7 +209,7 @@ export const HomePage = () => {
 								</li>
 								<li>
 									<Link
-										to={'https://www.linkedin.com/in/marin-valenta'}
+										to={'https://github.com/valyy151'}
 										target='_blank'
 										className='text-sky-500 hover:text-sky-600  '>
 										<svg
@@ -233,15 +233,15 @@ export const HomePage = () => {
 								</Link>
 
 								<p className='mb-5 text-xl font-semibold text-gray-900 dark:text-white'>&&</p>
+
 								<Link
-									to={'https://www.linkedin.com/in/peng-chen-472560260/'}
+									to={'https://www.linkedin.com/in/peng-chen-472560260'}
 									target='_blank'
 									className='mb-5 text-l font-semibold text-gray-900 dark:text-white hover:text-sky-500 transition-all duration-150'>
 									Peng Chen
 								</Link>
 								<li>
 									<Link
-										to={'https://github.com/Mr-Chennn'}
 										target='_blank'
 										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
 										<svg
@@ -259,7 +259,7 @@ export const HomePage = () => {
 
 								<li>
 									<Link
-										href='https://www.linkedin.com/in/peng-chen-472560260/'
+										to={'https://www.linkedin.com/in/peng-chen-472560260'}
 										target='_blank'
 										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
 										<svg
