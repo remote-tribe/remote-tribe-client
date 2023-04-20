@@ -39,7 +39,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 	}
 
 	return (
-		<section className='pt-10  '>
+		<section className=' '>
 			{message && (
 				<div
 					className='bg-green-100 dark:bg-green-400 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3'
@@ -56,7 +56,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 			) : (
 				<div className='h-[3.1rem] my-3'></div>
 			)}
-			<div className='flex flex-col items-center px-6 py-8 mx-auto md:h-full lg:py-0'>
+			<div className='flex flex-col items-center px-6  mx-auto md:h-full lg:py-0'>
 				<Link
 					to={'/'}
 					className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'>

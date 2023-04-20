@@ -8,7 +8,7 @@ import { themeSwitch } from '../main'
 export const NavBar = () => {
 	const [moon, setMoon] = useState(null)
 	const [sun, setSun] = useState(null)
-
+	const [showNav, setShowNav] = useState(false)
 	const { loggedUser } = useContext(UserContext)
 	const [userData, setUserData] = useState(null)
 	const theme = localStorage.getItem('theme')
@@ -72,7 +72,7 @@ export const NavBar = () => {
 							setMoon(true)
 							setSun(false)
 						}}
-						className='moon-icon mr-7 group  items-center text-gray-600 hover:text-sky-600 font-medium dark:text-gray-400 dark:hover:text-sky-500 cursor-pointer'>
+						className='moon-icon mr-10 group  items-center text-gray-600 hover:text-sky-600 font-medium dark:text-gray-400 dark:hover:text-sky-500 cursor-pointer'>
 						<svg
 							className='w-5 h-5'
 							xmlns='http://www.w3.org/2000/svg'
@@ -89,7 +89,7 @@ export const NavBar = () => {
 							setMoon(false)
 							setSun(true)
 						}}
-						className='sun-icon mr-7 group  items-center text-gray-600 hover:text-sky-400 font-medium dark:text-gray-400 dark:hover:text-sky-300 cursor-pointer'>
+						className='sun-icon mr-10 group  items-center text-gray-600 hover:text-sky-400 font-medium dark:text-gray-400 dark:hover:text-sky-300 cursor-pointer'>
 						<svg
 							className='w-5 h-5'
 							xmlns='http://www.w3.org/2000/svg'
@@ -133,7 +133,7 @@ export const NavBar = () => {
 				</div>
 
 				<div className='sm:hidden cursor-pointer'>
-					<NavLink to='/'>
+					<NavLink onClick={() => setShowNav(!showNav)}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							className='w-6 h-6 text-sky-500'
@@ -146,47 +146,53 @@ export const NavBar = () => {
 					</NavLink>
 				</div>
 			</div>
-			<div className='block sm:hidden bg-white dark:bg-gray-800 border-t-2 dark:border-gray-700 py-2'>
-				<div className='flex items-center'>
-					<NavLink
-						to='/community'
-						className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
-						Community
-					</NavLink>
+			{showNav && (
+				<div className='block sm:hidden bg-white dark:bg-gray-800 border-t-2 dark:border-gray-700 py-2'>
+					<div className='flex items-center'>
+						<NavLink
+							onClick={() => setShowNav(false)}
+							to='/community'
+							className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
+							Community
+						</NavLink>
+					</div>
+					<div className='flex items-center'>
+						<NavLink
+							onClick={() => setShowNav(false)}
+							to='/users'
+							className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
+							Users
+						</NavLink>
+					</div>
+					<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>
+						{userData ? (
+							<>
+								<NavLink
+									onClick={() => setShowNav(false)}
+									to='/profile'
+									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+									{userData.username}
+								</NavLink>
+								<NavLink
+									to=''
+									onClick={Logout}
+									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+									Sign Out
+								</NavLink>
+							</>
+						) : (
+							<>
+								<NavLink
+									onClick={() => setShowNav(false)}
+									to='/signin'
+									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+									Sign in
+								</NavLink>
+							</>
+						)}
+					</div>
 				</div>
-				<div className='flex items-center'>
-					<NavLink
-						to='/users'
-						className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
-						Users
-					</NavLink>
-				</div>
-				<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>
-					{userData ? (
-						<>
-							<NavLink
-								to='/profile'
-								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
-								{userData.username}
-							</NavLink>
-							<NavLink
-								to=''
-								onClick={Logout}
-								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
-								Sign Out
-							</NavLink>
-						</>
-					) : (
-						<>
-							<NavLink
-								to='/signin'
-								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
-								Sign in
-							</NavLink>
-						</>
-					)}
-				</div>
-			</div>
+			)}
 		</div>
 	)
 }

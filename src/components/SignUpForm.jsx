@@ -48,7 +48,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 		}
 	}
 	return (
-		<section className='pt-10'>
+		<section className=''>
 			{error ? (
 				<div
 					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3'
@@ -58,7 +58,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 			) : (
 				<div className='h-[3.1rem] my-3'></div>
 			)}
-			<div className='flex flex-col items-center px-6 py-8 mx-auto md:h-full lg:py-0'>
+			<div className='flex flex-col items-center px-6  mx-auto md:h-full lg:py-0'>
 				<Link
 					to={'/'}
 					className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'>
@@ -81,7 +81,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 						<form
 							className='space-y-4 md:space-y-6'
 							onSubmit={handleSubmit}>
-							<div className='flex justify-center space-x-1  '>
+							<div className='flex flex-col md:flex-row justify-center space-x-1 md:space-x-0 md:space-y-0 md:items-center flex-wrap'>
 								<div className='flex flex-col items-center w-full'>
 									<label
 										htmlFor='firstName'
@@ -94,8 +94,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 										type='text'
 										name='firstName'
 										id='firstName'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500 border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
 								<div className='flex flex-col items-center w-full'>
@@ -110,11 +109,11 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 										type='text'
 										name='lastName'
 										id='lastName'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
+										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500 border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
 									/>
 								</div>
 							</div>
+
 							<div className='flex flex-col justify-center '>
 								<div className='flex flex-col items-center'>
 									<label
