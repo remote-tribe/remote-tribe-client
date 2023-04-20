@@ -3,16 +3,23 @@ import React, { useState, useEffect } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Editor } from './Editor'
-
+import { Image } from 'cloudinary-react'
+import { FadeLoader } from 'react-spinners'
+const override = {
+	display: 'block',
+	margin: '0 auto',
+	borderColor: 'red',
+}
 const UpdateArticle = ({ article }) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
 	const navigate = useNavigate()
 	const currentUser = GetCurrentUser()
-
+	const [loading, setLoading] = useState(false)
+	const [selectedImage, setSelectedImage] = useState(null)
 	const { articleId } = useParams()
-
+	const DEFAULT_IMAGE_URL = "http://res.cloudinary.com/dxeejm8ef/image/upload/v1681998829/aldc1ngkd91yif7ddeje.png"
 	useEffect(() => {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
@@ -24,6 +31,28 @@ const UpdateArticle = ({ article }) => {
 			})
 			.catch((error) => console.log(error))
 	}, [articleId])
+
+	const handleImageChange = (e) => {
+		setSelectedImage(e.target.files[0])
+		handleImageUpload(e.target.files[0])
+	}
+
+	const handleImageUpload = async (file) => {
+		setLoading(true)
+		if (!file) return
+
+		const formData = new FormData()
+		formData.append('file', file)
+		formData.append('upload_preset', 'fsgqertv')
+
+		try {
+			const res = await axios.post(`https://api.cloudinary.com/v1_1/dxeejm8ef/image/upload`, formData)
+			setImageUrl(res.data.url)
+			setLoading(false)
+		} catch (err) {
+			console.error('Error uploading image: ', err)
+		}
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -47,13 +76,13 @@ const UpdateArticle = ({ article }) => {
 		setTitle('')
 		setContent('')
 		setImageUrl('')
+		setSelectedImage('')
 	}
 
 	const deleteArticle = () => {
 		axios
 			.delete(
-				`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}?articleId=${
-					article?._id
+				`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}?articleId=${article?._id
 				}&userId=${currentUser.id}&comments=${article?.comments}`,
 			)
 			.then(() => {
@@ -111,15 +140,32 @@ const UpdateArticle = ({ article }) => {
 						<label
 							htmlFor='imageUrl'
 							className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
-							Image URL
+							Image
 						</label>
 						<input
-							type='text'
-							id='imageUrl'
-							value={imageUrl}
-							onChange={(e) => setImageUrl(e.target.value)}
-							className='mt-1 block w-full p-2 border border-gray-300 rounded-md text-center cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 dark:text-white dark:bg-gray-700  dark:border-none '
+							id='fileInput'
+							type='file'
+							onChange={handleImageChange}
+							className='w-2/5 p-1 text-black font-medium rounded-md transition-all dark:text-white duration-150 hover:shadow-md'
 						/>
+
+						<div className='mt-4'>
+							{loading ? (
+								<div className='text-center text-sky-400 flex justify-center mt-5 '>
+									<FadeLoader
+										color={'#00a8e8'}
+										loading={loading}
+										css={override}
+										size={50}
+									/>
+								</div>
+							) : (
+								<img
+									src={imageUrl || DEFAULT_IMAGE_URL}
+									className='w-24 h-24 object-cover rounded mx-auto'
+								/>
+							)}
+						</div>
 					</div>
 					<div className='flex space-x-4 justify-center'>
 						<button
