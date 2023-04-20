@@ -42,7 +42,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 		<section className=' '>
 			{message && (
 				<div
-					className='bg-green-100 dark:bg-green-400 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3'
+					className='bg-green-100 dark:bg-green-500 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3'
 					role='alert'>
 					<span className='block sm:inline'>{message}</span>
 				</div>

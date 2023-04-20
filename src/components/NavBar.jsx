@@ -19,7 +19,6 @@ export const NavBar = () => {
 	useEffect(() => {
 		const currentUser = GetCurrentUser()
 
-		console.log(theme)
 		if (!theme) {
 			setMoon(false)
 			setSun(true)
@@ -39,7 +38,9 @@ export const NavBar = () => {
 		<div className='bg-white dark:bg-gray-900 shadow p-0 m-0'>
 			<div className='flex items-center justify-between py-2 px-6'>
 				<div className='mr-10'>
-					<NavLink to='/'>
+					<NavLink
+						to='/'
+						onClick={() => setShowNav(false)}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							className='w-10 h-10 text-sky-500 dark:text-sky-400'
@@ -89,7 +90,7 @@ export const NavBar = () => {
 							setMoon(false)
 							setSun(true)
 						}}
-						className='sun-icon mr-10 group  items-center text-gray-600 hover:text-sky-400 font-medium dark:text-gray-400 dark:hover:text-sky-300 cursor-pointer'>
+						className='sun-icon mr-11 group  items-center text-gray-600 hover:text-sky-400 font-medium dark:text-gray-400 dark:hover:text-sky-300 cursor-pointer'>
 						<svg
 							className='w-5 h-5'
 							xmlns='http://www.w3.org/2000/svg'
@@ -147,12 +148,12 @@ export const NavBar = () => {
 				</div>
 			</div>
 			{showNav && (
-				<div className='block sm:hidden bg-white dark:bg-gray-800 border-t-2 dark:border-gray-700 py-2'>
+				<div className='block sm:hidden bg-white dark:bg-gray-800 border-t-2 dark:border-gray-700 py-2 transition-all duration'>
 					<div className='flex items-center'>
 						<NavLink
 							onClick={() => setShowNav(false)}
 							to='/community'
-							className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
+							className='text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
 							Community
 						</NavLink>
 					</div>
@@ -160,7 +161,7 @@ export const NavBar = () => {
 						<NavLink
 							onClick={() => setShowNav(false)}
 							to='/users'
-							className='text-gray-800 dark:text-gray-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
+							className='text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
 							Users
 						</NavLink>
 					</div>
@@ -170,13 +171,13 @@ export const NavBar = () => {
 								<NavLink
 									onClick={() => setShowNav(false)}
 									to='/profile'
-									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 mx-4'>
 									{userData.username}
 								</NavLink>
 								<NavLink
 									to=''
 									onClick={Logout}
-									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 mx-4'>
 									Sign Out
 								</NavLink>
 							</>
@@ -185,7 +186,7 @@ export const NavBar = () => {
 								<NavLink
 									onClick={() => setShowNav(false)}
 									to='/signin'
-									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 mx-4'>
 									Sign in
 								</NavLink>
 							</>

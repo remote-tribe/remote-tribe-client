@@ -18,6 +18,19 @@ export const HomePage = () => {
 	const [articles, setArticles] = useState([])
 	const [loading, setLoading] = useState(true)
 	const { loggedUser, setLoggedUser } = useContext(UserContext)
+	const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1000)
+
+	useEffect(() => {
+		function handleResize() {
+			setIsLargeScreen(window.innerWidth >= 1000)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
 
 	useEffect(() => {
 		const currentUser = GetCurrentUser()
@@ -58,8 +71,8 @@ export const HomePage = () => {
 				<>
 					<main className='h-full flex items-center px-6 lg:px-32 bg-sky-500 dark:bg-sky-900 text-white'>
 						<section className='text-gray-700 body-font'>
-							<div className='container mx-auto flex px-5 py-20 md:flex-row flex-col items-center'>
-								<div className='lg:max-w-3xl lg:w-full  md:w-1/2 w-5/6 mb-10 md:mb-0'>
+							<div className='container mx-auto flex px-5 p-8 md:py-20 md:flex-row flex-col items-center'>
+								<div className='lg:max-w-3xl lg:w-full  md:w-1/2 w-full mb-10 md:mb-0'>
 									<img
 										className='object-cover object-center rounded-md shadow-md'
 										alt='hero'
@@ -99,37 +112,68 @@ export const HomePage = () => {
 							</div>
 						</section>
 					</main>
+					{isLargeScreen ? (
+						<Carousel
+							infiniteLoop={true}
+							autoPlay={true}
+							showThumbs={false}
+							showStatus={false}
+							showIndicators={false}
+							interval={3000}
+							centerSlidePercentage={25}
+							centerMode={true}>
+							{articles?.map((article, index) => (
+								<Link
+									to={`/community/article/${article?._id}`}
+									key={index}
+									className=' mt-4 w-52 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105'>
+									{article?.imageUrl ? (
+										<img
+											className='w-full h-2/3  object-cover object-center'
+											src={article?.imageUrl}
+											alt={article?.title}
+										/>
+									) : (
+										<div className='w-full h-2/3 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
+									)}
 
-					<Carousel
-						infiniteLoop={true}
-						centerMode={true}
-						autoPlay={true}
-						showThumbs={false}
-						showStatus={false}
-						showIndicators={false}
-						interval={3000}
-						centerSlidePercentage={25}>
-						{articles?.map((article, index) => (
-							<Link
-								to={`/community/article/${article?._id}`}
-								key={index}
-								className=' mt-4 w-52 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105'>
-								{article?.imageUrl ? (
-									<img
-										className='w-full h-2/3  object-cover object-center'
-										src={article?.imageUrl}
-										alt={article?.title}
-									/>
-								) : (
-									<div className='w-full h-2/3 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
-								)}
+									<div className='px-4 py-4 flex justify-center'>
+										<div className='font-semibold text-sm mb-2'>{article?.title}</div>
+									</div>
+								</Link>
+							))}
+						</Carousel>
+					) : (
+						<Carousel
+							infiniteLoop={true}
+							autoPlay={true}
+							showThumbs={false}
+							showStatus={false}
+							showIndicators={false}
+							interval={3000}
+							centerMode={false}>
+							{articles?.map((article, index) => (
+								<Link
+									to={`/community/article/${article?._id}`}
+									key={index}
+									className='mt-4 mx-auto w-2/3 md:w-72 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105'>
+									{article?.imageUrl ? (
+										<img
+											className='w-full h-2/3  object-cover object-center'
+											src={article?.imageUrl}
+											alt={article?.title}
+										/>
+									) : (
+										<div className='w-full h-2/3 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
+									)}
 
-								<div className='px-4 py-4 flex justify-between'>
-									<div className='font-semibold text-sm mb-2'>{article?.title}</div>
-								</div>
-							</Link>
-						))}
-					</Carousel>
+									<div className='px-4 py-4 flex justify-center'>
+										<div className='font-semibold text-sm mb-2  '>{article?.title}</div>
+									</div>
+								</Link>
+							))}
+						</Carousel>
+					)}
 				</>
 			)}
 		</div>

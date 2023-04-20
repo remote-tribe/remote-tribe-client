@@ -15,6 +15,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [confirmedPassword, setConfirmedPassword] = useState('')
 	const [error, setError] = useState('')
 
 	const [termsAgreed, setTermsAgreed] = useState(false)
@@ -22,12 +23,19 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		setIsLoading(true)
-		console.log(import.meta.env.VITE_BASE_URL)
+
 		if (!termsAgreed) {
 			setIsLoading(false)
 			setError('Please agree to the terms and conditions.')
 			return
 		}
+
+		if (password !== confirmedPassword) {
+			setIsLoading(false)
+			setError('Passwords do not match.')
+			return
+		}
+
 		try {
 			const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/signup`, {
 				firstName,
@@ -37,6 +45,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 				password,
 				termsAgreed,
 			})
+
 			if (response) {
 				handleShowRegister()
 				setMessage(response.data.message)
@@ -79,91 +88,73 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 							Create an Account
 						</h1>
 						<form
-							className='space-y-4 md:space-y-6'
+							className='space-y-4 md:space-y-4'
 							onSubmit={handleSubmit}>
-							<div className='flex flex-col md:flex-row justify-center space-x-1 md:space-x-0 md:space-y-0 md:items-center flex-wrap'>
-								<div className='flex flex-col items-center w-full'>
-									<label
-										htmlFor='firstName'
-										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
-										First Name
-									</label>
-									<input
-										value={firstName}
-										onChange={(e) => setFirstName(e.target.value)}
-										type='text'
-										name='firstName'
-										id='firstName'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500 border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
-									/>
-								</div>
-								<div className='flex flex-col items-center w-full'>
-									<label
-										htmlFor='lastName'
-										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
-										Last Name
-									</label>
-									<input
-										value={lastName}
-										onChange={(e) => setLastName(e.target.value)}
-										type='text'
-										name='lastName'
-										id='lastName'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg block md:w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500 border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
-									/>
-								</div>
-							</div>
+							<div className='flex flex-col items-center '>
+								<input
+									placeholder='First Name'
+									value={firstName}
+									onChange={(e) => setFirstName(e.target.value)}
+									type='text'
+									name='firstName'
+									id='firstName'
+									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block w-full md:w-4/5  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md placeholder:text-center'
+								/>
 
-							<div className='flex flex-col justify-center '>
-								<div className='flex flex-col items-center'>
-									<label
-										htmlFor='username'
-										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
-										Username
-									</label>
-									<input
-										value={username}
-										onChange={(e) => setUsername(e.target.value)}
-										type='text'
-										name='username'
-										id='username'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
-									/>
-								</div>
-								<div className='flex flex-col items-center'>
-									<label
-										htmlFor='email'
-										className='block my-1 text-sm font-medium text-center text-gray-900 dark:text-white'>
-										Email
-									</label>
-									<input
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										type='email'
-										name='email'
-										id='email'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
-									/>
-								</div>
+								<input
+									placeholder='Last Name'
+									value={lastName}
+									onChange={(e) => setLastName(e.target.value)}
+									type='text'
+									name='lastName'
+									id='lastName'
+									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block w-full md:w-4/5 p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md placeholder:text-center mb-4'
+								/>
 
-								<div className='flex flex-col items-center'>
-									<label
-										htmlFor='password'
-										className=' text-center block my-1 text-sm font-medium text-gray-900 dark:text-white'>
-										Password
-									</label>
-									<input
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-										type='password'
-										name='password'
-										id='password'
-										className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block md:w-full  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
-									/>
-								</div>
+								<input
+									placeholder='Username'
+									value={username}
+									onChange={(e) => setUsername(e.target.value)}
+									type='text'
+									name='username'
+									id='username'
+									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block w-full md:w-4/5  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md placeholder:text-center'
+								/>
+
+								<input
+									placeholder='Email'
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									type='email'
+									name='email'
+									id='email'
+									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block w-full md:w-4/5  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md placeholder:text-center mb-4'
+								/>
+
+								<input
+									placeholder='Password'
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									type='password'
+									name='password'
+									id='password'
+									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block w-full md:w-4/5  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md placeholder:text-center'
+								/>
+								<input
+									placeholder='Confirm Password'
+									value={confirmedPassword}
+									onChange={(e) => setConfirmedPassword(e.target.value)}
+									type='password'
+									name='password'
+									id='confirmedpassword'
+									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
+									block w-full md:w-4/5  p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md placeholder:text-center'
+								/>
 							</div>
 							<div className='flex items-start justify-center'>
 								<div className='flex items-center h-5'>
