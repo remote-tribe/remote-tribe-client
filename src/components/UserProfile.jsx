@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useRef } from 'react'
 import axios from 'axios'
@@ -8,26 +7,26 @@ export const UserProfile = ({ userData, currentUser }) => {
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
 
-
 	const handleMessage = () => {
 		if (!token) {
 			return navigate('/signin')
 		} else navigate('/inbox', { state: { user: userData } })
 	}
 	const handleFollowUp = async () => {
-		console.log("handle follow up")
 		const token = localStorage.getItem('token')
 		try {
-			const res = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/user/following`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`, //！！！！
+			const response = await axios.post(
+				`${import.meta.env.VITE_BASE_URL}/api/user/following`,
+				{
+					userId: userData?._id,
+					currentUserId: currentUser?.id,
 				},
-			})
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
 
-			if (res.data) {
-				console.log('User profile updated successfully')
-			}
+			console.log(response.data.message)
 		} catch (err) {
 			console.error('Error updating user profile: ', err)
 		}
@@ -36,7 +35,6 @@ export const UserProfile = ({ userData, currentUser }) => {
 	return (
 		<main className='profile-page'>
 			<section className='relative block h-80'>
-
 				<div className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16'>
 					<svg
 						className='absolute bottom-0 overflow-hidden '
@@ -49,11 +47,9 @@ export const UserProfile = ({ userData, currentUser }) => {
 				</div>
 			</section>
 			{userData && (
-
 				<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64'>
 					<div className='px-6'>
-						<div className='flex flex-wrap justify-center'>
-						</div>
+						<div className='flex flex-wrap justify-center'></div>
 
 						<div className='text-center mt-12'>
 							<h3 className='text-4xl font-semibold leading-normal mb-2 text-blueGray-700 '>
@@ -62,8 +58,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 							{userData.location && (
 								<div className='text-sm leading-normal mt-10 mb-2 text-blueGray-400 font-bold uppercase'>
 									{userData.location?.city}
-									{userData.location.city && userData.location.country && ','}{' '}
-									{userData.location?.country}
+									{userData.location.city && userData.location.country && ','} {userData.location?.country}
 								</div>
 							)}
 							<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
@@ -94,13 +89,10 @@ export const UserProfile = ({ userData, currentUser }) => {
 									type='button'>
 									Follow Up
 								</button>
-
 							</span>
 						</div>
 					</div>
 				</div>
-
-
 			)}
 		</main>
 	)
