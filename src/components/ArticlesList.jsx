@@ -1,30 +1,39 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const ArticleList = ({ articles, handleShowCreate }) => {
+	const [searchQuery, setSearchQuery] = useState('')
 	const navigate = useNavigate()
+
+	const filteredArticles = articles?.filter((article) => {
+		const titleMatch = article?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+		const authorMatch = article?.author?.username.toLowerCase().includes(searchQuery.toLowerCase())
+		return titleMatch || authorMatch
+	})
 	return (
 		<div className='mx-auto'>
 			<div className='flex flex-col items-center justify-center my-5'>
+				<button
+					className='mb-3 px-4 py-1 bg-none text-sky-400 hover:text-sky-500 font-medium rounded-md transition-all duration-150'
+					onClick={handleShowCreate}>
+					Create an Article
+				</button>
 				<div className='relative'>
 					<input
 						type='text'
 						className='py-2 pl-10 pr-3 rounded-lg w-96 focus:ring-1 ring-sky-400 outline-none transition-all text-lg duration-150 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-400'
 						placeholder='Search'
+						onChange={(event) => setSearchQuery(event.target.value)}
 					/>
 					<div className='absolute top-0 left-0 flex items-center h-full ml-3'>
 						<i className='fa-solid fa-search text-gray-400'></i>
 					</div>
 				</div>
-				<button
-					className='mt-3 px-4 py-1 bg-none text-sky-400 hover:text-sky-500 font-medium rounded-md transition-all duration-150'
-					onClick={handleShowCreate}>
-					Create an Article
-				</button>
 			</div>
 
-			{articles && (
+			{filteredArticles && (
 				<div className='flex flex-wrap mx-auto my-6 justify-center w-10/12'>
-					{articles?.map((article, index) => (
+					{filteredArticles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}

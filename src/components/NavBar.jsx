@@ -56,13 +56,21 @@ export const NavBar = () => {
 				<div className='hidden sm:flex sm:items-center flex-1'>
 					<NavLink
 						to='/community'
-						className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
+						className={({ isActive }) =>
+							isActive
+								? ' text-sky-400 text-lg font-semibold  mx-4'
+								: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+						}>
 						Community
 					</NavLink>
 
 					<NavLink
 						to='/users'
-						className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
+						className={({ isActive }) =>
+							isActive
+								? ' text-sky-400 text-lg font-semibold  mx-4'
+								: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+						}>
 						Users
 					</NavLink>
 				</div>
@@ -104,7 +112,11 @@ export const NavBar = () => {
 				{userData && (
 					<NavLink
 						to={`/inbox`}
-						className='dark:hover:text-sky-300 text-gray-500 dark:text-gray-400 text-lg  hover:text-sky-500 mx-4 mr-7'>
+						className={({ isActive }) =>
+							isActive
+								? ' text-sky-400 text-lg font-semibold  mx-4'
+								: 'dark:hover:text-sky-400 text-gray-500 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+						}>
 						<i className='fa-solid fa-envelope'></i>
 					</NavLink>
 				)}
@@ -114,13 +126,21 @@ export const NavBar = () => {
 						<>
 							<NavLink
 								to={`/profile`}
-								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								className={({ isActive }) =>
+									isActive
+										? ' text-sky-400 text-lg font-semibold  mx-4'
+										: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+								}>
 								{userData.username}
 							</NavLink>
 							<NavLink
 								onClick={Logout}
 								to=''
-								className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+								className={({ isActive }) =>
+									isActive
+										? ' text-sky-400 text-lg font-semibold  mx-4'
+										: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+								}>
 								Sign Out
 							</NavLink>
 						</>
