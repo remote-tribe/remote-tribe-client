@@ -69,7 +69,7 @@ export const InboxPage = () => {
 		</div>
 	) : (
 		<main className='flex w-full h-[94vh] shadow-lg rounded-3xl'>
-			<section className='flex flex-col pt-3 w-4/12 bg-gray-200 dark:bg-gray-700 h-full overflow-y-scroll'>
+			<section className='flex flex-col pt-3 w-4/12 bg-gray-200 dark:bg-gray-700 h-full scrollbar '>
 				<label className='px-3'>
 					<input
 						className='rounded-lg p-4 dark:text-gray-100 bg-white dark:bg-gray-600 shadow transition duration-200 focus:outline-none focus:ring-2 w-full ring-sky-400'
@@ -80,20 +80,6 @@ export const InboxPage = () => {
 				</label>
 
 				<ul className='mt-6'>
-					{location?.state?.user && (
-						<li
-							onClick={() => fetchUser(location?.state?.user?._id)}
-							className='py-5 cursor-pointer border-b  px-3 transition hover:bg-sky-100 dark:hover:bg-sky-900'>
-							<span
-								href='#'
-								className='flex justify-between items-center'>
-								<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
-									{location?.state?.user?.username}
-								</h3>
-							</span>
-							<div className='text-md italic text-gray-400'>Sent you a message!</div>
-						</li>
-					)}
 					{currentUser?.conversations
 						.filter((conversation) =>
 							conversation.participants.some((participant) =>

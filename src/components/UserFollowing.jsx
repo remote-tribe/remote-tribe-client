@@ -3,58 +3,84 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const UserFollowing = ({ userData, currentUser, handleShowFollowingSettings }) => {
-    const navigate = useNavigate()
-    const [followingUsers, setFollowingUsers] = useState([])
+	const navigate = useNavigate()
+	const [followingUsers, setFollowingUsers] = useState([])
 
-    const fetchFollowingUsers = async () => {
-        const token = localStorage.getItem('token')
-        try {
-            const response = await axios.get(
-                `${import.meta.env.VITE_BASE_URL}/api/user/${currentUser?.id}/following-users`,
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            )
+	const fetchFollowingUsers = async () => {
+		const token = localStorage.getItem('token')
+		try {
+			const response = await axios.get(
+				`${import.meta.env.VITE_BASE_URL}/api/user/${userData?._id}/following-users`,
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
 
-            setFollowingUsers(response.data.followingUsers)
-        } catch (err) {
-            console.error('Error fetching following users: ', err)
-        }
-    }
+			setFollowingUsers(response.data.followingUsers)
+		} catch (err) {
+			console.error('Error fetching following users: ', err)
+		}
+	}
 
-    useEffect(() => {
-        fetchFollowingUsers()
-    }, [])
+	useEffect(() => {
+		fetchFollowingUsers()
+	}, [])
 
-
-    return (
-        <div className='mx-auto'>
-            {followingUsers && (
-                <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
-                    <ul className='space-y-4'>
-                        {followingUsers.map((user, index) => (
-                            <li key={index} className='flex items-center'>
-                                <Link
-                                    to={`/users/${user?._id}`} // 根据你的路由设置进行调整
-                                    className='hover:text-blue-600 transition-all duration-150'>
-                                    <h3>{user.username}</h3>
-                                </Link>
-                                <span className='mx-4 text-gray-600'>{user.location.city}, {user.location.country}</span>
-                                <span className='text-gray-600'>{user.profession}</span>
-                            </li>
-                        ))}
-                    </ul>
-                    <div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
-                        <button
-                            onClick={handleShowFollowingSettings}
-                            className=' font-normal text-sky-400 cursor-pointer'>
-                            back
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-    )
+	return (
+		<div className='w-full flex justify-center'>
+			{followingUsers && (
+				<table class='my-8 text-2xl w-3/4 text-center  '>
+					<thead className='h-16'>
+						<tr className='shadow bg-gray-100 '>
+							<th className='w-1/4'>
+								<i class='fa-sharp fa-solid fa-image text-sky-500 text-2xl'></i>
+							</th>
+							<th className='w-1/4'>
+								<i class='fa-solid fa-user text-sky-500 text-2xl'></i>
+							</th>
+							<th className='w-1/4'>
+								<i class='fa-solid fa-briefcase  text-sky-500 text-2xl '></i>
+							</th>
+							<th className='w-1/4'>
+								<i className='fas fa-solid fa-location-dot text-sky-500 text-2xl '></i>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{followingUsers?.map((user, index) => (
+							<tr
+								key={index}
+								className='shadow m-2 rounded-md h-12'>
+								<td className='w-1/4'>
+									<img
+										src={user?.profilePicture}
+										className='h-8 w-8 rounded-full mx-auto'
+									/>
+								</td>
+								<td className='w-1/4'>
+									<Link
+										to={`/users/${user?._id}`}
+										className='text-sky-500 hover:text-sky-600 transition-all duration-150 '>
+										{user?.username}
+									</Link>
+								</td>
+								<td className='w-1/4'>
+									<p className='text-gray-600'>{user?.profession}</p>
+								</td>
+								<td className='w-1/4'>
+									<span>
+										{user?.location?.city}
+										{user?.location?.city && user?.location?.country && ', '}
+										{user?.location?.country}
+									</span>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
+		</div>
+	)
 }
 
 export default UserFollowing

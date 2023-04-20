@@ -146,7 +146,6 @@ export const ProfilePage = () => {
 	}
 
 	useEffect(() => {
-		setLoading(true)
 		const token = localStorage.getItem('token')
 		const fetchData = async () => {
 			try {
@@ -313,6 +312,7 @@ export const ProfilePage = () => {
 											handleShowFollowingSettings={handleShowFollowingSettings}
 										/>
 									)}
+
 									{showFollowers && (
 										<UserFollowers
 											currentUser={currentUser}

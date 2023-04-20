@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
+const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => {
 	const navigate = useNavigate()
 	const [articles, setArticles] = useState([])
 
@@ -12,7 +12,7 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
 
 	const getAllArticles = () => {
 		axios
-			.get(`${import.meta.env.VITE_BASE_URL}/api/users/${currentUser.id}/articles`)
+			.get(`${import.meta.env.VITE_BASE_URL}/api/users/${userData._id}/articles`)
 			.then(({ data }) => {
 				setArticles(data.article.reverse())
 			})
@@ -22,9 +22,9 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings }) => {
 	}
 
 	return (
-		<div className=''>
+		<div className='mt-6'>
 			{articles && (
-				<div className='flex flex-wrap mx-auto  my-6 justify-center  w-10/12'>
+				<div className='flex flex-wrap mx-auto justify-center  w-10/12'>
 					{articles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}

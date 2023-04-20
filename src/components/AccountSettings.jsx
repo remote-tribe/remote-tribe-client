@@ -113,7 +113,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 		<main className='profile-page '>
 			<section className='relative block h-60'></section>
 			{userData && showVerify ? (
-				<section className='relative py-16 bg-gray-100  '>
+				<section className='relative py-16 bg-white  '>
 					<div className='container mx-auto px-4 '>
 						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64 '>
 							<Link
@@ -162,20 +162,18 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 					</div>
 				</section>
 			) : (
-				<section className='relative py-16 bg-gray-100 dark:bg-gray-900  '>
+				<section className='relative py-4 bg-white dark:bg-gray-900  '>
 					<div className='container mx-auto px-4 '>
-						<div className='relative  flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6 shadow-lg rounded-lg -mt-64 '>
+						<div className='relative  flex flex-col min-w-0 break-words bg-white dark:bg-gray-100 w-full mb-6  rounded-lg -mt-64 '>
 							<h2
 								onClick={handleShowAccountSettings}
-								className=' text-sky-500 hover:text-sky-600 text-lg cursor-pointer ml-auto mr-10 mt-4'>
+								className=' text-sky-500 hover:text-sky-600 dark:text-sky-600 dark:hover:text-sky-700 text-xl absolute  -top-24 -right-12 cursor-pointer ml-auto mr-10 '>
 								User Settings
 							</h2>
 							<div className='px-6'>
 								<div className='flex flex-wrap justify-center'>
 									<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
-										<h1 className='text-center  text-gray-800 text-3xl font-semibold my-4'>
-											Account Settings
-										</h1>
+										<h1 className='text-center  text-gray-800 text-3xl font-semibold '>Account Settings</h1>
 
 										{showEmailInputs && (
 											<form

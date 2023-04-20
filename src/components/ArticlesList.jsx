@@ -19,7 +19,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 		return titleMatch || authorMatch
 	})
 	return (
-		<div className='mx-auto'>
+		<div className='mx-auto '>
 			<div className='flex flex-col items-center justify-center my-5'>
 				<button
 					className='mb-3 px-4 py-1 bg-none text-sky-400 hover:text-sky-500 font-medium rounded-md transition-all duration-150'
