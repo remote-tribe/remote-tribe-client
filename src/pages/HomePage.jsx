@@ -57,7 +57,7 @@ export const HomePage = () => {
 	}
 
 	return (
-		<div className='fade-in '>
+		<div className='fade-in-2 '>
 			{loading ? (
 				<div className='text-center text-sky-400 flex justify-center mt-60 '>
 					<FadeLoader
