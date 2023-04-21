@@ -124,35 +124,12 @@ export const UserProfile = ({ userData, currentUser }) => {
 								)}
 							</div>
 						</div>
-						<div className='mt-10 py-10 border-t dark:border-slate-600 text-center mx-auto'>
+						<div className='mt-10 pt-4 border-t dark:border-slate-600 text-center mx-auto'>
 							<div className='flex flex-wrap justify-center'>
 								<div className='w-full lg:w-9/12 px-4'>
 									<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>{userData?.description}</p>
 								</div>
 							</div>
-						</div>
-						<div className=' p-3 text-center '>
-							<span className='text-xl font-bold block uppercase tracking-wide text-blueGray-600'>
-								{!isCurrentUser && (
-									<>
-										{isFollowing ? (
-											<button
-												onClick={handleUnfollow}
-												className='bg-transparent text-rose-400 border-none hover:text-rose-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
-												type='button'>
-												Unfollow
-											</button>
-										) : (
-											<button
-												onClick={handleFollowUp}
-												className='bg-transparent text-sky-400 border-none hover:text-sky-600 text-blueGray-400 font-bold text-xm ease-linear transition-all duration-150'
-												type='button'>
-												Follow
-											</button>
-										)}
-									</>
-								)}
-							</span>
 						</div>
 					</div>
 				</div>
