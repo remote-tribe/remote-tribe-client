@@ -42,14 +42,14 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 		<section className='fade-in-2'>
 			{message && (
 				<div
-					className='bg-green-100 dark:bg-green-500 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3'
+					className='bg-green-100 dark:bg-green-500 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3 fade-in-2'
 					role='alert'>
 					<span className='block sm:inline'>{message}</span>
 				</div>
 			)}
 			{error ? (
 				<div
-					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3'
+					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3 fade-in-2'
 					role='alert'>
 					<span className='block sm:inline'>{error}</span>
 				</div>

@@ -60,7 +60,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 		<section className='fade-in-2'>
 			{error ? (
 				<div
-					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3'
+					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3 fade-in-2'
 					role='alert'>
 					<span className='block sm:inline'>{error}</span>
 				</div>
