@@ -127,7 +127,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 						<div className='mt-10 pt-4 border-t dark:border-slate-600 text-center mx-auto'>
 							<div className='flex flex-wrap justify-center'>
 								<div className='w-full lg:w-9/12 px-4'>
-									<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>{userData?.description}</p>
+									<p className='mb-4 text-lg leading-relaxed'>{userData?.description}</p>
 								</div>
 							</div>
 						</div>
