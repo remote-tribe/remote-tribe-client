@@ -167,7 +167,7 @@ export const HomePage = () => {
 										<div className='w-full h-2/3 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
 									)}
 
-									<div className='px-4 py-4 flex justify-center'>
+									<div className='px-4 py-4 flex justify-center '>
 										<div className='font-semibold text-sm mb-2  '>{article?.title}</div>
 									</div>
 								</Link>

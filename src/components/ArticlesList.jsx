@@ -37,7 +37,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='w-96 h-96 mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-700 dark:text-gray-50 md:mt-52 mt-24 hover:-translate-y-1 dark:hover:shadow-gray-700 '>
+							className='h-96 w-[30vw] mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-700 dark:text-gray-50 md:mt-52 mt-24 hover:-translate-y-1 dark:hover:shadow-gray-700 '>
 							{article?.imageUrl ? (
 								<img
 									className='w-full h-64 object-cover object-center'
