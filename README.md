@@ -13,17 +13,17 @@ Users can chat with each other on the platform, providing a space for them to co
 ## Technologies Used
 The following technologies were used to build the Remote Tribe web application:
 
--React
--MongoDB
--Express
--TailwindCSS
+- React
+- MongoDB
+- Express
+- TailwindCSS
 
 ## Contributing
 
 If you want to contribute to the project, you can do so by following these steps:
 
--Fork the repository to your GitHub account.
--Clone the forked repository to your local machine.
--Make your changes and push them to your forked repository.
--Create a pull request to the original repository.
--We welcome all contributions, including bug fixes, feature enhancements, and documentation improvements.
+- Fork the repository to your GitHub account.
+- Clone the forked repository to your local machine.
+- Make your changes and push them to your forked repository.
+- Create a pull request to the original repository.
+- We welcome all contributions, including bug fixes, feature enhancements, and documentation improvements.
