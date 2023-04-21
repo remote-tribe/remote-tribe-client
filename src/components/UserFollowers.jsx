@@ -52,10 +52,13 @@ const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) =
 								key={index}
 								className='shadow m-2 dark:shadow-slate-800 rounded-md h-12'>
 								<td className='w-1/4 dark:bg-slate-600'>
-									<img
-										src={user?.profilePicture}
-										className='h-8 w-8 rounded-full mx-auto'
-									/>
+									<Link to={`/users/${user?._id}`}>
+										{' '}
+										<img
+											src={user?.profilePicture}
+											className='h-8 w-8 rounded-full mx-auto'
+										/>
+									</Link>
 								</td>
 								<td className='w-1/4 dark:bg-slate-600'>
 									<Link

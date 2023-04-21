@@ -37,7 +37,8 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 		setLoading(true)
 		try {
 			await axios.delete(
-				`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}?articleId=${articleId}&userId=${currentUser?.id
+				`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}?articleId=${articleId}&userId=${
+					currentUser?.id
 				}`,
 				{
 					headers: { Authorization: `Bearer ${token}` },
@@ -153,7 +154,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 											rel='author'
 											className='text-xl font-semibold text-sky-500 '>
 											<img
-												className='mr-4 w-16 h-16 rounded-full'
+												className='mr-4 w-16 h-16 rounded-full object-center object-cover'
 												src={article?.author?.profilePicture}
 												alt={article?.author?.username}
 											/>
@@ -249,8 +250,9 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 							/>
 							<div className='flex items-center my-4 text-4xl'>
 								<button
-									className={`inline-flex items-center   justify-center w-fit mx-4 transition-all duration-300 transform-gpu  ${isLiked ? 'text-sky-400 dark:text-sky-300' : 'text-slate-400 dark:text-slate-200 '
-										}`}
+									className={`inline-flex items-center   justify-center w-fit mx-4 transition-all duration-300 transform-gpu  ${
+										isLiked ? 'text-sky-400 dark:text-sky-300' : 'text-slate-400 dark:text-slate-200 '
+									}`}
 									onClick={handleLike}>
 									<i className='fa-solid fa-thumbs-up  '></i>
 								</button>
@@ -386,9 +388,6 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 						</article>
 					</div>
 				</main>
-
-
-
 			</div>
 		)
 	)
