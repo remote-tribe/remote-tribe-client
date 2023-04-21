@@ -242,6 +242,7 @@ export const HomePage = () => {
 								</Link>
 								<li>
 									<Link
+										to={'https://github.com/Mr-Chennn'}
 										target='_blank'
 										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
 										<svg

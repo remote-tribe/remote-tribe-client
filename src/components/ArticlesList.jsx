@@ -1,11 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-
 const ArticleList = ({ articles, handleShowCreate }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const navigate = useNavigate()
-
 
 	const filteredArticles = articles?.filter((article) => {
 		const titleMatch = article?.title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -14,9 +12,9 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 	})
 	return (
 		<div className='mx-auto '>
-			<div className='flex flex-col items-center justify-center my-5'>
+			<div className='flex flex-col items-center justify-center mt-5 '>
 				<button
-					className='mb-3 px-4 py-1 bg-none text-sky-400 hover:text-sky-500 font-medium rounded-md transition-all duration-150'
+					className='mb-3 px-4 py-1 bg-none text-sky-400 hover:text-sky-500 font-medium rounded-md transition-all duration-150 text-xl'
 					onClick={handleShowCreate}>
 					Create an Article
 				</button>
@@ -39,7 +37,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='w-96 h-96 mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-700 dark:text-gray-50 mb-16 hover:-translate-y-1 dark:hover:shadow-gray-700 '>
+							className='w-96 h-96 mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-700 dark:text-gray-50 md:mt-52 mt-24 hover:-translate-y-1 dark:hover:shadow-gray-700 '>
 							{article?.imageUrl ? (
 								<img
 									className='w-full h-64 object-cover object-center'

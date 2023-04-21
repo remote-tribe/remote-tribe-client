@@ -63,16 +63,6 @@ export const NavBar = () => {
 						}>
 						Community
 					</NavLink>
-
-					<NavLink
-						to='/users'
-						className={({ isActive }) =>
-							isActive
-								? ' text-sky-400 text-lg font-semibold  mx-4'
-								: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
-						}>
-						Users
-					</NavLink>
 				</div>
 				{sun && (
 					<p
@@ -173,14 +163,7 @@ export const NavBar = () => {
 							Community
 						</NavLink>
 					</div>
-					<div className='flex items-center'>
-						<NavLink
-							onClick={() => setShowNav(false)}
-							to='/users'
-							className='text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
-							Users
-						</NavLink>
-					</div>
+
 					<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>
 						{userData ? (
 							<>

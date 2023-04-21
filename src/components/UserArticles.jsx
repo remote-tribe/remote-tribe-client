@@ -23,6 +23,13 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => 
 
 	return (
 		<div className='mt-6'>
+			<div className='flex flex-wrap mx-auto my-8 justify-center space-x-12 w-10/12'>
+				<button
+					onClick={handleShowArticlesSettings}
+					className=' p-3 font-normal text-sky-400 hover:text-sky-500 cursor-pointer transition-all duration-150'>
+					<i class='fa-solid fa-arrow-left text-3xl'></i>
+				</button>
+			</div>
 			{articles && (
 				<div className='flex flex-wrap mx-auto justify-center  w-10/12'>
 					{articles?.map((article, index) => (
@@ -60,13 +67,6 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => 
 							</div>
 						</Link>
 					))}
-					<div className='flex flex-wrap mx-auto my-6 justify-center space-x-12 w-10/12'>
-						<button
-							onClick={handleShowArticlesSettings}
-							className=' font-normal text-sky-400 cursor-pointer'>
-							back
-						</button>
-					</div>
 				</div>
 			)}
 		</div>
