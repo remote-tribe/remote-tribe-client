@@ -19,7 +19,8 @@ const UpdateArticle = ({ article }) => {
 	const [loading, setLoading] = useState(false)
 	const [selectedImage, setSelectedImage] = useState(null)
 	const { articleId } = useParams()
-	const DEFAULT_IMAGE_URL = "http://res.cloudinary.com/dxeejm8ef/image/upload/v1681998829/aldc1ngkd91yif7ddeje.png"
+	const DEFAULT_IMAGE_URL =
+		'http://res.cloudinary.com/dxeejm8ef/image/upload/v1681998829/aldc1ngkd91yif7ddeje.png'
 	useEffect(() => {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
@@ -82,7 +83,8 @@ const UpdateArticle = ({ article }) => {
 	const deleteArticle = () => {
 		axios
 			.delete(
-				`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}?articleId=${article?._id
+				`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}?articleId=${
+					article?._id
 				}&userId=${currentUser.id}&comments=${article?.comments}`,
 			)
 			.then(() => {
@@ -96,14 +98,16 @@ const UpdateArticle = ({ article }) => {
 	}
 
 	return (
-		<div className='mx-auto max-w-screen-md'>
+		<div className='mx-auto max-w-screen-md fade-in-2'>
 			<div className='space-y-4'>
-				<div className='flex items-center space-x-4'>
-					<Link to={`/users/${article?.author?._id}`}>
+				<div className='flex justify-center-center mx-auto'>
+					<Link
+						className='flex justify-center mx-auto'
+						to={`/users/${article?.author?._id}`}>
 						<img
 							src={article?.author?.profilePicture}
 							alt='User Avatar'
-							className='w-12 h-12 rounded-full'
+							className='w-12 h-12 rounded-full mx-auto'
 						/>
 					</Link>
 				</div>
@@ -167,16 +171,16 @@ const UpdateArticle = ({ article }) => {
 							)}
 						</div>
 					</div>
-					<div className='flex space-x-4 justify-center'>
+					<div className='flex space-x-4  justify-center'>
 						<button
 							type='submit'
-							className='w-1/5 p-1 bg-sky-400 dark:bg-sky-500 text-white font-medium rounded-md hover:bg-sky-500 dark:hover:bg-sky-600 transition-all duration-150 hover:shadow-md'>
+							className='w-1/5 p-1 bg-sky-400 dark:bg-sky-500 text-white font-medium rounded-md hover:bg-sky-500 dark:hover:bg-sky-600 transition-all duration-150 hover:shadow-md mb-10 mt-5'>
 							Update Article
 						</button>
 						<button
 							type='button'
 							onClick={() => navigate(`/community/article/${article?._id}`)}
-							className='w-1/5 p-1 bg-gray-400 text-white font-medium rounded-md hover:bg-gray-500 transition-all duration-150 hover:shadow-md'>
+							className='w-1/5 p-1 bg-gray-400 text-white font-medium rounded-md hover:bg-gray-500 transition-all duration-150 hover:shadow-md mb-10 mt-5'>
 							Cancel
 						</button>
 					</div>

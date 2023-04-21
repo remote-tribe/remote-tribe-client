@@ -57,7 +57,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 		}
 	}
 	return (
-		<section className=''>
+		<section className='fade-in-2'>
 			{error ? (
 				<div
 					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3'
@@ -164,7 +164,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 										onChange={(e) => setTermsAgreed(e.target.checked)}
 										aria-describedby='terms'
 										type='checkbox'
-										className='w-4 cursor-pointer h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800'
+										className='w-4 cursor-pointer h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 accent-sky-500'
 									/>
 								</div>
 								<div className='ml-3 text-sm'>

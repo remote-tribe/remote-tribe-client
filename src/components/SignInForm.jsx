@@ -39,7 +39,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 	}
 
 	return (
-		<section className=' '>
+		<section className='fade-in-2'>
 			{message && (
 				<div
 					className='bg-green-100 dark:bg-green-500 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3'
@@ -122,7 +122,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 											checked={rememberMe}
 											onChange={handleRememberMeChange}
 											className='cursor-pointer w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300
-                                     dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800'
+                                     dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 accent-sky-500'
 										/>
 									</div>
 									<div className='ml-3 text-sm'>

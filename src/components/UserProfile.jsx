@@ -82,7 +82,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 	}, [currentUserFollowing, userData])
 
 	return (
-		<main className='profile-page'>
+		<main className='profile-page '>
 			<section className='relative block h-80'>
 				<div className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16'>
 					<svg
@@ -97,7 +97,7 @@ export const UserProfile = ({ userData, currentUser }) => {
 			</section>
 
 			{userData && (
-				<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 dark:text-gray-200 w-full mb-6  rounded-lg -mt-64'>
+				<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 dark:text-gray-200 w-full mb-6  rounded-lg -mt-64 fade-in-2'>
 					<div className='px-6'>
 						<div className='flex flex-wrap justify-center'></div>
 

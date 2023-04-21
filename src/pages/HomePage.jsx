@@ -57,7 +57,7 @@ export const HomePage = () => {
 	}
 
 	return (
-		<div className=''>
+		<div className='fade-in '>
 			{loading ? (
 				<div className='text-center text-sky-400 flex justify-center mt-60 '>
 					<FadeLoader
@@ -74,7 +74,7 @@ export const HomePage = () => {
 							<div className='container mx-auto flex px-5 p-8 md:py-20 md:flex-row flex-col items-center'>
 								<div className='lg:max-w-3xl lg:w-full  md:w-1/2 w-full mb-10 md:mb-0'>
 									<img
-										className='object-cover object-center rounded-md shadow-md'
+										className='object-cover object-center rounded-md shadow-md '
 										alt='hero'
 										src='https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'
 									/>

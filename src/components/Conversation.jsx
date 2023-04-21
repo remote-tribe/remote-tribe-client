@@ -53,11 +53,11 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 
 	return (
 		<div
-			className='w-full h-full'
+			className='w-full h-full  '
 			onClick={() => isMenuOpen && setIsMenuOpen(false)}>
 			<div className='  bg-gray-100 dark:bg-gray-800  h-full'>
 				{userData && (
-					<div className='flex-1 p:2 sm:p-6 justify-between last flex flex-col h-full '>
+					<div className='flex-1 p:2 sm:p-6 justify-between last flex flex-col h-full  fade-in-2 '>
 						<div className='flex sm:items-center justify-between py-3 border-b dark:border-gray-700 border-gray-200'>
 							<Link
 								to={`/users/${userData?._id}`}

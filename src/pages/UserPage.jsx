@@ -189,12 +189,12 @@ export const UserPage = () => {
 											<img
 												alt='...'
 												src={userData?.profilePicture}
-												className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 object-cover'
+												className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 object-cover fade-in-2'
 											/>
 										</div>
 										<div className='w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center'>
 											<div className='py-6 px-3 mt-32 sm:mt-0'>
-												<div className='py-6 px-3 mt-32 sm:mt-0'>
+												<div className='py-6 px-3 mt-32 sm:mt-0 fade-in-2'>
 													{isCurrentUser ? (
 														<button
 															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
@@ -231,8 +231,8 @@ export const UserPage = () => {
 										</div>
 
 										<div className='w-full lg:w-4/12 px-4 lg:order-1'>
-											<div className='flex justify-center py-4 lg:pt-4 pt-8'>
-												<div className='lg:mr-4 p-3 text-center'>
+											<div className='flex justify-center py-4 lg:pt-4 pt-8 fade-in-2'>
+												<div className='lg:mr-4 p-3 text-center '>
 													<Link className=' text-xl font-bold block uppercase tracking-wide  '>
 														<button
 															onClick={handleShowFollowersSettings}
@@ -286,7 +286,7 @@ export const UserPage = () => {
 										)}
 
 										{userData && !showArticlesSettings && !showFollowers && !showFollowing && (
-											<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6  rounded-lg -mt-64 dark:text-gray-200'>
+											<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6  rounded-lg -mt-64 dark:text-gray-200 fade-in-2'>
 												<div className='px-6'>
 													<div className='flex flex-wrap justify-center'></div>
 

@@ -23,7 +23,8 @@
     "react-quill": "^2.0.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.10.0",
-    "react-spinners": "^0.13.8"
+    "react-spinners": "^0.13.8",
+    "tw-elements": "^1.0.0-beta2"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

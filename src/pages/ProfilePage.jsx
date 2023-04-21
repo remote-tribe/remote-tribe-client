@@ -184,7 +184,7 @@ export const ProfilePage = () => {
 		</div>
 	) : (
 		<>
-			<main className='profile-page'>
+			<main className='profile-page '>
 				<section className='relative block h-80'>
 					<div className='w-full h-full bg-center bg-cover'>
 						<span className='w-full h-full absolute opacity-50 dark:bg-sky-800 bg-sky-400'></span>
@@ -201,7 +201,7 @@ export const ProfilePage = () => {
 					</div>
 				</section>
 				{userData && (
-					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 dark:text-gray-200'>
+					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 dark:text-gray-200  '>
 						<div className='container mx-auto px-4 '>
 							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6 shadow-lg rounded-lg -mt-64'>
 								<div className='px-6'>
@@ -218,14 +218,14 @@ export const ProfilePage = () => {
 												<img
 													alt='...'
 													src={userData?.profilePicture}
-													className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover'
+													className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover fade-in-2'
 													onClick={handleImageClick}
 												/>
 											) : (
 												<img
 													alt='...'
 													src={userData?.profilePicture}
-													className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16  object-cover'
+													className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16  object-cover fade-in-2'
 												/>
 											)}
 										</div>
@@ -235,7 +235,7 @@ export const ProfilePage = () => {
 													<div className='py-6 px-3 mt-32 sm:mt-0'>
 														<button
 															onClick={handleShowSettings}
-															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 fade-in-2'
 															type='button'>
 															Settings
 														</button>
@@ -244,7 +244,7 @@ export const ProfilePage = () => {
 											</div>
 										</div>
 
-										<div className='w-full lg:w-4/12 px-4 lg:order-1'>
+										<div className='w-full lg:w-4/12 px-4 lg:order-1 fade-in-2 '>
 											<div className='flex justify-center py-4 lg:pt-4 pt-8'>
 												<div className='lg:mr-4 p-3 text-center'>
 													<Link className=' text-xl font-bold block uppercase tracking-wide  '>

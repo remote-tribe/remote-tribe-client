@@ -47,7 +47,6 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 		}
 	}
 
-
 	//END!! handle images
 
 	const handleContentChange = (newContent) => {
@@ -84,7 +83,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	}
 
 	return (
-		< div >
+		<div className='fade-in-2'>
 			<form
 				onSubmit={handleSubmit}
 				className='mx-auto max-w-5xl space-y-4 '>
@@ -115,7 +114,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 							alt='Uploaded thumbnail'
 							className='w-24 h-24 object-cover  rounded'
 						/>
-					) : (loading ? (
+					) : loading ? (
 						<div className='text-center text-sky-400 flex justify-center mt-5 '>
 							<FadeLoader
 								color={'#00a8e8'}
@@ -133,7 +132,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 								onChange={handleImageChange}
 							/>
 						</>
-					))}
+					)}
 				</div>
 
 				<div>
@@ -157,8 +156,8 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						Cancel
 					</button>
 				</div>
-			</form >
-		</ div >
+			</form>
+		</div>
 	)
 }
 
