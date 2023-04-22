@@ -85,19 +85,19 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 									<i className='fa-solid fa-ellipsis-vertical'></i>
 								</button>
 								{isMenuOpen && (
-									<div className='absolute right-0 mt-2  w-48 bg-white  shadow-lg z-10'>
+									<div className='absolute right-0 mt-2  w-48  shadow-lg'>
 										<Link
 											to={`/users/${userData?._id}`}
-											className='block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 w-full text-left'>
+											className='block px-4 py-3 text-md w-full text-left text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 bg-white dark:bg-gray-600'>
 											View Profile
 										</Link>
-										<button className='block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 w-full text-left'>
+										<button className='block px-4 py-3 text-md  w-full text-left text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 bg-white dark:bg-gray-600 border-b dark:border-gray-500'>
 											Report
 										</button>
-										<hr />
+
 										<button
 											onClick={deleteConversation}
-											className='block px-4 py-2 text-md text-rose-500 hover:bg-gray-100 w-full text-left'>
+											className='block px-4 py-3 text-md text-rose-500 hover:bg-gray-100 w-full text-left dark:hover:bg-gray-700  bg-white dark:bg-gray-600'>
 											Delete Conversation
 										</button>
 									</div>

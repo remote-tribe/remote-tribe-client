@@ -1,17 +1,18 @@
-import axios from 'axios'
+import React, { useRef, useEffect, useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
+
 import { UserContext } from '../context/UserContext'
 import { UserProfile } from '../components/UserProfile'
 import { UserSettings } from '../components/UserSettings'
-import { GetCurrentUser } from '../Auth'
+import { UserArticles } from '../components/UserArticles'
+import { UserFollowing } from '../components/UserFollowing'
+import { UserFollowers } from '../components/UserFollowers'
 import { AccountSettings } from '../components/AccountSettings'
-import UserArticles from '../components/UserArticles'
-import { useEffect, useState, useContext } from 'react'
-import { FadeLoader } from 'react-spinners'
-import { Link, useNavigate } from 'react-router-dom'
-import React, { useRef } from 'react'
-import UserFollowing from '../components/UserFollowing'
-import UserFollowers from '../components/UserFollowers'
 
+import axios from 'axios'
+import { GetCurrentUser } from '../Auth'
+
+import { FadeLoader } from 'react-spinners'
 const override = {
 	display: 'block',
 	margin: '0 auto',
@@ -20,14 +21,126 @@ const override = {
 
 export const ProfilePage = () => {
 	const [loading, setLoading] = useState(true)
-	const { handleLogout } = useContext(UserContext)
-	const currentUser = GetCurrentUser()
 	const [userData, setUserData] = useState(null)
+	const [loadingImg, setLoadingImg] = useState(false)
 	const [showSettings, setShowSettings] = useState(false)
-	const [showAccountSettings, setShowAccountSettings] = useState(false)
-	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
+	const [uploadedImage, setUploadedImage] = useState(null)
 	const [showFollowing, SetShowFollowing] = useState(false)
 	const [showFollowers, SetShowFollowers] = useState(false)
+	const [uploadedImageURL, setUploadedImageURL] = useState('')
+	const [showAccountSettings, setShowAccountSettings] = useState(false)
+	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
+
+	const fileInputRef = useRef(null)
+	const currentUser = GetCurrentUser()
+	const token = localStorage.getItem('token')
+	const { handleLogout } = useContext(UserContext)
+
+	const isCurrentUser = userData?._id === currentUser?.id
+
+	useEffect(() => {
+		if (uploadedImageURL) {
+			updateUserImage()
+		}
+	}, [uploadedImageURL])
+
+	useEffect(() => {
+		const token = localStorage.getItem('token')
+
+		if (token && currentUser) {
+			fetchData()
+		}
+	}, [showSettings, uploadedImage])
+
+	const fetchData = async () => {
+		try {
+			const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/users/current`, {
+				headers: { Authorization: `Bearer ${token}` },
+			})
+			setUserData(data)
+		} catch (error) {
+			console.error(error)
+			if (axios.isAxiosError(error) && error.response.status === 401) {
+				handleLogout()
+			}
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const updateUserImage = async () => {
+		try {
+			await axios.put(
+				`${import.meta.env.VITE_BASE_URL}/api/users/current`,
+				{
+					profilePicture: uploadedImageURL,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+				},
+			)
+		} catch (err) {
+			console.error('Error updating user profile: ', err)
+		}
+	}
+
+	// Image handling
+
+	const handleImageClick = () => {
+		fileInputRef.current.click()
+	}
+
+	const handleImageChange = async (event) => {
+		try {
+			const selectedImage = event.target.files[0]
+
+			const reader = new FileReader()
+			reader.onloadend = () => {
+				setUploadedImage(reader.result)
+			}
+			reader.readAsDataURL(selectedImage)
+
+			await handleImageUpload(selectedImage)
+		} catch (error) {
+			console.error(error)
+		} finally {
+			setLoadingImg(false)
+		}
+	}
+
+	const handleImageUpload = async (image) => {
+		if (!image) {
+			return
+		}
+
+		const formData = new FormData()
+		formData.append('file', image)
+		formData.append('upload_preset', 'fsgqertv')
+
+		try {
+			setLoadingImg(true)
+
+			const response = await axios.post('https://api.cloudinary.com/v1_1/dxeejm8ef/image/upload', formData)
+
+			const uploadedImageUrl = response.data.url
+			const transformedUrl = `${uploadedImageUrl.replace(
+				'/image/upload/',
+				'/image/upload/c_fill,ar_1:1,h_160,w_160/',
+			)}`
+
+			setUploadedImageURL(uploadedImageUrl)
+			setUploadedImage(transformedUrl)
+			setLoadingImg(false)
+		} catch (error) {
+			setLoadingImg(false)
+			console.error('Error uploading image:', error)
+		}
+	}
+
+	//Profile sections render handling
 
 	const handleShowSettings = () => {
 		setShowSettings(!showSettings)
@@ -66,113 +179,6 @@ export const ProfilePage = () => {
 		setShowArticlesSettings(false)
 	}
 
-	const token = localStorage.getItem('token')
-	const navigate = useNavigate()
-
-	// handle message
-	const handleMessage = () => {
-		if (!token) {
-			return navigate('/signin')
-		} else navigate('/inbox', { state: { user: userData } })
-	}
-
-	// set upload images
-	const [selectedImage, setSelectedImage] = useState(null)
-	const [uploadedImage, setUploadedImage] = useState(null)
-	const [uploadedImageURL, setUploadedImageURL] = useState('')
-	//START!! handle images
-	const fileInputRef = useRef(null)
-
-	const handleImageChange = async (e) => {
-		setSelectedImage(e.target.files[0])
-		const reader = new FileReader()
-		reader.onloadend = () => {
-			setUploadedImage(reader.result)
-		}
-		reader.readAsDataURL(e.target.files[0])
-
-		await handleImageUpload(e.target.files[0])
-	}
-
-	const handleImageClick = () => {
-		fileInputRef.current.click()
-	}
-	const handleImageUpload = async (imageFile) => {
-		if (!imageFile) return
-
-		// create a FormData
-		const formData = new FormData()
-		formData.append('file', imageFile)
-		formData.append('upload_preset', 'fsgqertv')
-
-		// sent POST request to Cloudinary
-		try {
-			const res = await axios.post(`https://api.cloudinary.com/v1_1/dxeejm8ef/image/upload`, formData)
-			setUploadedImageURL(res.data.url)
-			const transformedUrl = `${res.data.url.replace(
-				'/image/upload/',
-				'/image/upload/c_fill,ar_1:1,h_160,w_160/',
-			)}`
-			setUploadedImage(transformedUrl)
-		} catch (err) {
-			console.error('Error uploading image: ', err)
-		}
-	}
-
-	useEffect(() => {
-		if (uploadedImageURL) {
-			updateUserProfile()
-		}
-	}, [uploadedImageURL])
-
-	const updateUserProfile = async () => {
-		const updatedUserData = {
-			profilePicture: uploadedImageURL,
-		}
-		console.log(updatedUserData)
-		try {
-			const res = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/users/current`, updatedUserData, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`, //！！！！
-				},
-			})
-
-			if (res.data) {
-				console.log('User profile updated successfully')
-			}
-		} catch (err) {
-			console.error('Error updating user profile: ', err)
-		}
-	}
-
-	useEffect(() => {
-		const token = localStorage.getItem('token')
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/users/current`, {
-					headers: { Authorization: `Bearer ${token}` },
-				})
-				setLoading(false)
-				setUserData(response.data)
-			} catch (error) {
-				setLoading(false)
-				console.log(error.message)
-				if (error.message.includes('401')) {
-					handleLogout()
-				}
-				console.log(error)
-			}
-		}
-
-		if (token && currentUser) {
-			fetchData()
-		}
-	}, [showSettings])
-
-	// handle current user
-	const isCurrentUser = userData?._id === currentUser?.id
-
 	return loading ? (
 		<div className='text-center text-sky-400 flex justify-center mt-60 '>
 			<FadeLoader
@@ -206,8 +212,9 @@ export const ProfilePage = () => {
 							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6 shadow-lg rounded-lg -mt-64'>
 								<div className='px-6'>
 									<div className='flex flex-wrap justify-center'>
-										<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center'>
+										<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center '>
 											<input
+												className=''
 												type='file'
 												accept='image/*'
 												ref={fileInputRef}
@@ -215,12 +222,42 @@ export const ProfilePage = () => {
 												style={{ display: 'none' }}
 											/>
 											{isCurrentUser ? (
-												<img
-													alt='...'
-													src={userData?.profilePicture}
-													className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover fade-in-2'
-													onClick={handleImageClick}
-												/>
+												<>
+													{loadingImg ? (
+														<FadeLoader
+															color={'#00a8e8'}
+															loading={loading}
+															css={override}
+															size={50}
+														/>
+													) : (
+														<>
+															<img
+																alt='...'
+																src={userData?.profilePicture}
+																className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover fade-in-2'
+																onClick={handleImageClick}
+															/>
+															<div
+																onClick={handleImageClick}
+																className='group shadow-xl bg-transparent z-10 
+													hover:bg-white hover:bg-opacity-40 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover fade-in-2 transition-all duration-300'>
+																<svg
+																	className='h-12 w-12 group-hover:text-white text-transparent transition-all duration-300'
+																	fill='none'
+																	viewBox='0 0 24 24'
+																	stroke='currentColor'>
+																	<path
+																		strokeLinecap='round'
+																		strokeLinejoin='round'
+																		strokeWidth='2'
+																		d='M12 6v6m0 0v6m0-6h6m-6 0H6'
+																	/>
+																</svg>
+															</div>
+														</>
+													)}
+												</>
 											) : (
 												<img
 													alt='...'

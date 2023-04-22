@@ -48,7 +48,7 @@ export const HomePage = () => {
 			.get(`${import.meta.env.VITE_BASE_URL}/api/community/articles`)
 			.then(({ data }) => {
 				setLoading(false)
-				setArticles(data.reverse())
+				setArticles(data)
 			})
 			.catch((error) => {
 				setLoading(false)
@@ -122,7 +122,7 @@ export const HomePage = () => {
 							interval={3000}
 							centerSlidePercentage={25}
 							centerMode={true}>
-							{articles?.map((article, index) => (
+							{articles?.slice(0, 4).map((article, index) => (
 								<Link
 									to={`/community/article/${article?._id}`}
 									key={index}

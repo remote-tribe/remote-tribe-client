@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) => {
+
+export const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) => {
 	const navigate = useNavigate()
 
 	const [userFollowers, setUserFollowers] = useState([])
@@ -85,5 +86,3 @@ const UserFollowers = ({ userData, currentUser, handleShowFollowersSettings }) =
 		</div>
 	)
 }
-
-export default UserFollowers

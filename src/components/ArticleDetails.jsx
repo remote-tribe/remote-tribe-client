@@ -194,7 +194,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 											{isOpen && (
 												<div className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-600  ring-1 ring-black ring-opacity-5 focus:outline-none'>
 													<div
-														className='py-1'
+														className=''
 														role='menu'
 														aria-orientation='vertical'
 														aria-labelledby='options-menu'>
@@ -202,19 +202,19 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 															<>
 																<Link
 																	to={`/community/article/${article?._id}/edit`}
-																	className='block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-500 hover:text-gray-900'>
+																	className='block px-4 py-3 text-md text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900'>
 																	Edit
 																</Link>
 																<Link
 																	onClick={openModal}
-																	className=' block dark:text-red-400  px-4 py-2 text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-500 hover:text-gray-900'
+																	className=' block dark:text-red-400  px-4 py-3 text-md text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900'
 																	role='menuitem'>
 																	Delete
 																</Link>
 															</>
 														) : (
 															<Link
-																className='block dark:text-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+																className='block dark:text-gray-100 px-4 py-3 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 '
 																role='menuitem'>
 																Report
 															</Link>

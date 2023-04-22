@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => {
+export const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => {
 	const navigate = useNavigate()
 	const [articles, setArticles] = useState([])
 
@@ -72,5 +72,3 @@ const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => 
 		</div>
 	)
 }
-
-export default UserArticles

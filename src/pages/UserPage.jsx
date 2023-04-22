@@ -7,9 +7,9 @@ import { GetCurrentUser } from '../Auth'
 import { FadeLoader } from 'react-spinners'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import UserArticles from '../components/UserArticles'
-import UserFollowers from '../components/UserFollowers'
-import UserFollowing from '../components/UserFollowing'
+import { UserArticles } from '../components/UserArticles'
+import { UserFollowers } from '../components/UserFollowers'
+import { UserFollowing } from '../components/UserFollowing'
 
 const override = {
 	display: 'block',
