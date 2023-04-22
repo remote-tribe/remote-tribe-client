@@ -22,7 +22,7 @@ export const UserArticles = ({ currentUser, handleShowArticlesSettings, userData
 	}
 
 	return (
-		<div className='mt-6'>
+		<div className='fade-in-2 mt-6'>
 			<div className='mx-auto my-8 flex w-10/12 flex-wrap justify-center space-x-12'>
 				<button
 					onClick={handleShowArticlesSettings}

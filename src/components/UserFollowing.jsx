@@ -27,7 +27,7 @@ export const UserFollowing = ({ userData, currentUser, handleShowFollowingSettin
 	}, [])
 
 	return (
-		<div className='flex w-full justify-center'>
+		<div className='fade-in-2 flex w-full justify-center'>
 			{followingUsers && (
 				<table class='my-8 w-3/4 text-center text-2xl  '>
 					<thead className='h-16'>

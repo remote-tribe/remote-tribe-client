@@ -16,7 +16,7 @@ export const UserFollowers = ({ userData, currentUser, handleShowFollowersSettin
 					headers: { Authorization: `Bearer ${token}` },
 				},
 			)
-			console.log(response.data)
+
 			setUserFollowers(response.data)
 		} catch (err) {
 			console.error('Error fetching following users: ', err)
@@ -28,7 +28,7 @@ export const UserFollowers = ({ userData, currentUser, handleShowFollowersSettin
 	}, [])
 
 	return (
-		<div className='flex w-full justify-center'>
+		<div className='fade-in-2 flex w-full justify-center'>
 			{userFollowers && (
 				<table class='my-8 w-3/4 text-center text-2xl  '>
 					<thead className='h-16'>

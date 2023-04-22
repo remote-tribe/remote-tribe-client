@@ -1,10 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { Animate, initTE } from 'tw-elements'
 
 const ArticleList = ({ articles, handleShowCreate }) => {
 	const [searchQuery, setSearchQuery] = useState('')
-	const navigate = useNavigate()
 
 	const filteredArticles = articles?.filter((article) => {
 		const titleMatch = article?.title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -33,15 +31,15 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 			</div>
 
 			{filteredArticles && (
-				<div className='fade-in mx-auto my-6 flex w-10/12 flex-wrap justify-center '>
+				<div className='fade-in mx-auto my-6 flex flex-wrap justify-center md:w-10/12 '>
 					{filteredArticles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='mx-16 mt-24 flex h-96 w-[30vw] cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-700 dark:text-gray-50 dark:hover:shadow-gray-700 md:mt-52  '>
+							className='mx-2 my-2 flex h-96 cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-600  dark:text-gray-100 dark:hover:shadow-gray-700 md:mx-16  md:mt-24 md:w-[30vw] '>
 							{article?.imageUrl ? (
 								<img
-									className='h-64 w-full object-cover object-center'
+									className='h-64 w-full '
 									src={article?.imageUrl}
 									alt={article?.title}
 								/>
@@ -51,18 +49,18 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 
 							<div className='flex justify-between px-4 py-4'>
 								<div className='mb-2 text-xl font-semibold'>{article?.title}</div>
-								<span className='px-2 py-1 text-sm font-semibold text-gray-700 dark:text-gray-200'>
+								<span className='px-2 py-1 text-sm font-semibold text-gray-700 dark:text-gray-100'>
 									{new Date(article?.createdAt).toLocaleDateString('en-GB')}
 								</span>
 							</div>
 							<div className='mb-2 ml-2 mt-auto flex justify-between'>
 								<div className='mb-1 mr-4 space-x-4 text-xl'>
-									<span className='space-x-1 text-gray-600 dark:text-gray-50'>
-										<i className='fa-solid fa-thumbs-up mx-1  text-sky-400' />
+									<span className='space-x-1 text-gray-600 dark:text-gray-100 '>
+										<i className='fa-solid fa-thumbs-up dark:text-sky-599  mx-1 text-sky-500 dark:text-sky-400' />
 										{article?.likes}
 									</span>
-									<span className='space-x-1  text-gray-600 dark:text-gray-50'>
-										<i className='fa-solid fa-comment mx-1 text-sky-400' />
+									<span className='space-x-1  text-gray-600 dark:text-gray-100 '>
+										<i className='fa-solid fa-comment dark:text-sky-599 mx-1 text-sky-500 dark:text-sky-400' />
 										{article?.comments?.length}
 									</span>
 								</div>
