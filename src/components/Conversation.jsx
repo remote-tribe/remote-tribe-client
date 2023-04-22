@@ -1,18 +1,35 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUser }) => {
 	const [chat, setChat] = useState([])
 	const [message, setMessage] = useState('')
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const token = localStorage.getItem('token')
+	const navigate = useNavigate()
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen)
 	}
 
-	const deleteConversation = (e) => {
+	const deleteConversation = async (e) => {
 		e.preventDefault()
+		const id = chat?._id
+
+		try {
+			await axios.delete(
+				`${import.meta.env.VITE_BASE_URL}/api/conversation?conversationId=${id}`,
+
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				},
+			)
+			navigate(location.pathname, {})
+			fetchCurrentUser()
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	useEffect(() => {
@@ -25,7 +42,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		if (conversation) {
 			setChat(conversation)
 		}
-	}, [userData])
+	}, [userData, currentUser])
 
 	const handleSubmit = async (e) => {
 		const token = localStorage.getItem('token')
@@ -43,9 +60,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 				},
 			)
 			fetchUser(userData?._id)
-
 			setMessage('')
-			console.log(response.data)
 		} catch (error) {
 			console.log(error)
 		}

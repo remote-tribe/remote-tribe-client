@@ -26,6 +26,7 @@ export const InboxPage = () => {
 	const location = useLocation()
 
 	const fetchCurrentUser = async () => {
+		setUserData(null)
 		setLoading(true)
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
@@ -44,14 +45,13 @@ export const InboxPage = () => {
 			}
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
 			setUserData(response.data)
-			console.log(response.data)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
 	useEffect(() => {
-		if (location) {
+		if (location?.state) {
 			setUserData(location?.state?.user)
 			fetchUser(location?.state?.user?._id)
 		}
