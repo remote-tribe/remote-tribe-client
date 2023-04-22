@@ -45,16 +45,16 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 			<section className='relative block h-60'></section>
 			{userData && (
 				<div className='container mx-auto px-4 '>
-					<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 dark:text-gray-200 w-full mb-4  rounded-lg -mt-64 '>
+					<div className='relative -mt-64 mb-4 flex w-full min-w-0 flex-col break-words rounded-lg bg-white  dark:bg-slate-700 dark:text-gray-200 '>
 						<Link
 							onClick={handleShowAccountSettings}
-							className=' text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500 text-xl absolute  -top-20 -right-12 cursor-pointer ml-auto mr-10 '>
+							className=' absolute -right-12 -top-20 ml-auto mr-10 cursor-pointer  text-xl text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500 '>
 							Account Settings
 						</Link>
 						<div className='px-6'>
 							<div className='flex flex-wrap justify-center'>
-								<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
-									<h1 className='text-center  text-gray-800 dark:text-gray-200 text-3xl font-semibold my-4'>
+								<div className='w-full px-4 lg:order-3 lg:w-full lg:self-center lg:text-right'>
+									<h1 className='my-4  text-center text-3xl font-semibold text-gray-800 dark:text-gray-200'>
 										Profile Settings
 									</h1>
 
@@ -63,12 +63,12 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 										onSubmit={handleSubmit}>
 										<div className='mb-4 flex flex-col items-center '>
 											<label
-												className='block text-gray-700  font-normal mb-2'
+												className='mb-2 block  font-normal text-gray-700'
 												htmlFor='username'>
 												Username:
 											</label>
 											<input
-												className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150  dark:bg-gray-800 dark:border-slate-600 dark:text-gray-300'
+												className='text-md w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2 text-center  leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow  dark:border-slate-600 dark:bg-gray-800 dark:text-gray-300'
 												id='username'
 												type='text'
 												value={username}
@@ -78,12 +78,12 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 										</div>
 										<div className='mb-4 flex flex-col items-center '>
 											<label
-												className='block text-gray-700  font-normal mb-2'
+												className='mb-2 block  font-normal text-gray-700'
 												htmlFor='profession'>
 												Profession:
 											</label>
 											<input
-												className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150  dark:bg-gray-800 dark:border-slate-600 dark:text-gray-300'
+												className='text-md w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2 text-center  leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow  dark:border-slate-600 dark:bg-gray-800 dark:text-gray-300'
 												id='profession'
 												type='text'
 												value={profession}
@@ -93,13 +93,13 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 										</div>
 										<div className='mb-4 flex flex-col items-center '>
 											<label
-												className='block text-gray-700  font-normal mb-2'
+												className='mb-2 block  font-normal text-gray-700'
 												htmlFor='location-city location-country'>
 												Location:
 											</label>
 											<div className='flex justify-center space-x-2'>
 												<input
-													className='border-gray-300 border rounded w-2/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 dark:bg-gray-800 dark:border-slate-600 dark:text-gray-300'
+													className='text-md w-2/5 cursor-pointer rounded border border-gray-300 px-4 py-2 text-center  leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-gray-800 dark:text-gray-300'
 													id='location-city'
 													type='text'
 													value={location.city}
@@ -109,7 +109,7 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 												/>
 
 												<input
-													className='border-gray-300 border rounded w-2/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 dark:bg-gray-800 dark:border-slate-600 dark:text-gray-300'
+													className='text-md w-2/5 cursor-pointer rounded border border-gray-300 px-4 py-2 text-center  leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-gray-800 dark:text-gray-300'
 													id='location-country'
 													type='text'
 													value={location.country}
@@ -122,28 +122,28 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 
 										<div className='mb-4 flex flex-col items-center'>
 											<label
-												className='block text-gray-700  font-normal mb-2'
+												className='mb-2 block  font-normal text-gray-700'
 												htmlFor='description'>
 												Description:
 											</label>
 											<textarea
-												className=' border-gray-300 text-center border rounded w-6/12 h-30 resize-none py-4 px-4 text-gray-700 leading-tight cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 dark:bg-gray-800 dark:border-slate-600 dark:text-gray-300'
+												className=' h-30 w-6/12 cursor-pointer resize-none rounded border border-gray-300 px-4 py-4 text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-gray-800 dark:text-gray-300'
 												id='description'
 												name='description'
 												value={description}
 												onChange={(e) => setDescription(e.target.value)}
 											/>
 										</div>
-										<div className='flex justify-center items-center '>
+										<div className='flex items-center justify-center '>
 											<button
 												type='submit'
-												className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+												className='text-md mb-1 w-40 rounded bg-sky-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2 '>
 												Save
 											</button>
 											<button
 												onClick={handleShowSettings}
 												type='button'
-												className='bg-gray-500 hover:bg-gray-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+												className='text-md mb-1 w-40 rounded bg-gray-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-gray-600 hover:shadow-md sm:mr-2 '>
 												Cancel
 											</button>
 										</div>

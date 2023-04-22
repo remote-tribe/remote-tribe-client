@@ -35,15 +35,15 @@ export const NavBar = () => {
 	}, [loggedUser])
 
 	return (
-		<div className='bg-white dark:bg-gray-900 shadow p-0 m-0'>
-			<div className='flex items-center justify-between py-2 px-6'>
+		<div className='m-0 bg-white p-0 shadow dark:bg-gray-900'>
+			<div className='flex items-center justify-between px-6 py-2'>
 				<div className='mr-10'>
 					<NavLink
 						to='/'
 						onClick={() => setShowNav(false)}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
-							className='w-10 h-10 text-sky-500 dark:text-sky-400'
+							className='h-10 w-10 text-sky-500 dark:text-sky-400'
 							viewBox='0 0 24 24'>
 							<path
 								fill='currentColor'
@@ -53,13 +53,13 @@ export const NavBar = () => {
 					</NavLink>
 				</div>
 
-				<div className='hidden sm:flex sm:items-center flex-1'>
+				<div className='hidden flex-1 sm:flex sm:items-center'>
 					<NavLink
 						to='/community'
 						className={({ isActive }) =>
 							isActive
-								? ' text-sky-400 text-lg font-semibold  mx-4'
-								: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+								? ' mx-4 text-lg font-semibold  text-sky-400'
+								: 'mx-4 text-lg font-semibold text-gray-800 hover:text-sky-400 dark:text-gray-400 dark:hover:text-sky-400'
 						}>
 						Community
 					</NavLink>
@@ -71,9 +71,9 @@ export const NavBar = () => {
 							setMoon(true)
 							setSun(false)
 						}}
-						className='moon-icon mr-10 group  items-center text-gray-600 hover:text-sky-600 font-medium dark:text-gray-400 dark:hover:text-sky-500 cursor-pointer'>
+						className='moon-icon group mr-10  cursor-pointer items-center font-medium text-gray-600 hover:text-sky-600 dark:text-gray-400 dark:hover:text-sky-500'>
 						<svg
-							className='w-5 h-5'
+							className='h-5 w-5'
 							xmlns='http://www.w3.org/2000/svg'
 							fill='currentColor'
 							viewBox='0 0 16 16'>
@@ -88,9 +88,9 @@ export const NavBar = () => {
 							setMoon(false)
 							setSun(true)
 						}}
-						className='sun-icon mr-11 group  items-center text-gray-600 hover:text-sky-400 font-medium dark:text-gray-400 dark:hover:text-sky-300 cursor-pointer'>
+						className='sun-icon group mr-11  cursor-pointer items-center font-medium text-gray-600 hover:text-sky-400 dark:text-gray-400 dark:hover:text-sky-300'>
 						<svg
-							className='w-5 h-5'
+							className='h-5 w-5'
 							xmlns='http://www.w3.org/2000/svg'
 							fill='currentColor'
 							viewBox='0 0 16 16'>
@@ -104,8 +104,8 @@ export const NavBar = () => {
 						to={`/inbox`}
 						className={({ isActive }) =>
 							isActive
-								? ' text-sky-400 text-lg font-semibold  mx-4'
-								: 'dark:hover:text-sky-400 text-gray-500 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+								? ' mx-4 text-lg font-semibold  text-sky-400'
+								: 'mx-4 text-lg font-semibold text-gray-500 hover:text-sky-400 dark:text-gray-400 dark:hover:text-sky-400'
 						}>
 						<i className='fa-solid fa-envelope'></i>
 					</NavLink>
@@ -118,32 +118,32 @@ export const NavBar = () => {
 								to={`/profile`}
 								className={({ isActive }) =>
 									isActive
-										? ' text-sky-400 text-lg font-semibold  mx-4'
-										: 'dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'
+										? ' mx-4 text-lg font-semibold  text-sky-400'
+										: 'mx-4 text-lg font-semibold text-gray-800 hover:text-sky-400 dark:text-gray-400 dark:hover:text-sky-400'
 								}>
 								{userData.username}
 							</NavLink>
 							<NavLink
 								onClick={Logout}
 								to=''
-								className='dark:hover:text-sky-400 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-400 mx-4'>
+								className='mx-4 text-lg font-semibold text-gray-800 hover:text-sky-400 dark:text-gray-400 dark:hover:text-sky-400'>
 								Sign Out
 							</NavLink>
 						</>
 					) : (
 						<NavLink
 							to='/signin'
-							className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 text-lg font-semibold hover:text-sky-500 mx-4'>
+							className='mx-4 text-lg font-semibold text-gray-800 hover:text-sky-500 dark:text-gray-400 dark:hover:text-sky-300'>
 							Sign in
 						</NavLink>
 					)}
 				</div>
 
-				<div className='sm:hidden cursor-pointer'>
+				<div className='cursor-pointer sm:hidden'>
 					<NavLink onClick={() => setShowNav(!showNav)}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
-							className='w-6 h-6 text-sky-500'
+							className='h-6 w-6 text-sky-500'
 							viewBox='0 0 24 24'>
 							<path
 								fill='currentColor'
@@ -154,29 +154,29 @@ export const NavBar = () => {
 				</div>
 			</div>
 			{showNav && (
-				<div className='block sm:hidden bg-white dark:bg-gray-800 border-t-2 dark:border-gray-700 py-2 transition-all duration'>
+				<div className='duration block border-t-2 bg-white py-2 transition-all dark:border-gray-700 dark:bg-gray-800 sm:hidden'>
 					<div className='flex items-center'>
 						<NavLink
 							onClick={() => setShowNav(false)}
 							to='/community'
-							className='text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 dark:hover:text-sky-300 mb-1 mx-auto'>
+							className='mx-auto mb-1 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
 							Community
 						</NavLink>
 					</div>
 
-					<div className='flex justify-evenly items-center border-t-2 dark:border-gray-700 py-3'>
+					<div className='flex items-center justify-evenly border-t-2 py-3 dark:border-gray-700'>
 						{userData ? (
 							<>
 								<NavLink
 									onClick={() => setShowNav(false)}
 									to='/profile'
-									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 mx-4'>
+									className='mx-4 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
 									{userData.username}
 								</NavLink>
 								<NavLink
 									to=''
 									onClick={Logout}
-									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 mx-4'>
+									className='mx-4 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
 									Sign Out
 								</NavLink>
 							</>
@@ -185,7 +185,7 @@ export const NavBar = () => {
 								<NavLink
 									onClick={() => setShowNav(false)}
 									to='/signin'
-									className='dark:hover:text-sky-300 text-gray-800 dark:text-gray-400 focus:text-sky-300 active:text-sky-300 text-lg font-semibold hover:text-sky-500 mx-4'>
+									className='mx-4 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
 									Sign in
 								</NavLink>
 							</>

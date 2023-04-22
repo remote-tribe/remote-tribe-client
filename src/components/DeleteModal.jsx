@@ -16,18 +16,18 @@ export const DeleteModal = ({ isOpen, closeModal, handleDeleteClick }) => {
 		<Modal
 			style={customStyles}
 			isOpen={isOpen}>
-			<div className='text-lg font-medium mb-4 text-center '>
+			<div className='mb-4 text-center text-lg font-medium '>
 				Are you sure you want to delete this article?
 			</div>
 			<div className='flex justify-center space-x-4 text-lg'>
 				<button
-					className='py-1 px-4 bg-rose-400 dark:bg-rose-400 text-white font-medium rounded-md hover:bg-rose-500 dark:hover:bg-rose-500 transition-all duration-150 hover:shadow-md'
+					className='rounded-md bg-rose-400 px-4 py-1 font-medium text-white transition-all duration-150 hover:bg-rose-500 hover:shadow-md dark:bg-rose-400 dark:hover:bg-rose-500'
 					onClick={handleDeleteClick}>
 					{' '}
 					Delete
 				</button>
 				<button
-					className='py-1 px-4 bg-gray-400 hover:bg-gray-500 text-white font-medium rounded-md transition-all duration-150 hover:shadow-md'
+					className='rounded-md bg-gray-400 px-4 py-1 font-medium text-white transition-all duration-150 hover:bg-gray-500 hover:shadow-md'
 					onClick={closeModal}>
 					Cancel
 				</button>

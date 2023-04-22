@@ -143,18 +143,18 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 	return (
 		article && (
 			<div onClick={closeDropdown}>
-				<main className='pt-8 pb-16 lg:pt-16 lg:pb-24 fade-in-2 '>
-					<div className='flex justify-between px-4 mx-auto max-w-screen-xl '>
-						<article className='mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert'>
-							<header className='mb-4 lg:mb-6 not-format'>
-								<address className='flex items-center justify-between mb-6 not-italic'>
-									<div className='inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white'>
+				<main className='fade-in-2 pb-16 pt-8 lg:pb-24 lg:pt-16 '>
+					<div className='mx-auto flex max-w-screen-xl justify-between px-4 '>
+						<article className='format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mx-auto w-full max-w-2xl'>
+							<header className='not-format mb-4 lg:mb-6'>
+								<address className='mb-6 flex items-center justify-between not-italic'>
+									<div className='mr-3 inline-flex items-center text-sm text-gray-900 dark:text-white'>
 										<Link
 											to={`/users/${article?.author?._id}`}
 											rel='author'
 											className='text-xl font-semibold text-sky-500 '>
 											<img
-												className='mr-4 w-16 h-16 rounded-full object-center object-cover'
+												className='mr-4 h-16 w-16 rounded-full object-cover object-center'
 												src={article?.author?.profilePicture}
 												alt={article?.author?.username}
 											/>
@@ -183,7 +183,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 										<button
 											type='button'
 											onClick={toggleDropdown}
-											className='inline-flex justify-center w-full rounded-full    px-4 py-2 text-sm font-medium hover:bg-gray-200 text-gray-400 dark:text-gray-500 dark:hover:bg-gray-700 focus:outline-none transition-all duration-150'
+											className='inline-flex w-full justify-center rounded-full    px-4 py-2 text-sm font-medium text-gray-400 transition-all duration-150 focus:outline-none hover:bg-gray-200 dark:text-gray-500 dark:hover:bg-gray-700'
 											id='options-menu'
 											aria-haspopup='true'
 											aria-expanded='true'>
@@ -192,7 +192,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 										<div>
 											{/* Dropdown menu */}
 											{isOpen && (
-												<div className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-600  ring-1 ring-black ring-opacity-5 focus:outline-none'>
+												<div className='absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1  ring-black ring-opacity-5 focus:outline-none dark:bg-gray-600'>
 													<div
 														className=''
 														role='menu'
@@ -202,19 +202,19 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 															<>
 																<Link
 																	to={`/community/article/${article?._id}/edit`}
-																	className='block px-4 py-3 text-md text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900'>
+																	className='text-md block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-gray-700'>
 																	Edit
 																</Link>
 																<Link
 																	onClick={openModal}
-																	className=' block dark:text-red-400  px-4 py-3 text-md text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900'
+																	className=' text-md block  px-4 py-3 text-red-500 hover:bg-gray-100 hover:text-gray-900 dark:text-red-400 dark:hover:bg-gray-700'
 																	role='menuitem'>
 																	Delete
 																</Link>
 															</>
 														) : (
 															<Link
-																className='block dark:text-gray-100 px-4 py-3 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 '
+																className='text-md block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-gray-700 '
 																role='menuitem'>
 																Report
 															</Link>
@@ -232,7 +232,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 										</div>
 									</div>
 								</address>
-								<h1 className='mb-4 text-3xl font-semibold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white'>
+								<h1 className='mb-4 text-3xl font-semibold leading-tight text-gray-900 dark:text-white lg:mb-6 lg:text-4xl'>
 									{article?.title}
 								</h1>
 							</header>
@@ -245,30 +245,30 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 							</figure>
 
 							<div
-								className='my-10 dark:text-gray-200 prose dark:prose-headings:text-gray-200 '
+								className='prose my-10 dark:text-gray-200 dark:prose-headings:text-gray-200 '
 								dangerouslySetInnerHTML={{ __html: article?.content }}
 							/>
-							<div className='flex items-center my-4 text-4xl'>
+							<div className='my-4 flex items-center text-4xl'>
 								<button
-									className={`inline-flex items-center   justify-center w-fit mx-4 transition-all duration-300 transform-gpu  ${
+									className={`mx-4 inline-flex   w-fit transform-gpu items-center justify-center transition-all duration-300  ${
 										isLiked ? 'text-sky-400 dark:text-sky-300' : 'text-slate-400 dark:text-slate-200 '
 									}`}
 									onClick={handleLike}>
 									<i className='fa-solid fa-thumbs-up  '></i>
 								</button>
 
-								<p className=' text-gray-600 dark:text-white mr-4 text-3xl'>{likesNum}</p>
+								<p className=' mr-4 text-3xl text-gray-600 dark:text-white'>{likesNum}</p>
 							</div>
 							<section className='not-format'>
-								<div className='flex justify-between items-center mb-6'>
-									<h2 className='text-lg lg:text-2xl font-bold text-gray-900 dark:text-white'>
+								<div className='mb-6 flex items-center justify-between'>
+									<h2 className='text-lg font-bold text-gray-900 dark:text-white lg:text-2xl'>
 										Discussion ({article?.comments?.length})
 									</h2>
 								</div>
 								<form
 									className='mb-6'
 									onSubmit={handleSubmit}>
-									<div className='ring-sky-400 focus-within:ring-2 py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-700 transition-all duration-150'>
+									<div className='mb-4 rounded-lg rounded-t-lg border border-gray-200 bg-white px-4 py-2 ring-sky-400 transition-all duration-150 focus-within:ring-2 dark:border-gray-700 dark:bg-gray-700'>
 										<label
 											htmlFor='comment'
 											className='sr-only'>
@@ -279,25 +279,25 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 											rows='6'
 											onChange={(e) => setCommentValue(e.target.value)}
 											value={commentValue}
-											className='px-0 w-full text-sm text-gray-900 border-0  outline-none dark:text-gray-200 dark:placeholder-gray-300  dark:bg-gray-700 resize-none '
+											className='w-full resize-none border-0 px-0 text-sm  text-gray-900 outline-none dark:bg-gray-700  dark:text-gray-200 dark:placeholder-gray-300 '
 											placeholder='Write a comment...'
 										/>
 									</div>
 									<button
 										type='submit'
-										className='w-1/5 p-1 bg-sky-400 dark:bg-sky-500 text-white font-medium rounded-md hover:bg-sky-500 dark:hover:bg-sky-600 transition-all duration-150 hover:shadow-md'>
+										className='w-1/5 rounded-md bg-sky-400 p-1 font-medium text-white transition-all duration-150 hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-600'>
 										Post Comment
 									</button>
 								</form>
 								{article?.comments?.map((comment, index) => (
 									<article
 										key={index}
-										className='p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-700'>
-										<footer className='flex justify-between items-center mb-2'>
+										className='mb-6 rounded-lg bg-white p-6 text-base dark:bg-gray-700'>
+										<footer className='mb-2 flex items-center justify-between'>
 											<div className='flex items-center'>
-												<p className='inline-flex items-center mr-3 text-sm text-gray-700 dark:text-gray-100 '>
+												<p className='mr-3 inline-flex items-center text-sm text-gray-700 dark:text-gray-100 '>
 													<img
-														className='mr-2 w-6 h-6 rounded-full'
+														className='mr-2 h-6 w-6 rounded-full'
 														src={comment?.author?.profilePicture}
 														alt='Michael Gough'
 													/>
@@ -318,10 +318,10 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 											<button
 												id='dropdownComment1Button'
 												data-dropdown-toggle='dropdownComment1'
-												className='inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 dark:hover:text-gray-100 rounded-lg hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-800 '
+												className='inline-flex items-center rounded-lg p-2 text-center text-sm font-medium text-gray-400 focus:outline-none hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-100 '
 												type='button'>
 												<svg
-													className='w-5 h-5'
+													className='h-5 w-5'
 													aria-hidden='true'
 													fill='currentColor'
 													viewBox='0 0 20 20'
@@ -333,28 +333,28 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 
 											<div
 												id='dropdownComment1'
-												className='hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600'>
+												className='z-10 hidden w-36 divide-y divide-gray-100 rounded bg-white shadow dark:divide-gray-600 dark:bg-gray-700'>
 												<ul
 													className='py-1 text-sm text-gray-700 dark:text-gray-200'
 													aria-labelledby='dropdownMenuIconHorizontalButton'>
 													<li>
 														<a
 															href='#'
-															className='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+															className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
 															Edit
 														</a>
 													</li>
 													<li>
 														<a
 															href='#'
-															className='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+															className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
 															Remove
 														</a>
 													</li>
 													<li>
 														<a
 															href='#'
-															className='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+															className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
 															Report
 														</a>
 													</li>
@@ -362,13 +362,13 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 											</div>
 										</footer>
 										<p className='dark:text-white'>{comment?.content}</p>
-										<div className='flex items-center mt-4 space-x-4'>
+										<div className='mt-4 flex items-center space-x-4'>
 											<button
 												type='button'
 												className='flex items-center text-sm text-gray-500 hover:text-sky-400 dark:text-gray-300'>
 												<svg
 													aria-hidden='true'
-													className='mr-1 w-4 h-4'
+													className='mr-1 h-4 w-4'
 													fill='none'
 													stroke='currentColor'
 													viewBox='0 0 24 24'

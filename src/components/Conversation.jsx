@@ -68,26 +68,26 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 
 	return (
 		<div
-			className='w-full h-full  '
+			className='h-full w-full  '
 			onClick={() => isMenuOpen && setIsMenuOpen(false)}>
-			<div className='  bg-gray-100 dark:bg-gray-800  h-full'>
+			<div className='  h-full bg-gray-100  dark:bg-gray-800'>
 				{userData && (
-					<div className='flex-1 p:2 sm:p-6 justify-between last flex flex-col h-full  fade-in-2 '>
-						<div className='flex sm:items-center justify-between py-3 border-b dark:border-gray-700 border-gray-200'>
+					<div className='p:2 last fade-in-2 flex h-full flex-1 flex-col justify-between  sm:p-6 '>
+						<div className='flex justify-between border-b border-gray-200 py-3 dark:border-gray-700 sm:items-center'>
 							<Link
 								to={`/users/${userData?._id}`}
-								className='relative flex items-center space-x-4 cursor-pointer  '>
+								className='relative flex cursor-pointer items-center space-x-4  '>
 								<img
 									src={userData?.profilePicture}
 									alt=''
-									className='w-10 sm:w-16 h-10 sm:h-16 rounded-full'
+									className='h-10 w-10 rounded-full sm:h-16 sm:w-16'
 								/>
 
-								<div className='flex flex-col leading-tight hover:text-sky-500 dark:hover:text-sky-400 text-gray-700 dark:text-gray-300 transition-all duration-150 '>
-									<div className='text-2xl mt-1 flex items-center '>
+								<div className='flex flex-col leading-tight text-gray-700 transition-all duration-150 hover:text-sky-500 dark:text-gray-300 dark:hover:text-sky-400 '>
+									<div className='mt-1 flex items-center text-2xl '>
 										<span className=' mr-3  '>{userData?.username}</span>
 									</div>
-									<span className='text-lg text-gray-700 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-300 '>
+									<span className='text-lg text-gray-700 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-300 '>
 										{userData?.profession}
 									</span>
 								</div>
@@ -96,23 +96,23 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 								<button
 									type='button'
 									onClick={toggleMenu}
-									className='inline-flex items-center justify-center rounded-full h-8 w-8 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none mr-4 scale-125'>
+									className='mr-4 inline-flex h-8 w-8 scale-125 items-center justify-center rounded-full text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
 									<i className='fa-solid fa-ellipsis-vertical'></i>
 								</button>
 								{isMenuOpen && (
 									<div className='absolute right-0 mt-2  w-48  shadow-lg'>
 										<Link
 											to={`/users/${userData?._id}`}
-											className='block px-4 py-3 text-md w-full text-left text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 bg-white dark:bg-gray-600'>
+											className='text-md block w-full bg-white px-4 py-3 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
 											View Profile
 										</Link>
-										<button className='block px-4 py-3 text-md  w-full text-left text-gray-700 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 bg-white dark:bg-gray-600 border-b dark:border-gray-500'>
+										<button className='text-md block w-full border-b  bg-white px-4 py-3 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
 											Report
 										</button>
 
 										<button
 											onClick={deleteConversation}
-											className='block px-4 py-3 text-md text-rose-500 hover:bg-gray-100 w-full text-left dark:hover:bg-gray-700  bg-white dark:bg-gray-600'>
+											className='text-md block w-full bg-white px-4 py-3 text-left text-rose-500 hover:bg-gray-100  dark:bg-gray-600 dark:hover:bg-gray-700'>
 											Delete Conversation
 										</button>
 									</div>
@@ -121,16 +121,16 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 						</div>
 						<div
 							id='messages'
-							className='flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch h-full'>
+							className='scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col space-y-4 overflow-y-auto p-3'>
 							{chat?.messages?.map((message, index) => (
 								<div
 									key={index}
 									className='chat-message'>
 									{message?.sender === currentUser?._id ? (
 										<div className='flex items-end'>
-											<div className='flex flex-col space-y-2 text-md max-w-xs mx-2 order-2 items-start'>
+											<div className='text-md order-2 mx-2 flex max-w-xs flex-col items-start space-y-2'>
 												<div>
-													<span className='px-4 py-2 rounded-lg inline-block rounded-br-none bg-sky-500 dark:bg-sky-700 text-white '>
+													<span className='inline-block rounded-lg rounded-br-none bg-sky-500 px-4 py-2 text-white dark:bg-sky-700 '>
 														{message?.message}
 													</span>
 												</div>
@@ -138,14 +138,14 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 											<img
 												src={currentUser?.profilePicture}
 												alt='My profile'
-												className='w-6 h-6 rounded-full order-1'
+												className='order-1 h-6 w-6 rounded-full'
 											/>
 										</div>
 									) : (
 										<div className='flex items-end justify-end'>
-											<div className='flex flex-col space-y-2 text-md max-w-xs mx-2 order-1 items-end'>
+											<div className='text-md order-1 mx-2 flex max-w-xs flex-col items-end space-y-2'>
 												<div>
-													<span className='px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 dark:bg-gray-500 text-gray-600 dark:text-gray-50'>
+													<span className='inline-block rounded-lg rounded-bl-none bg-gray-200 px-4 py-2 text-gray-600 dark:bg-gray-500 dark:text-gray-50'>
 														{message?.message}
 													</span>
 												</div>
@@ -153,7 +153,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 											<img
 												src={userData?.profilePicture}
 												alt='My profile'
-												className='w-6 h-6 rounded-full order-1'
+												className='order-1 h-6 w-6 rounded-full'
 											/>
 										</div>
 									)}
@@ -161,12 +161,12 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 							))}
 						</div>
 						<form onSubmit={handleSubmit}>
-							<div className=' border-gray-200 px-4 pt-4 mb-2 sm:mb-0 '>
+							<div className=' mb-2 border-gray-200 px-4 pt-4 sm:mb-0 '>
 								<div className='relative flex transition-all duration-150  '>
 									<span className='absolute inset-y-0 flex items-center'>
 										<button
 											type='button'
-											className='inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500  hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none'>
+											className='inline-flex h-12 w-12 items-center justify-center rounded-full text-gray-500 transition duration-500 ease-in-out  focus:outline-none hover:bg-gray-300 dark:hover:bg-gray-500'>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
 												fill='none'
@@ -185,16 +185,16 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 									<input
 										type='text'
 										placeholder='Write your message!'
-										className='w-full focus:outline-none focus:placeholder-sky-600 text-gray-600 dark:text-gray-200  placeholder-gray-600 dark:placeholder-gray-400 pl-12 bg-gray-200 dark:bg-gray-600 rounded-lg  py-3 transition-all duration-150 outline-none'
+										className='w-full rounded-lg bg-gray-200 py-3 pl-12  text-gray-600 placeholder-gray-600 outline-none transition-all duration-150 focus:placeholder-sky-600  focus:outline-none dark:bg-gray-600 dark:text-gray-200 dark:placeholder-gray-400'
 										id='message'
 										name='message'
 										value={message}
 										onChange={(e) => setMessage(e.target.value)}
 									/>
-									<div className='absolute right-0 items-center inset-y-0 hidden sm:flex rounded-lg'>
+									<div className='absolute inset-y-0 right-0 hidden items-center rounded-lg sm:flex'>
 										<button
 											type='button'
-											className='inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none'>
+											className='inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
 												fill='none'
@@ -210,7 +210,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										</button>
 										<button
 											type='button'
-											className='inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none'>
+											className='inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
 												fill='none'
@@ -231,7 +231,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										</button>
 										<button
 											type='button'
-											className='inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none'>
+											className='inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
 												fill='none'
@@ -247,13 +247,13 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 										</button>
 										<button
 											type='submit'
-											className='inline-flex items-center justify-center rounded-e-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-sky-500 hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-700 focus:outline-none'>
+											className='inline-flex items-center justify-center rounded-e-lg bg-sky-500 px-4 py-3 text-white transition duration-500 ease-in-out focus:outline-none hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-700'>
 											<span className='font-bold'>Send</span>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
 												viewBox='0 0 20 20'
 												fill='currentColor'
-												className='h-6 w-6 ml-2 transform rotate-90'>
+												className='ml-2 h-6 w-6 rotate-90 transform'>
 												<path d='M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z'></path>
 											</svg>
 										</button>

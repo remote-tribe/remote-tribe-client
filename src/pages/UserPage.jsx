@@ -48,7 +48,6 @@ export const UserPage = () => {
 			)
 			fetchUser()
 			fetchCurrentUserFollowing()
-			console.log(response.data.message)
 		} catch (err) {
 			console.error('Error updating user profile: ', err)
 		}

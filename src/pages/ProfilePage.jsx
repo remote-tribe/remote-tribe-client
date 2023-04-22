@@ -180,7 +180,7 @@ export const ProfilePage = () => {
 	}
 
 	return loading ? (
-		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+		<div className='mt-60 flex justify-center text-center text-sky-400 '>
 			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
@@ -192,10 +192,10 @@ export const ProfilePage = () => {
 		<>
 			<main className='profile-page '>
 				<section className='relative block h-80'>
-					<div className='w-full h-full bg-center bg-cover'>
-						<span className='w-full h-full absolute opacity-50 dark:bg-sky-800 bg-sky-400'></span>
+					<div className='h-full w-full bg-cover bg-center'>
+						<span className='absolute h-full w-full bg-sky-400 opacity-50 dark:bg-sky-800'></span>
 					</div>
-					<div className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16'>
+					<div className='pointer-events-none absolute bottom-0 left-0 right-0 top-auto h-16 w-full overflow-hidden'>
 						<svg
 							className='absolute bottom-0 overflow-hidden '
 							xmlns='http://www.w3.org/2000/svg'
@@ -207,12 +207,12 @@ export const ProfilePage = () => {
 					</div>
 				</section>
 				{userData && (
-					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 dark:text-gray-200  '>
+					<section className='relative bg-gray-100 py-16 dark:bg-gray-800 dark:text-gray-200  '>
 						<div className='container mx-auto px-4 '>
-							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6 shadow-lg rounded-lg -mt-64'>
+							<div className='relative -mt-64 mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white shadow-lg dark:bg-slate-700'>
 								<div className='px-6'>
 									<div className='flex flex-wrap justify-center'>
-										<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center '>
+										<div className='flex w-full justify-center px-4 lg:order-2 lg:w-3/12 '>
 											<input
 												className=''
 												type='file'
@@ -235,15 +235,15 @@ export const ProfilePage = () => {
 															<img
 																alt='...'
 																src={userData?.profilePicture}
-																className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover fade-in-2'
+																className='fade-in-2 absolute z-10 -m-16 -ml-20 h-40 w-40 cursor-pointer rounded-full border-none object-cover align-middle shadow-xl lg:-ml-16'
 																onClick={handleImageClick}
 															/>
 															<div
 																onClick={handleImageClick}
-																className='group shadow-xl bg-transparent z-10 
-													hover:bg-white hover:bg-opacity-40 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 cursor-pointer object-cover fade-in-2 transition-all duration-300'>
+																className='fade-in-2 group absolute z-10 
+													-m-16 -ml-20 h-40 w-40 cursor-pointer rounded-full border-none bg-transparent object-cover align-middle shadow-xl transition-all duration-300 hover:bg-white hover:bg-opacity-40 lg:-ml-16'>
 																<svg
-																	className='h-12 w-12 group-hover:text-white text-transparent transition-all duration-300'
+																	className='h-12 w-12 text-transparent transition-all duration-300 group-hover:text-white'
 																	fill='none'
 																	viewBox='0 0 24 24'
 																	stroke='currentColor'>
@@ -262,17 +262,17 @@ export const ProfilePage = () => {
 												<img
 													alt='...'
 													src={userData?.profilePicture}
-													className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16  object-cover fade-in-2'
+													className='fade-in-2 absolute z-10 -m-16 -ml-20 h-40 w-40 rounded-full border-none object-cover align-middle  shadow-xl lg:-ml-16'
 												/>
 											)}
 										</div>
-										<div className='w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center'>
-											<div className='py-6 px-3 mt-32 sm:mt-0'>
+										<div className='w-full px-4 lg:order-3 lg:w-4/12 lg:self-center lg:text-right'>
+											<div className='mt-32 px-3 py-6 sm:mt-0'>
 												{!showSettings && (
-													<div className='py-6 px-3 mt-32 sm:mt-0'>
+													<div className='mt-32 px-3 py-6 sm:mt-0'>
 														<button
 															onClick={handleShowSettings}
-															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 fade-in-2'
+															className='fade-in-2 mb-1 rounded bg-sky-500 px-10 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2'
 															type='button'>
 															Settings
 														</button>
@@ -281,13 +281,13 @@ export const ProfilePage = () => {
 											</div>
 										</div>
 
-										<div className='w-full lg:w-4/12 px-4 lg:order-1 fade-in-2 '>
-											<div className='flex justify-center py-4 lg:pt-4 pt-8'>
-												<div className='lg:mr-4 p-3 text-center'>
-													<Link className=' text-xl font-bold block uppercase tracking-wide  '>
+										<div className='fade-in-2 w-full px-4 lg:order-1 lg:w-4/12 '>
+											<div className='flex justify-center py-4 pt-8 lg:pt-4'>
+												<div className='p-3 text-center lg:mr-4'>
+													<Link className=' block text-xl font-bold uppercase tracking-wide  '>
 														<button
 															onClick={handleShowFollowersSettings}
-															className='bg-transparent text-sky-500 dark:text-sky-400 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='border-none bg-transparent text-2xl font-bold text-sky-500  transition-all duration-150 ease-linear hover:text-sky-700 dark:text-sky-400'
 															type='button'>
 															{userData.followers?.length}
 														</button>
@@ -295,10 +295,10 @@ export const ProfilePage = () => {
 													<span className='text-md '>Followers</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='text-xl font-bold block uppercase tracking-wide '>
+													<Link className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowFollowingSettings}
-															className='bg-transparent text-sky-500 dark:text-sky-400 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='border-none bg-transparent text-2xl font-bold text-sky-500  transition-all duration-150 ease-linear hover:text-sky-700 dark:text-sky-400'
 															type='button'>
 															{userData.following?.length}
 														</button>
@@ -306,10 +306,10 @@ export const ProfilePage = () => {
 													<span className='text-md '>Following</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='text-xl font-bold block uppercase tracking-wide '>
+													<Link className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowArticlesSettings}
-															className='bg-transparent text-sky-500 dark:text-sky-400 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='border-none bg-transparent text-2xl font-bold text-sky-500  transition-all duration-150 ease-linear hover:text-sky-700 dark:text-sky-400'
 															type='button'>
 															{userData.articles?.length}
 														</button>

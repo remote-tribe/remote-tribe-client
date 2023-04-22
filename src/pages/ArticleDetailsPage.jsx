@@ -38,7 +38,7 @@ function ArticleDetailsPage() {
 	}
 
 	return loading ? (
-		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+		<div className='mt-60 flex justify-center text-center text-sky-400 '>
 			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}

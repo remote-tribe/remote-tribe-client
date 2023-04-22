@@ -34,7 +34,7 @@ export const UsersPage = () => {
 	const filteredUsers = users.filter((user) => user?._id !== currentUserId)
 
 	return loading ? (
-		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+		<div className='mt-60 flex justify-center text-center text-sky-400 '>
 			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
@@ -43,12 +43,12 @@ export const UsersPage = () => {
 			/>
 		</div>
 	) : (
-		<div className='flex flex-col items-center sm:max-w-md mx-auto space-y-2 mt-10'>
+		<div className='mx-auto mt-10 flex flex-col items-center space-y-2 sm:max-w-md'>
 			{filteredUsers?.map((user, index) => (
 				<Link
 					to={`/users/${user._id}`}
 					key={index}
-					className='text-center text-3xl bg-white shadow w-full rounded '>
+					className='w-full rounded bg-white text-center text-3xl shadow '>
 					{user?.username}
 				</Link>
 			))}

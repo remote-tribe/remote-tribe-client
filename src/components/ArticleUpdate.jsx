@@ -98,16 +98,16 @@ const UpdateArticle = ({ article }) => {
 	}
 
 	return (
-		<div className='mx-auto max-w-screen-md fade-in-2'>
+		<div className='fade-in-2 mx-auto max-w-screen-md'>
 			<div className='space-y-4'>
-				<div className='flex justify-center-center mx-auto'>
+				<div className='justify-center-center mx-auto flex'>
 					<Link
-						className='flex justify-center mx-auto'
+						className='mx-auto flex justify-center'
 						to={`/users/${article?.author?._id}`}>
 						<img
 							src={article?.author?.profilePicture}
 							alt='User Avatar'
-							className='w-12 h-12 rounded-full mx-auto'
+							className='mx-auto h-12 w-12 rounded-full'
 						/>
 					</Link>
 				</div>
@@ -117,7 +117,7 @@ const UpdateArticle = ({ article }) => {
 					<div>
 						<label
 							htmlFor='title'
-							className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+							className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 							Title
 						</label>
 						<input
@@ -125,14 +125,14 @@ const UpdateArticle = ({ article }) => {
 							id='title'
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className='mt-1 block w-full p-2 border border-gray-300 rounded-md text-center cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 dark:text-white dark:bg-gray-700  dark:border-none'
+							className='mt-1 block w-full cursor-pointer rounded-md border border-gray-300 p-2 text-center outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:ring-2 hover:shadow dark:border-none dark:bg-gray-700  dark:text-white'
 							required
 						/>
 					</div>
 					<div>
 						<label
 							htmlFor='content'
-							className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+							className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 							Content
 						</label>
 						<Editor
@@ -143,19 +143,19 @@ const UpdateArticle = ({ article }) => {
 					<div>
 						<label
 							htmlFor='imageUrl'
-							className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+							className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 							Image
 						</label>
 						<input
 							id='fileInput'
 							type='file'
 							onChange={handleImageChange}
-							className='w-2/5 p-1 text-black font-medium rounded-md transition-all dark:text-white duration-150 hover:shadow-md'
+							className='w-2/5 rounded-md p-1 font-medium text-black transition-all duration-150 hover:shadow-md dark:text-white'
 						/>
 
 						<div className='mt-4'>
 							{loading ? (
-								<div className='text-center text-sky-400 flex justify-center mt-5 '>
+								<div className='mt-5 flex justify-center text-center text-sky-400 '>
 									<FadeLoader
 										color={'#00a8e8'}
 										loading={loading}
@@ -166,21 +166,21 @@ const UpdateArticle = ({ article }) => {
 							) : (
 								<img
 									src={imageUrl || DEFAULT_IMAGE_URL}
-									className='w-24 h-24 object-cover rounded mx-auto'
+									className='mx-auto h-24 w-24 rounded object-cover'
 								/>
 							)}
 						</div>
 					</div>
-					<div className='flex space-x-4  justify-center'>
+					<div className='flex justify-center  space-x-4'>
 						<button
 							type='submit'
-							className='w-1/5 p-1 bg-sky-400 dark:bg-sky-500 text-white font-medium rounded-md hover:bg-sky-500 dark:hover:bg-sky-600 transition-all duration-150 hover:shadow-md mb-10 mt-5'>
+							className='mb-10 mt-5 w-1/5 rounded-md bg-sky-400 p-1 font-medium text-white transition-all duration-150 hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-600'>
 							Update Article
 						</button>
 						<button
 							type='button'
 							onClick={() => navigate(`/community/article/${article?._id}`)}
-							className='w-1/5 p-1 bg-gray-400 text-white font-medium rounded-md hover:bg-gray-500 transition-all duration-150 hover:shadow-md mb-10 mt-5'>
+							className='mb-10 mt-5 w-1/5 rounded-md bg-gray-400 p-1 font-medium text-white transition-all duration-150 hover:bg-gray-500 hover:shadow-md'>
 							Cancel
 						</button>
 					</div>

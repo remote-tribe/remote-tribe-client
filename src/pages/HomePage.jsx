@@ -59,7 +59,7 @@ export const HomePage = () => {
 	return (
 		<div className='fade-in-2 '>
 			{loading ? (
-				<div className='text-center text-sky-400 flex justify-center mt-60 '>
+				<div className='mt-60 flex justify-center text-center text-sky-400 '>
 					<FadeLoader
 						color={'#00a8e8'}
 						loading={loading}
@@ -69,27 +69,27 @@ export const HomePage = () => {
 				</div>
 			) : (
 				<div className=' '>
-					<main className='h-full flex items-center px-6 lg:px-32 bg-sky-500 dark:bg-sky-900 text-white '>
-						<section className='text-gray-700 body-font'>
-							<div className='container mx-auto flex px-5 p-8 md:py-20 md:flex-row flex-col items-center'>
-								<div className='lg:max-w-3xl lg:w-full  md:w-1/2 w-full mb-10 md:mb-0'>
+					<main className='flex h-full items-center bg-sky-500 px-6 text-white dark:bg-sky-900 lg:px-32 '>
+						<section className='body-font text-gray-700'>
+							<div className='container mx-auto flex flex-col items-center p-8 px-5 md:flex-row md:py-20'>
+								<div className='mb-10 w-full  md:mb-0 md:w-1/2 lg:w-full lg:max-w-3xl'>
 									<img
-										className='object-cover object-center rounded-md shadow-md '
+										className='rounded-md object-cover object-center shadow-md '
 										alt='hero'
 										src='https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'
 									/>
 								</div>
-								<div className='lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center'>
+								<div className='flex flex-col items-center text-center md:w-1/2 md:items-start md:pl-16 md:text-left lg:flex-grow lg:pl-24'>
 									<h1
 										style={{ fontFamily: 'MuseoModerno' }}
-										className='title-font font-moderno sm:text-6xl text-3xl mb-4 font-medium text-sky-800 dark:text-sky-400 '>
+										className='title-font font-moderno mb-4 text-3xl font-medium text-sky-800 dark:text-sky-400 sm:text-6xl '>
 										Remote Tribe{' '}
 									</h1>
-									<h2 className='title-font sm:text-4xl text-2xl mb-4 font-medium text-white '>
+									<h2 className='title-font mb-4 text-2xl font-medium text-white sm:text-4xl '>
 										Work Remotely as a Developer and Live on Your Own Terms
 									</h2>
 
-									<p className='mb-8 leading-relaxed font-medium text-white '>
+									<p className='mb-8 font-medium leading-relaxed text-white '>
 										Finding a remote developer job can be daunting - but it doesn't have to be. At Remote
 										Tribe, we've made it easy. Our platform connects you with the best remote job
 										opportunities from around the world, and our community of like-minded developers provides
@@ -99,12 +99,12 @@ export const HomePage = () => {
 									<div className='flex justify-center'>
 										<button
 											onClick={() => navigate('/community')}
-											className='inline-flex text-white bg-sky-600 border-0 py-2 px-6 focus:outline-none hover:bg-sky-700 rounded text-xl transition-all duration-150 shadow'>
+											className='inline-flex rounded border-0 bg-sky-600 px-6 py-2 text-xl text-white shadow transition-all duration-150 focus:outline-none hover:bg-sky-700'>
 											Explore
 										</button>
 										<button
 											onClick={() => navigate('/signin')}
-											className='ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 hover:text-gray-900 rounded text-xl transition-all duration-150 shadow'>
+											className='ml-4 inline-flex rounded border-0 bg-gray-100 px-6 py-2 text-xl text-gray-700 shadow transition-all duration-150 focus:outline-none hover:bg-gray-300 hover:text-gray-900'>
 											Join Now
 										</button>
 									</div>
@@ -126,19 +126,19 @@ export const HomePage = () => {
 								<Link
 									to={`/community/article/${article?._id}`}
 									key={index}
-									className=' mt-4 w-52 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-md cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105 dark:hover:shadow-gray-600'>
+									className=' mt-4 flex h-52 w-52 cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 focus:scale-105 hover:-translate-y-1 hover:shadow-md dark:bg-gray-600 dark:text-gray-50 dark:hover:shadow-gray-600'>
 									{article?.imageUrl ? (
 										<img
-											className='w-full h-2/3  object-cover object-center'
+											className='h-2/3 w-full  object-cover object-center'
 											src={article?.imageUrl}
 											alt={article?.title}
 										/>
 									) : (
-										<div className='w-full h-64 object-cover object-center bg-gradient-to-tl from-sky-300 dark:from-sky-500 to-sky-700 dark:to-sky-900 '></div>
+										<div className='h-64 w-full bg-gradient-to-tl from-sky-300 to-sky-700 object-cover object-center dark:from-sky-500 dark:to-sky-900 '></div>
 									)}
 
-									<div className='px-4 py-4 flex justify-center'>
-										<div className='font-semibold text-sm mb-2'>{article?.title}</div>
+									<div className='flex justify-center px-4 py-4'>
+										<div className='mb-2 text-sm font-semibold'>{article?.title}</div>
 									</div>
 								</Link>
 							))}
@@ -156,30 +156,30 @@ export const HomePage = () => {
 								<Link
 									to={`/community/article/${article?._id}`}
 									key={index}
-									className='mt-4 mx-auto w-2/3 md:w-72 h-52 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-600 dark:text-gray-50 hover:-translate-y-1 focus:scale-105'>
+									className='mx-auto mt-4 flex h-52 w-2/3 cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 focus:scale-105 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-600 dark:text-gray-50 md:w-72'>
 									{article?.imageUrl ? (
 										<img
-											className='w-full h-2/3  object-cover object-center'
+											className='h-2/3 w-full  object-cover object-center'
 											src={article?.imageUrl}
 											alt={article?.title}
 										/>
 									) : (
-										<div className='w-full h-2/3 object-cover object-center bg-sky-300 dark:bg-sky-700'></div>
+										<div className='h-2/3 w-full bg-sky-300 object-cover object-center dark:bg-sky-700'></div>
 									)}
 
-									<div className='px-4 py-4 flex justify-center '>
-										<div className='font-semibold text-sm mb-2  '>{article?.title}</div>
+									<div className='flex justify-center px-4 py-4 '>
+										<div className='mb-2 text-sm font-semibold  '>{article?.title}</div>
 									</div>
 								</Link>
 							))}
 						</Carousel>
 					)}
-					<footer className='m-10  pt-10 bg-gray-100 dark:bg-gray-800'>
+					<footer className='m-10  bg-gray-100 pt-10 dark:bg-gray-800'>
 						<div className='flex flex-col items-center'>
-							<Link className='flex justify-center items-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white'>
+							<Link className='mb-5 flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white'>
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
-									className='w-10 h-10 mr-4 text-sky-500 dark:text-sky-400'
+									className='mr-4 h-10 w-10 text-sky-500 dark:text-sky-400'
 									viewBox='0 0 24 24'>
 									<path
 										fill='currentColor'
@@ -189,12 +189,12 @@ export const HomePage = () => {
 								Developed By
 							</Link>
 
-							<ul className='flex justify-center mt-5 space-x-5 text-xl '>
+							<ul className='mt-5 flex justify-center space-x-5 text-xl '>
 								<li>
 									<Link
 										to={'https://www.linkedin.com/in/marin-valenta'}
 										target='_blank'
-										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
+										className='text-sky-500 transition-all duration-150 hover:text-sky-600'>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
 											width='24'
@@ -228,7 +228,7 @@ export const HomePage = () => {
 								<Link
 									to={'https://www.linkedin.com/in/marin-valenta'}
 									target='_blank'
-									className='mb-5  font-semibold text-gray-900 dark:text-white hover:text-sky-500 transition-all duration-150'>
+									className='mb-5  font-semibold text-gray-900 transition-all duration-150 hover:text-sky-500 dark:text-white'>
 									Marin Valenta
 								</Link>
 
@@ -237,14 +237,14 @@ export const HomePage = () => {
 								<Link
 									to={'https://www.linkedin.com/in/peng-chen-472560260'}
 									target='_blank'
-									className='mb-5 text-l font-semibold text-gray-900 dark:text-white hover:text-sky-500 transition-all duration-150'>
+									className='text-l mb-5 font-semibold text-gray-900 transition-all duration-150 hover:text-sky-500 dark:text-white'>
 									Peng Chen
 								</Link>
 								<li>
 									<Link
 										to={'https://github.com/Mr-Chennn'}
 										target='_blank'
-										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
+										className='text-sky-500 transition-all duration-150 hover:text-sky-600'>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
 											width='24'
@@ -262,7 +262,7 @@ export const HomePage = () => {
 									<Link
 										to={'https://www.linkedin.com/in/peng-chen-472560260'}
 										target='_blank'
-										className='text-sky-500 hover:text-sky-600 transition-all duration-150'>
+										className='text-sky-500 transition-all duration-150 hover:text-sky-600'>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
 											width='24'

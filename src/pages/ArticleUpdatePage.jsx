@@ -35,7 +35,7 @@ function ArticleUpdatePage() {
 	}
 
 	return loading ? (
-		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+		<div className='mt-60 flex justify-center text-center text-sky-400 '>
 			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
@@ -44,7 +44,7 @@ function ArticleUpdatePage() {
 			/>
 		</div>
 	) : (
-		<div className='container mx-auto p-4 space-y-8'>
+		<div className='container mx-auto space-y-8 p-4'>
 			<UpdateArticle article={article} />
 		</div>
 	)

@@ -71,7 +71,7 @@ const Comment = ({ comment, articleId, currentUser, handleLogout }) => {
 		<div className='flex justify-between border-b-2'>
 			<Link
 				to={``}
-				className='text-sky-400 cursor-pointer'>
+				className='cursor-pointer text-sky-400'>
 				{comment?.author.username}
 			</Link>
 			<form onSubmit={handleSave}>

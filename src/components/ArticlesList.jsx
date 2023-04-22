@@ -13,56 +13,56 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 	})
 	return (
 		<div className='mx-auto '>
-			<div className='flex flex-col items-center justify-center mt-5 '>
+			<div className='mt-5 flex flex-col items-center justify-center '>
 				<button
-					className='mb-3 px-4 py-1 bg-none text-sky-400 hover:text-sky-500 font-medium rounded-md transition-all duration-150 text-xl'
+					className='mb-3 rounded-md bg-none px-4 py-1 text-xl font-medium text-sky-400 transition-all duration-150 hover:text-sky-500'
 					onClick={handleShowCreate}>
 					Create an Article
 				</button>
 				<div className='relative'>
 					<input
 						type='text'
-						className='py-2 pl-10 pr-3 rounded-lg w-96 focus:ring-1 ring-sky-400 outline-none transition-all text-lg duration-150 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-400'
+						className='w-96 rounded-lg py-2 pl-10 pr-3 text-lg outline-none ring-sky-400 transition-all duration-150 focus:ring-1 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-400'
 						placeholder='Search'
 						onChange={(event) => setSearchQuery(event.target.value)}
 					/>
-					<div className='absolute top-0 left-0 flex items-center h-full ml-3'>
+					<div className='absolute left-0 top-0 ml-3 flex h-full items-center'>
 						<i className='fa-solid fa-search text-gray-400'></i>
 					</div>
 				</div>
 			</div>
 
 			{filteredArticles && (
-				<div className='flex flex-wrap mx-auto my-6 justify-center w-10/12 fade-in '>
+				<div className='fade-in mx-auto my-6 flex w-10/12 flex-wrap justify-center '>
 					{filteredArticles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='h-96 w-[30vw] mx-16 flex flex-col rounded-lg overflow-hidden shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 bg-white dark:bg-gray-700 dark:text-gray-50 md:mt-52 mt-24 hover:-translate-y-1 dark:hover:shadow-gray-700  '>
+							className='mx-16 mt-24 flex h-96 w-[30vw] cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-700 dark:text-gray-50 dark:hover:shadow-gray-700 md:mt-52  '>
 							{article?.imageUrl ? (
 								<img
-									className='w-full h-64 object-cover object-center'
+									className='h-64 w-full object-cover object-center'
 									src={article?.imageUrl}
 									alt={article?.title}
 								/>
 							) : (
-								<div className='w-full h-64 object-cover object-center bg-gradient-to-tl from-sky-300 dark:from-sky-500 to-sky-700 dark:to-sky-900 '></div>
+								<div className='h-64 w-full bg-gradient-to-tl from-sky-300 to-sky-700 object-cover object-center dark:from-sky-500 dark:to-sky-900 '></div>
 							)}
 
-							<div className='px-4 py-4 flex justify-between'>
-								<div className='font-semibold text-xl mb-2'>{article?.title}</div>
+							<div className='flex justify-between px-4 py-4'>
+								<div className='mb-2 text-xl font-semibold'>{article?.title}</div>
 								<span className='px-2 py-1 text-sm font-semibold text-gray-700 dark:text-gray-200'>
 									{new Date(article?.createdAt).toLocaleDateString('en-GB')}
 								</span>
 							</div>
-							<div className='flex justify-between mt-auto ml-2 mb-2'>
-								<div className='space-x-4 text-xl mr-4 mb-1'>
+							<div className='mb-2 ml-2 mt-auto flex justify-between'>
+								<div className='mb-1 mr-4 space-x-4 text-xl'>
 									<span className='space-x-1 text-gray-600 dark:text-gray-50'>
-										<i className='fa-solid fa-thumbs-up text-sky-400  mx-1' />
+										<i className='fa-solid fa-thumbs-up mx-1  text-sky-400' />
 										{article?.likes}
 									</span>
 									<span className='space-x-1  text-gray-600 dark:text-gray-50'>
-										<i className='fa-solid fa-comment text-sky-400 mx-1' />
+										<i className='fa-solid fa-comment mx-1 text-sky-400' />
 										{article?.comments?.length}
 									</span>
 								</div>

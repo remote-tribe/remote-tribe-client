@@ -59,7 +59,7 @@ export const InboxPage = () => {
 	}, [])
 
 	return loading ? (
-		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+		<div className='mt-60 flex justify-center text-center text-sky-400 '>
 			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
@@ -68,11 +68,11 @@ export const InboxPage = () => {
 			/>
 		</div>
 	) : (
-		<main className='flex w-full h-[94vh] shadow-lg rounded-3xl'>
-			<section className='flex flex-col pt-3 w-4/12 bg-gray-200 dark:bg-gray-700 h-full scrollbar '>
+		<main className='flex h-[94vh] w-full rounded-3xl shadow-lg'>
+			<section className='flex h-full w-4/12 flex-col bg-gray-200 pt-3 scrollbar dark:bg-gray-700 '>
 				<label className='px-3'>
 					<input
-						className='rounded-lg p-4 dark:text-gray-100 bg-white dark:bg-gray-600 shadow transition duration-200 focus:outline-none focus:ring-2 w-full ring-sky-400'
+						className='w-full rounded-lg bg-white p-4 shadow ring-sky-400 transition duration-200 focus:outline-none focus:ring-2 dark:bg-gray-600 dark:text-gray-100'
 						placeholder='Search...'
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
@@ -96,10 +96,10 @@ export const InboxPage = () => {
 										fetchUser(otherParticipant?._id)
 									}}
 									key={index}
-									className='py-5 cursor-pointer border-b border-gray-300 dark:border-gray-600 px-3 transition hover:bg-sky-100 dark:hover:bg-sky-900'>
+									className='cursor-pointer border-b border-gray-300 px-3 py-5 transition hover:bg-sky-100 dark:border-gray-600 dark:hover:bg-sky-900'>
 									<span
 										href='#'
-										className='flex justify-between items-center'>
+										className='flex items-center justify-between'>
 										<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
 											{otherParticipant?.username}
 										</h3>

@@ -27,22 +27,22 @@ export const UserFollowing = ({ userData, currentUser, handleShowFollowingSettin
 	}, [])
 
 	return (
-		<div className='w-full flex justify-center'>
+		<div className='flex w-full justify-center'>
 			{followingUsers && (
-				<table class='my-8 text-2xl w-3/4 text-center  '>
+				<table class='my-8 w-3/4 text-center text-2xl  '>
 					<thead className='h-16'>
-						<tr className='shadow bg-gray-100 dark:bg-slate-800 '>
+						<tr className='bg-gray-100 shadow dark:bg-slate-800 '>
 							<th className='w-1/4'>
-								<i class='fa-sharp fa-solid fa-image text-sky-500 text-2xl'></i>
+								<i class='fa-sharp fa-solid fa-image text-2xl text-sky-500'></i>
 							</th>
 							<th className='w-1/4'>
-								<i class='fa-solid fa-user text-sky-500 text-2xl'></i>
+								<i class='fa-solid fa-user text-2xl text-sky-500'></i>
 							</th>
 							<th className='w-1/4'>
-								<i class='fa-solid fa-briefcase  text-sky-500 text-2xl '></i>
+								<i class='fa-solid fa-briefcase  text-2xl text-sky-500 '></i>
 							</th>
 							<th className='w-1/4'>
-								<i className='fas fa-solid fa-location-dot text-sky-500 text-2xl '></i>
+								<i className='fas fa-solid fa-location-dot text-2xl text-sky-500 '></i>
 							</th>
 						</tr>
 					</thead>
@@ -50,19 +50,19 @@ export const UserFollowing = ({ userData, currentUser, handleShowFollowingSettin
 						{followingUsers?.map((user, index) => (
 							<tr
 								key={index}
-								className='shadow m-2 rounded-md h-12 dark:shadow-slate-800'>
+								className='m-2 h-12 rounded-md shadow dark:shadow-slate-800'>
 								<td className='w-1/4 dark:bg-slate-600'>
 									<Link to={`/users/${user?._id}`}>
 										<img
 											src={user?.profilePicture}
-											className='h-8 w-8 rounded-full mx-auto'
+											className='mx-auto h-8 w-8 rounded-full'
 										/>
 									</Link>
 								</td>
 								<td className='w-1/4 dark:bg-slate-600'>
 									<Link
 										to={`/users/${user?._id}`}
-										className='text-sky-500 hover:text-sky-600 transition-all duration-150 '>
+										className='text-sky-500 transition-all duration-150 hover:text-sky-600 '>
 										{user?.username}
 									</Link>
 								</td>

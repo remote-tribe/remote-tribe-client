@@ -113,18 +113,18 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 		<main className='profile-page '>
 			<section className='relative block h-60'></section>
 			{userData && showVerify ? (
-				<section className='relative py-16 bg-white dark:bg-slate-700 '>
+				<section className='relative bg-white py-16 dark:bg-slate-700 '>
 					<div className='container mx-auto px-4 '>
-						<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 dark:text-gray-200 w-full mb-6  rounded-lg -mt-64 '>
+						<div className='relative -mt-64 mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white  dark:bg-slate-700 dark:text-gray-200 '>
 							<Link
 								onClick={handleShowAccountSettings}
-								className=' text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500  text-xl absolute -top-36 -right-12 cursor-pointer ml-auto mr-10'>
+								className=' absolute -right-12 -top-36 ml-auto  mr-10 cursor-pointer text-xl text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500'>
 								User Settings
 							</Link>
 							<div className='px-6'>
 								<div className='flex flex-wrap justify-center'>
-									<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
-										<h1 className='text-center  text-gray-800 dark:text-gray-200 text-3xl font-semibold my-4'>
+									<div className='w-full px-4 lg:order-3 lg:w-full lg:self-center lg:text-right'>
+										<h1 className='my-4  text-center text-3xl font-semibold text-gray-800 dark:text-gray-200'>
 											Account Settings
 										</h1>
 
@@ -133,12 +133,12 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 											onSubmit={verifyPass}>
 											<div className='mb-4 flex flex-col items-center '>
 												<label
-													className='block text-gray-700 dark:text-gray-300 font-normal mb-2'
+													className='mb-2 block font-normal text-gray-700 dark:text-gray-300'
 													htmlFor='password'>
 													To continue, please enter your password:
 												</label>
 												<input
-													className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 dark:bg-slate-800 dark:border-slate-600 dark:text-gray-300'
+													className='text-md w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2 text-center  leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300'
 													id='password'
 													type='password'
 													placeholder='Password'
@@ -147,10 +147,10 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 												/>
 											</div>
 
-											<div className='flex justify-center items-center pb-10 pt-8'>
+											<div className='flex items-center justify-center pb-10 pt-8'>
 												<button
 													type='submit'
-													className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+													className='text-md mb-1 w-40 rounded bg-sky-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2 '>
 													Submit
 												</button>
 											</div>
@@ -162,18 +162,18 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 					</div>
 				</section>
 			) : (
-				<section className='relative py-4 bg-white dark:bg-slate-700  '>
+				<section className='relative bg-white py-4 dark:bg-slate-700  '>
 					<div className='container mx-auto px-4 '>
-						<div className='relative  flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6  rounded-lg -mt-64 '>
+						<div className='relative  -mt-64 mb-6 flex w-full min-w-0 flex-col break-words rounded-lg  bg-white dark:bg-slate-700 '>
 							<h2
 								onClick={handleShowAccountSettings}
-								className=' text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500 text-xl absolute  -top-24 -right-12 cursor-pointer ml-auto mr-10 '>
+								className=' absolute -right-12 -top-24 ml-auto mr-10 cursor-pointer  text-xl text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500 '>
 								User Settings
 							</h2>
 							<div className='px-6'>
 								<div className='flex flex-wrap justify-center'>
-									<div className='w-full lg:w-full px-4 lg:order-3 lg:text-right lg:self-center'>
-										<h1 className='text-center dark:text-gray-200  text-gray-800 text-3xl font-semibold '>
+									<div className='w-full px-4 lg:order-3 lg:w-full lg:self-center lg:text-right'>
+										<h1 className='text-center text-3xl  font-semibold text-gray-800 dark:text-gray-200 '>
 											Account Settings
 										</h1>
 
@@ -183,12 +183,12 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 												onSubmit={handleEmailSubmit}>
 												<div className='flex flex-col items-center'>
 													<label
-														className='text-xl text-gray-500 dark:text-gray-300 font-semibold mt-6 mb-4'
+														className='mb-4 mt-6 text-xl font-semibold text-gray-500 dark:text-gray-300'
 														htmlFor='current-email'>
 														Change Email
 													</label>
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-4 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-600'
+														className='text-md mb-4 w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2  text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300'
 														type='email'
 														name='currentEmail'
 														id='currentEmail'
@@ -198,7 +198,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 													/>
 
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-600'
+														className='text-md mb-2 w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2  text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300'
 														placeholder='New Email'
 														type='email'
 														name='newEmail'
@@ -208,7 +208,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 													/>
 
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-600 '
+														className='text-md mb-2 w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2  text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300 '
 														placeholder='Password'
 														type='password'
 														name='password'
@@ -216,16 +216,16 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 														value={password}
 														onChange={(e) => setPassword(e.target.value)}
 													/>
-													<div className='flex justify-center items-center pb-10 pt-8'>
+													<div className='flex items-center justify-center pb-10 pt-8'>
 														<button
 															type='submit'
-															className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+															className='text-md mb-1 w-40 rounded bg-sky-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2 '>
 															Submit
 														</button>
 														<button
 															onClick={handleChangeEmailClick}
 															type='button'
-															className='bg-gray-500 hover:bg-gray-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+															className='text-md mb-1 w-40 rounded bg-gray-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-gray-600 hover:shadow-md sm:mr-2 '>
 															Cancel
 														</button>
 													</div>
@@ -239,12 +239,12 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 												onSubmit={handlePasswordSubmit}>
 												<div className='flex flex-col items-center'>
 													<label
-														className='text-xl text-gray-500 dark:text-gray-300 font-semibold mt-6 mb-4'
+														className='mb-4 mt-6 text-xl font-semibold text-gray-500 dark:text-gray-300'
 														htmlFor='current-password'>
 														Change Password
 													</label>
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-4 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-600'
+														className='text-md mb-4 w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2  text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300'
 														type='password'
 														placeholder='Old Password'
 														id='current-password'
@@ -254,7 +254,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 													/>
 
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-600'
+														className='text-md mb-2 w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2  text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300'
 														type='password'
 														placeholder='New Password'
 														id='new-password'
@@ -264,7 +264,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 													/>
 
 													<input
-														className='border-gray-300 border rounded w-1/5 py-2 px-4 text-gray-700 leading-tight focus:outline-none  text-center text-md cursor-pointer focus:cursor-text outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mb-2 dark:bg-slate-800 dark:text-gray-300 dark:border-slate-600'
+														className='text-md mb-2 w-1/5 cursor-pointer rounded border border-gray-300 px-4 py-2  text-center leading-tight text-gray-700 outline-none ring-sky-400 transition-all duration-150 focus:cursor-text focus:outline-none focus:ring-2 hover:shadow dark:border-slate-600 dark:bg-slate-800 dark:text-gray-300'
 														placeholder='Confirm New Password'
 														type='password'
 														name='confirmedPassword'
@@ -272,16 +272,16 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 														value={confirmedPassword}
 														onChange={(e) => setConfirmedPassword(e.target.value)}
 													/>
-													<div className='flex justify-center items-center pb-10 pt-8'>
+													<div className='flex items-center justify-center pb-10 pt-8'>
 														<button
 															type='submit'
-															className='bg-sky-500 hover:bg-sky-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+															className='text-md mb-1 w-40 rounded bg-sky-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2 '>
 															Submit
 														</button>
 														<button
 															onClick={handleChangePasswordClick}
 															type='button'
-															className='bg-gray-500 hover:bg-gray-600 uppercase text-white hover:shadow-md shadow text-md font-normal w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '>
+															className='text-md mb-1 w-40 rounded bg-gray-500 py-1 font-normal uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-gray-600 hover:shadow-md sm:mr-2 '>
 															Cancel
 														</button>
 													</div>
@@ -289,17 +289,17 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 											</form>
 										)}
 										{showButtons && (
-											<div className='flex  justify-center items-center pb-10 pt-8'>
+											<div className='flex  items-center justify-center pb-10 pt-8'>
 												<button
 													type='button'
 													onClick={handleChangeEmailClick}
-													className='bg-sky-500 hover:bg-sky-600 mx-4  text-white hover:shadow-md shadow text-md font-semibold w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 mt-24'>
+													className='text-md mx-4 mb-1  mt-24 w-40 rounded bg-sky-500 py-1 font-semibold text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2'>
 													Change Email
 												</button>
 												<button
 													type='button'
 													onClick={handleChangePasswordClick}
-													className='bg-sky-500 hover:bg-sky-600 mx-4  text-white hover:shadow-md shadow text-md font-semibold w-40 py-1 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 mt-24'>
+													className='text-md mx-4 mb-1  mt-24 w-40 rounded bg-sky-500 py-1 font-semibold text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2'>
 													Change Password
 												</button>
 											</div>

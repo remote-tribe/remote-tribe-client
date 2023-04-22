@@ -90,7 +90,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 				<div className='mt-20'>
 					<label
 						htmlFor='title'
-						className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+						className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 						Title
 					</label>
 					<input
@@ -98,13 +98,11 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						id='title'
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className=' outline-none ring-sky-400 focus:ring-2 hover:shadow transition-all duration-150 mt-1 block mx-auto  px-3 py-2  border-gray-300 dark:text-black dark:bg-gray-300 rounded-md w-2/3'
+						className=' mx-auto mt-1 block w-2/3 rounded-md border-gray-300 px-3 py-2 outline-none  ring-sky-400 transition-all  duration-150 focus:ring-2 hover:shadow dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-1'
 						required
 					/>
 				</div>
-				<label
-					htmlFor='title'
-					className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+				<label className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 					Image
 				</label>
 				<div className='flex justify-center'>
@@ -112,10 +110,10 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						<img
 							src={uploadedImage && uploadedImage}
 							alt='Uploaded thumbnail'
-							className='w-24 h-24 object-cover  rounded'
+							className='h-24 w-24 rounded  object-cover'
 						/>
 					) : loading ? (
-						<div className='text-center text-sky-400 flex justify-center mt-5 '>
+						<div className='mt-5 flex justify-center text-center text-sky-400 '>
 							<FadeLoader
 								color={'#00a8e8'}
 								loading={loading}
@@ -127,7 +125,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						<>
 							{' '}
 							<input
-								className='bg-white dark:bg-gray-300 '
+								className='bg-white dark:bg-gray-700 dark:text-gray-200 '
 								type='file'
 								onChange={handleImageChange}
 							/>
@@ -138,7 +136,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 				<div>
 					<label
 						htmlFor='content'
-						className='block text-center text-lg mb-2 font-medium text-gray-800 dark:text-gray-200'>
+						className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 						Content
 					</label>
 					<Editor onContentChange={handleContentChange} />
@@ -146,13 +144,13 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 				<div className='flex justify-center space-x-2'>
 					<button
 						type='submit'
-						className=' w-40  px-4 py-1 bg-sky-400 dark:bg-sky-500 dark:hover:bg-sky-600 text-white font-medium rounded-md hover:bg-sky-500 transition-all duration-150'>
+						className=' w-40  rounded-md bg-sky-400 px-4 py-1 font-medium text-white transition-all duration-150 hover:bg-sky-500 dark:bg-sky-500 dark:hover:bg-sky-600'>
 						Create Article
 					</button>
 					<button
 						onClick={handleShowCreate}
 						type='submit'
-						className=' w-40  px-4 py-1 bg-gray-400 text-white font-medium rounded-md hover:bg-gray-500 transition-all duration-150'>
+						className=' w-40  rounded-md bg-gray-400 px-4 py-1 font-medium text-white transition-all duration-150 hover:bg-gray-500'>
 						Cancel
 					</button>
 				</div>

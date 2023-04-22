@@ -42,27 +42,27 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 		<section className='fade-in-2'>
 			{message && (
 				<div
-					className='bg-green-100 dark:bg-green-500 dark:text-white border w-fit mx-auto border-green-400 dark:border-green-700 text-green-700 px-8 py-3 rounded relative my-3 fade-in-2'
+					className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-green-400 bg-green-100 px-8 py-3 text-green-700 dark:border-green-700 dark:bg-green-500 dark:text-white'
 					role='alert'>
 					<span className='block sm:inline'>{message}</span>
 				</div>
 			)}
 			{error ? (
 				<div
-					className='bg-red-100 dark:bg-red-400 dark:text-red-100 border w-fit mx-auto border-red-400 dark:border-red-700 text-red-700 px-4 py-3 rounded relative my-3 fade-in-2'
+					className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700 dark:border-red-700 dark:bg-red-400 dark:text-red-100'
 					role='alert'>
 					<span className='block sm:inline'>{error}</span>
 				</div>
 			) : (
-				<div className='h-[3.1rem] my-3'></div>
+				<div className='my-3 h-[3.1rem]'></div>
 			)}
-			<div className='flex flex-col items-center px-6  mx-auto md:h-full lg:py-0'>
+			<div className='mx-auto flex flex-col items-center  px-6 md:h-full lg:py-0'>
 				<Link
 					to={'/'}
-					className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'>
+					className='mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
-						className='w-10 h-10 text-sky-500 mr-1'
+						className='mr-1 h-10 w-10 text-sky-500'
 						viewBox='0 0 24 24'>
 						<path
 							fill='currentColor'
@@ -71,9 +71,9 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 					</svg>
 					Remote Tribe
 				</Link>
-				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 '>
-					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
-						<h1 className='text-xl text-center font-semibold mb-8 leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
+				<div className='w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0 '>
+					<div className='space-y-4 p-6 sm:p-8 md:space-y-6'>
+						<h1 className='mb-8 text-center text-xl font-semibold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl'>
 							Sign In to your Account
 						</h1>
 						<form
@@ -82,7 +82,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 							<div>
 								<label
 									htmlFor='email'
-									className='block mb-2 text-sm font-medium text-center text-gray-900 dark:text-white'>
+									className='mb-2 block text-center text-sm font-medium text-gray-900 dark:text-white'>
 									Your Email
 								</label>
 								<input
@@ -91,14 +91,14 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 									type='text'
 									name='email'
 									id='email'
-									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
+									className='mt-2 block w-full rounded-lg 
+									border border-gray-300 bg-gray-50 p-2.5 text-gray-900 outline-none ring-sky-400	transition-all duration-150 focus:shadow-md focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:ring-sky-500 sm:text-sm'
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor='password'
-									className=' text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white'>
+									className=' mb-2 block text-center text-sm font-medium text-gray-900 dark:text-white'>
 									Your Password
 								</label>
 								<input
@@ -107,13 +107,13 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 									type='password'
 									name='password'
 									id='password'
-									className='bg-gray-50 text-gray-900 sm:text-sm rounded-lg 
-									block w-full p-2.5 dark:bg-gray-700 focus:ring-2 ring-sky-400 dark:ring-sky-500	border-gray-300 dark:border-gray-600 border dark:placeholder-gray-400 dark:text-white outline-none mt-2 transition-all duration-150 focus:shadow-md'
+									className='mt-2 block w-full rounded-lg 
+									border border-gray-300 bg-gray-50 p-2.5 text-gray-900 outline-none ring-sky-400	transition-all duration-150 focus:shadow-md focus:ring-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:ring-sky-500 sm:text-sm'
 								/>
 							</div>
 							<div className='flex items-center justify-between'>
 								<div className='flex items-start'>
-									<div className='flex items-center h-5'>
+									<div className='flex h-5 items-center'>
 										<input
 											id='remember'
 											aria-describedby='remember'
@@ -121,8 +121,8 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 											name='rememberMe'
 											checked={rememberMe}
 											onChange={handleRememberMeChange}
-											className='cursor-pointer w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300
-                                     dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 accent-sky-500'
+											className='focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 h-4 w-4 cursor-pointer rounded border border-gray-300
+                                     bg-gray-50 accent-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800'
 										/>
 									</div>
 									<div className='ml-3 text-sm'>
@@ -136,7 +136,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 								<Link
 									onClick={() => setIsLoading(!isLoading)}
 									to={'#'}
-									className='text-sm font-medium text-sky-500 text-primary-600 hover:text-sky-600  dark:text-primary-500'>
+									className='text-primary-600 dark:text-primary-500 text-sm font-medium text-sky-500  hover:text-sky-600'>
 									Forgot password?
 								</Link>
 							</div>
@@ -155,16 +155,16 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 							<div className='button-div'>
 								<button
 									type='submit'
-									className='w-auto mx-auto flex text-sky-500 hover:text-sky-300 font-medium rounded-lg text-xl px-6 py-1 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 border-sky-500 hover:border-sky-400 border hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5'>
+									className='dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mx-auto flex w-auto rounded-lg border border-sky-500 px-6 py-1 text-center text-xl font-medium text-sky-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400 hover:text-sky-300 hover:shadow-lg'>
 									Sign In
 								</button>
 							</div>
 
-							<p className='text-sm text-center font-light text-gray-500 dark:text-gray-400'>
+							<p className='text-center text-sm font-light text-gray-500 dark:text-gray-400'>
 								Don’t have an account yet?
 								<span
 									onClick={handleShowRegister}
-									className='font-medium text-primary-600 text-sky-500 text-lg hover:text-sky-600  dark:text-primary-500 ml-2 cursor-pointer transition-all duration-150'>
+									className='text-primary-600 dark:text-primary-500 ml-2 cursor-pointer text-lg  font-medium text-sky-500 transition-all duration-150 hover:text-sky-600'>
 									Sign up
 								</span>
 							</p>

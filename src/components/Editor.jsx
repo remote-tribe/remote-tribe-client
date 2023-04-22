@@ -17,7 +17,7 @@ export function Editor({ onContentChange, prevContent }) {
 
 	return (
 		<ReactQuill
-			className='bg-white    text-xl rounded-lg transition-all duration-150  outline-none border-none '
+			className=' transition-all duration-150'
 			value={content}
 			onChange={handleContentChange}
 		/>
