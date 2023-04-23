@@ -57,7 +57,7 @@ export const CommunityPage = () => {
 			/>
 		</div>
 	) : (
-		<div>
+		<div className=''>
 			{showCreate ? (
 				<CreateArticle
 					handleShowCreate={handleShowCreate}

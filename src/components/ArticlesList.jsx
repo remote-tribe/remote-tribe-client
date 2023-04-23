@@ -10,17 +10,17 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 		return titleMatch || authorMatch
 	})
 	return (
-		<div className='mx-auto '>
-			<div className='mt-5 flex flex-col items-center justify-center '>
+		<div className='mx-auto bg-gradient-to-bl from-sky-500 to-transparent '>
+			<div className='flex flex-col items-center justify-center pt-5 '>
 				<button
-					className='mb-3 rounded-md bg-none px-4 py-1 text-xl font-medium text-sky-400 transition-all duration-150 hover:text-sky-500'
+					className='mb-3 rounded-md bg-none px-4 py-1 text-xl font-medium text-sky-800 transition-all duration-150 hover:text-sky-950 dark:text-sky-200 dark:hover:text-sky-100'
 					onClick={handleShowCreate}>
 					Create an Article
 				</button>
 				<div className='relative'>
 					<input
 						type='text'
-						className='w-96 rounded-lg py-2 pl-10 pr-3 text-lg outline-none ring-sky-400 transition-all duration-150 focus:ring-1 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-400'
+						className='w-96 rounded-lg py-2 pl-10 pr-3 text-lg outline-none ring-sky-800 transition-all duration-150 focus:ring-1 dark:bg-gray-700 dark:text-gray-200 dark:ring-sky-300 dark:placeholder:text-gray-400'
 						placeholder='Search'
 						onChange={(event) => setSearchQuery(event.target.value)}
 					/>
@@ -31,12 +31,12 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 			</div>
 
 			{filteredArticles && (
-				<div className='fade-in mx-auto my-6 flex flex-wrap justify-center md:w-10/12 '>
+				<div className='fade-in mx-auto mt-6 flex flex-wrap justify-center pb-6 md:w-10/12 '>
 					{filteredArticles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}
 							key={index}
-							className='mx-2 my-2 flex h-96 cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-600  dark:text-gray-100 dark:hover:shadow-gray-700 md:mx-16  md:mt-24 md:w-[30vw] '>
+							className='mx-2 my-2 flex h-96 cursor-pointer flex-col overflow-hidden rounded-lg bg-slate-100 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-500 dark:bg-slate-700  dark:text-gray-100 dark:hover:shadow-slate-600 md:mx-16  md:mt-24 md:w-[30vw] '>
 							{article?.imageUrl ? (
 								<img
 									className='h-64 w-full '

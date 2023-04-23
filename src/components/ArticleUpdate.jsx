@@ -171,16 +171,16 @@ const UpdateArticle = ({ article }) => {
 							)}
 						</div>
 					</div>
-					<div className='flex justify-center  space-x-4'>
+					<div className='flex flex-col items-center justify-center   md:flex-row'>
 						<button
 							type='submit'
-							className='mb-10 mt-5 w-1/5 rounded-md bg-sky-400 p-1 font-medium text-white transition-all duration-150 hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-600'>
+							className=' mt-5 w-32 rounded-md bg-sky-400 p-1 font-medium text-white transition-all duration-150 hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-600 md:mx-2 md:mt-5 '>
 							Update Article
 						</button>
 						<button
 							type='button'
 							onClick={() => navigate(`/community/article/${article?._id}`)}
-							className='mb-10 mt-5 w-1/5 rounded-md bg-gray-400 p-1 font-medium text-white transition-all duration-150 hover:bg-gray-500 hover:shadow-md'>
+							className='mb-10 mt-2 w-32 rounded-md bg-gray-400 p-1 font-medium text-white transition-all duration-150 hover:bg-gray-500 hover:shadow-md md:mx-2 md:mb-0 md:mt-5'>
 							Cancel
 						</button>
 					</div>

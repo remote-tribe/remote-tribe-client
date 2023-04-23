@@ -24,6 +24,7 @@ export const InboxPage = () => {
 	const currUser = GetCurrentUser()
 	const userId = currUser?.id
 	const location = useLocation()
+	const [showChats, setShowChats] = useState(true)
 
 	const fetchCurrentUser = async () => {
 		setUserData(null)
@@ -39,6 +40,9 @@ export const InboxPage = () => {
 	}
 
 	const fetchUser = async (userId) => {
+		if (window.innerWidth < 768) {
+			setShowChats(false)
+		}
 		try {
 			if (location) {
 				setUserData(location?.state?.user)
@@ -68,49 +72,52 @@ export const InboxPage = () => {
 			/>
 		</div>
 	) : (
-		<main className='flex h-[94vh] w-full rounded-3xl shadow-lg'>
-			<section className='flex h-full w-4/12 flex-col bg-gray-200 pt-3 scrollbar dark:bg-gray-700 '>
+		<main className='flex h-[94vh] w-full flex-col rounded-3xl md:flex-row '>
+			<section className='flex flex-col bg-gray-200 py-3 scrollbar dark:bg-gray-700 md:h-full md:w-4/12 '>
 				<label className='px-3'>
 					<input
-						className='w-full rounded-lg bg-white p-4 shadow ring-sky-400 transition duration-200 focus:outline-none focus:ring-2 dark:bg-gray-600 dark:text-gray-100'
+						onClick={() => setShowChats(!showChats)}
+						className='w-full rounded-lg bg-white p-2 shadow ring-sky-400 transition duration-200 focus:outline-none focus:ring-2 dark:bg-gray-600 dark:text-gray-100 md:p-4'
 						placeholder='Search...'
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
 					/>
 				</label>
-
-				<ul className='mt-6'>
-					{currentUser?.conversations
-						.filter((conversation) =>
-							conversation.participants.some((participant) =>
-								participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
-							),
-						)
-						.map((conversation, index) => {
-							const otherParticipant = conversation.participants.find(
-								(participant) => participant._id !== userId,
+				{showChats && (
+					<ul className='pt-2 md:pt-6'>
+						{currentUser?.conversations
+							.filter((conversation) =>
+								conversation.participants.some((participant) =>
+									participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
+								),
 							)
-							return (
-								<li
-									onClick={() => {
-										fetchUser(otherParticipant?._id)
-									}}
-									key={index}
-									className='cursor-pointer border-b border-gray-300 px-3 py-5 transition hover:bg-sky-100 dark:border-gray-600 dark:hover:bg-sky-900'>
-									<span
-										href='#'
-										className='flex items-center justify-between'>
-										<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
-											{otherParticipant?.username}
-										</h3>
-									</span>
-									<div className='text-md italic text-gray-400'>Sent you a message!</div>
-								</li>
-							)
-						})}
-				</ul>
+							.map((conversation, index) => {
+								const otherParticipant = conversation.participants.find(
+									(participant) => participant._id !== userId,
+								)
+								return (
+									<li
+										onClick={() => {
+											fetchUser(otherParticipant?._id)
+										}}
+										key={index}
+										className='cursor-pointer border-t border-gray-300 px-3 py-5 transition hover:bg-sky-100 dark:border-gray-600 dark:hover:bg-sky-900'>
+										<span
+											href='#'
+											className='flex items-center justify-between'>
+											<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
+												{otherParticipant?.username}
+											</h3>
+										</span>
+										<div className='text-md italic text-gray-400'>Sent you a message!</div>
+									</li>
+								)
+							})}
+					</ul>
+				)}
 			</section>
 			<Conversation
+				setShowChats={setShowChats}
 				currentUser={currentUser}
 				userData={userData}
 				fetchUser={fetchUser}

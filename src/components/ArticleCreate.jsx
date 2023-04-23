@@ -83,11 +83,11 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	}
 
 	return (
-		<div className='fade-in-2'>
+		<div className='fade-in-2 '>
 			<form
 				onSubmit={handleSubmit}
 				className='mx-auto max-w-5xl space-y-4 '>
-				<div className='mt-20'>
+				<div className='pt-20 '>
 					<label
 						htmlFor='title'
 						className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
@@ -98,14 +98,14 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						id='title'
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
-						className=' mx-auto mt-1 block w-2/3 rounded-md border-gray-300 px-3 py-2 outline-none  ring-sky-400 transition-all  duration-150 focus:ring-2 hover:shadow dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-1'
+						className=' mx-auto mt-1 block w-2/3 rounded-md border-gray-300 px-3 py-2 outline-none  ring-sky-400 transition-all  duration-150 focus:ring-2 hover:shadow dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-1 '
 						required
 					/>
 				</div>
 				<label className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
-					Image
+					Image (optional)
 				</label>
-				<div className='flex justify-center'>
+				<div className='flex justify-center '>
 					{uploaded ? (
 						<img
 							src={uploadedImage && uploadedImage}
@@ -125,7 +125,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						<>
 							{' '}
 							<input
-								className='bg-white dark:bg-gray-700 dark:text-gray-200 '
+								className='cursor-pointer bg-white dark:bg-gray-700 dark:text-gray-200 '
 								type='file'
 								onChange={handleImageChange}
 							/>
