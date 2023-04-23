@@ -6,7 +6,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import Comment from './Comment'
 import { DeleteModal } from './DeleteModal'
 
-export const ArticleDetails = ({ article, getArticle, setLoading }) => {
+export const ArticleDetails = ({ setLoading }) => {
 	const [commentValue, setCommentValue] = useState('')
 	const currentUser = GetCurrentUser()
 	const { handleLogout } = useContext(UserContext)
@@ -14,15 +14,45 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
 	const [modalOpen, setModalOpen] = useState(false)
-
-	const [isLiked, setIsLiked] = useState(false)
-	const initialLikesNum = parseInt(typeof article.likes === 'number' ? article.likes : 0)
-	const [likesNum, setLikesNum] = useState(initialLikesNum)
-
-	// set article date
 	const [articleDate, setArticleDate] = useState('')
 
 	const [isOpen, setIsOpen] = useState(false)
+	const [article, setArticle] = useState(null)
+
+	const [isLiked, setIsLiked] = useState(false)
+	const initialLikesNum = parseInt(typeof article?.likes === 'number' ? article?.likes : 0)
+	const [likesNum, setLikesNum] = useState(initialLikesNum)
+	const [menuOpen, setMenuOpen] = useState(new Array(article?.comments?.length).fill(false))
+
+	const toggleMenu = (index) => {
+		const newMenuOpen = [...menuOpen]
+		newMenuOpen[index] = !newMenuOpen[index]
+		setMenuOpen(newMenuOpen)
+	}
+
+	const closeMenu = () => {
+		if (menuOpen.includes(true)) {
+			setMenuOpen(Array(article.comments.length).fill(false))
+		}
+	}
+
+	const getArticle = () => {
+		axios
+			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
+			.then(({ data }) => {
+				data.comments = data.comments.reverse()
+				setArticle(data)
+			})
+			.catch((error) => {
+				console.log(error)
+			})
+	}
+
+	useEffect(() => {
+		getArticle()
+	}, [])
+
+	// set article date
 
 	const openModal = () => {
 		setModalOpen(true)
@@ -53,15 +83,15 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 	}
 	// START!!! handle likes function
 	useEffect(() => {
-		if (typeof article.likes === 'number') {
-			setLikesNum(article.likes)
+		if (typeof article?.likes === 'number') {
+			setLikesNum(article?.likes)
 		}
-		if (article.likedBy && article.likedBy.includes(currentUser?.id)) {
+		if (article?.likedBy && article?.likedBy.includes(currentUser?.id)) {
 			setIsLiked(true)
 		} else {
 			setIsLiked(false)
 		}
-	}, [article.likes, article.likedBy, currentUser?.id])
+	}, [article?.likes, article?.likedBy, currentUser?.id])
 
 	async function addLikesNumInDataBase() {
 		await axios.post(`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}/like`, {
@@ -94,8 +124,8 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 
 	//START handle article date function
 	useEffect(() => {
-		const date = new Date(article.createdAt)
-		const formattedDate = date.toLocaleString('en-US', {
+		const date = new Date(article?.createdAt)
+		const formattedDate = date?.toLocaleString('en-US', {
 			month: 'short',
 			day: 'numeric',
 			year: 'numeric',
@@ -105,6 +135,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 	// END!!! article data function
 
 	const handleSubmit = async (e) => {
+		setCommentValue('')
 		e.preventDefault()
 		if (token) {
 			try {
@@ -121,7 +152,6 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 						},
 					},
 				)
-
 				getArticle()
 			} catch (error) {
 				if (error.message.includes('401')) {
@@ -140,10 +170,25 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 		if (isOpen) setIsOpen(false)
 	}
 
+	const deleteComment = async (commentId, index) => {
+		toggleMenu(index)
+		await axios.delete(
+			`${import.meta.env.VITE_BASE_URL}/api/comment?commentId=${commentId}&userId=${
+				currentUser.id
+			}&articleId=${articleId}`,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			},
+		)
+		getArticle()
+	}
+
 	return (
 		article && (
 			<div onClick={closeDropdown}>
-				<main className='fade-in-2 pb-16 pt-8 lg:pb-24 lg:pt-16 '>
+				<main
+					className='fade-in-2 pb-16 pt-8 lg:pb-24 lg:pt-16 '
+					onClick={closeMenu}>
 					<div className='mx-auto flex max-w-screen-xl justify-between px-4 '>
 						<article className='format format-sm sm:format-base lg:format-lg format-blue dark:format-invert mx-auto w-full max-w-2xl'>
 							<header className='not-format mb-4 lg:mb-6'>
@@ -285,7 +330,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 									</div>
 									<button
 										type='submit'
-										className='w-1/5 rounded-md bg-sky-400 p-1 font-medium text-white transition-all duration-150 hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-600'>
+										className='rounded-md bg-sky-400 p-1 px-2 font-medium text-white transition-all duration-150 hover:bg-sky-500 hover:shadow-md dark:bg-sky-500 dark:hover:bg-sky-600'>
 										Post Comment
 									</button>
 								</form>
@@ -315,54 +360,32 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 													</time>
 												</p>
 											</div>
-											<button
-												id='dropdownComment1Button'
-												data-dropdown-toggle='dropdownComment1'
-												className='inline-flex items-center rounded-lg p-2 text-center text-sm font-medium text-gray-400 focus:outline-none hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-100 '
-												type='button'>
-												<svg
-													className='h-5 w-5'
-													aria-hidden='true'
-													fill='currentColor'
-													viewBox='0 0 20 20'
-													xmlns='http://www.w3.org/2000/svg'>
-													<path d='M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z'></path>
-												</svg>
-												<span className='sr-only'>Comment settings</span>
-											</button>
+											<div className='relative'>
+												<button
+													type='button'
+													onClick={() => toggleMenu(index)}
+													className='mr-4 inline-flex h-8 w-8 scale-125 items-center justify-center rounded-full text-sm text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
+													<i class='fa-solid fa-ellipsis'></i>
+												</button>
+												{menuOpen[index] && (
+													<div className='absolute right-0 mt-2  w-48  shadow-lg'>
+														{comment?.author?._id === currentUser?.id && (
+															<button
+																onClick={() => deleteComment(comment?._id, index)}
+																className='text-md block w-full bg-white px-4 py-3 text-left text-sm text-rose-500  hover:bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-700'>
+																Delete
+															</button>
+														)}
 
-											<div
-												id='dropdownComment1'
-												className='z-10 hidden w-36 divide-y divide-gray-100 rounded bg-white shadow dark:divide-gray-600 dark:bg-gray-700'>
-												<ul
-													className='py-1 text-sm text-gray-700 dark:text-gray-200'
-													aria-labelledby='dropdownMenuIconHorizontalButton'>
-													<li>
-														<a
-															href='#'
-															className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
-															Edit
-														</a>
-													</li>
-													<li>
-														<a
-															href='#'
-															className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
-															Remove
-														</a>
-													</li>
-													<li>
-														<a
-															href='#'
-															className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'>
+														<button className='text-md block w-full border-b  bg-white px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
 															Report
-														</a>
-													</li>
-												</ul>
+														</button>
+													</div>
+												)}
 											</div>
 										</footer>
 										<p className='dark:text-white'>{comment?.content}</p>
-										<div className='mt-4 flex items-center space-x-4'>
+										{/* <div className='mt-4 flex items-center space-x-4'>
 											<button
 												type='button'
 												className='flex items-center text-sm text-gray-500 hover:text-sky-400 dark:text-gray-300'>
@@ -381,7 +404,7 @@ export const ArticleDetails = ({ article, getArticle, setLoading }) => {
 												</svg>
 												Reply
 											</button>
-										</div>
+										</div> */}
 									</article>
 								))}
 							</section>

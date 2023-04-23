@@ -47,13 +47,10 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 								<div className='h-64 w-full bg-gradient-to-tl from-sky-300 to-sky-700 object-cover object-center dark:from-sky-500 dark:to-sky-900 '></div>
 							)}
 
-							<div className='flex justify-between px-4 py-4'>
+							<div className='flex flex-wrap px-4 py-4'>
 								<div className='mb-2 text-xl font-semibold'>{article?.title}</div>
-								<span className='px-2 py-1 text-sm font-semibold text-gray-700 dark:text-gray-100'>
-									{new Date(article?.createdAt).toLocaleDateString('en-GB')}
-								</span>
 							</div>
-							<div className='mb-2 ml-2 mt-auto flex justify-between'>
+							<div className='mx-2 mb-2 mt-auto flex justify-between'>
 								<div className='mb-1 mr-4 space-x-4 text-xl'>
 									<span className='space-x-1 text-gray-600 dark:text-gray-100 '>
 										<i className='fa-solid fa-thumbs-up dark:text-sky-599  mx-1 text-sky-500 dark:text-sky-400' />
@@ -64,6 +61,9 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 										{article?.comments?.length}
 									</span>
 								</div>
+								<span className=' px-2 py-1 text-sm font-semibold text-gray-700 dark:text-gray-100'>
+									{new Date(article?.createdAt).toLocaleDateString('en-GB')}
+								</span>
 							</div>
 						</Link>
 					))}

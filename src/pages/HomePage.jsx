@@ -119,7 +119,7 @@ export const HomePage = () => {
 							showThumbs={false}
 							showStatus={false}
 							showIndicators={false}
-							interval={3000}
+							interval={5000}
 							centerSlidePercentage={25}
 							centerMode={true}>
 							{articles?.slice(0, 4).map((article, index) => (
@@ -150,7 +150,7 @@ export const HomePage = () => {
 							showThumbs={false}
 							showStatus={false}
 							showIndicators={false}
-							interval={3000}
+							interval={5000}
 							centerMode={false}>
 							{articles?.slice(0, 4).map((article, index) => (
 								<Link
