@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ReportModal } from './ReportModal'
 
 export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUser, setShowChats }) => {
 	const [chat, setChat] = useState([])
@@ -8,6 +9,9 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
+	const [reportModalOpen, setReportModalOpen] = useState(false)
+	const [notification, setNotification] = useState(null)
+	const [error, setError] = useState(null)
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen)
@@ -66,6 +70,35 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		}
 	}
 
+	const closeReportModal = () => {
+		setReportModalOpen(false)
+	}
+
+	const handleReport = async (report, id) => {
+		closeReportModal()
+
+		if (report == '') {
+			setError('Text field cannot be empty.')
+			setTimeout(() => {
+				setError(null)
+			}, 5000)
+			return
+		}
+
+		try {
+			const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/report`, {
+				content: report,
+				id: id,
+			})
+			setNotification(response?.data?.message)
+			setTimeout(() => {
+				setNotification(null)
+			}, 5000)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	return (
 		<div
 			className='h-full w-full   '
@@ -79,6 +112,13 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 							}
 						}}
 						className='p:2 last fade-in-2 flex h-full flex-1 flex-col justify-between  sm:p-6  '>
+						{reportModalOpen && (
+							<ReportModal
+								handleReport={handleReport}
+								isOpen={reportModalOpen}
+								closeModal={closeReportModal}
+							/>
+						)}
 						<div className='flex justify-between border-b border-sky-300 py-3 dark:border-sky-500 sm:items-center'>
 							<Link
 								to={`/users/${userData?._id}`}
@@ -112,7 +152,9 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 											className='text-md block w-full bg-white px-4 py-3 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
 											View Profile
 										</Link>
-										<button className='text-md block w-full border-b  bg-white px-4 py-3 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
+										<button
+											onClick={() => setReportModalOpen(chat?._id)}
+											className='text-md block w-full border-b  bg-white px-4 py-3 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
 											Report
 										</button>
 
@@ -125,6 +167,20 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 								)}
 							</div>
 						</div>
+						{notification && (
+							<div
+								className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-green-400 bg-green-100 px-8 py-3 text-green-700 dark:border-green-700 dark:bg-green-500 dark:text-white'
+								role='alert'>
+								<span className='block sm:inline'>{notification}</span>
+							</div>
+						)}
+						{error && (
+							<div
+								className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-red-400 bg-red-100 px-8 py-3 text-red-700 dark:border-red-700 dark:bg-red-500 dark:text-white'
+								role='alert'>
+								<span className='block sm:inline'>{error}</span>
+							</div>
+						)}
 						<div
 							id='messages'
 							className='scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col space-y-4 overflow-y-auto p-3'>

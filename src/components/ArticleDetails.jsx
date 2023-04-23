@@ -5,24 +5,31 @@ import { UserContext } from '../context/UserContext'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import Comment from './Comment'
 import { DeleteModal } from './DeleteModal'
+import { ReportModal } from './ReportModal'
 
 export const ArticleDetails = ({ setLoading }) => {
-	const [commentValue, setCommentValue] = useState('')
 	const currentUser = GetCurrentUser()
-	const { handleLogout } = useContext(UserContext)
-	const { articleId } = useParams()
 	const token = localStorage.getItem('token')
-	const navigate = useNavigate()
-	const [modalOpen, setModalOpen] = useState(false)
-	const [articleDate, setArticleDate] = useState('')
 
-	const [isOpen, setIsOpen] = useState(false)
+	const { articleId } = useParams()
 	const [article, setArticle] = useState(null)
-
-	const [isLiked, setIsLiked] = useState(false)
+	const [articleDate, setArticleDate] = useState('')
 	const initialLikesNum = parseInt(typeof article?.likes === 'number' ? article?.likes : 0)
 	const [likesNum, setLikesNum] = useState(initialLikesNum)
+	const [isLiked, setIsLiked] = useState(false)
 	const [menuOpen, setMenuOpen] = useState(new Array(article?.comments?.length).fill(false))
+
+	const [commentValue, setCommentValue] = useState('')
+	const [modalOpen, setModalOpen] = useState(false)
+	const [reportModalOpen, setReportModalOpen] = useState(false)
+
+	const navigate = useNavigate()
+	const [isOpen, setIsOpen] = useState(false)
+
+	const [notification, setNotification] = useState(null)
+	const [error, setError] = useState(null)
+
+	const [showMessageBottom, setShowMessageBottom] = useState(false)
 
 	const toggleMenu = (index) => {
 		const newMenuOpen = [...menuOpen]
@@ -60,6 +67,41 @@ export const ArticleDetails = ({ setLoading }) => {
 
 	const closeModal = () => {
 		setModalOpen(false)
+	}
+
+	const openReportModal = () => {
+		setReportModalOpen(true)
+	}
+
+	const closeReportModal = () => {
+		setReportModalOpen(false)
+	}
+
+	const handleReport = async (report, id) => {
+		closeReportModal()
+		if (id !== article?._id) {
+			setShowMessageBottom(true)
+		}
+		if (report == '') {
+			setError('Text field cannot be empty.')
+			setTimeout(() => {
+				setError(null)
+			}, 5000)
+			return
+		}
+
+		try {
+			const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/report`, {
+				content: report,
+				id: id,
+			})
+			setNotification(response?.data?.message)
+			setTimeout(() => {
+				setNotification(null)
+			}, 5000)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	const handleDeleteClick = async () => {
@@ -139,7 +181,7 @@ export const ArticleDetails = ({ setLoading }) => {
 		e.preventDefault()
 		if (token) {
 			try {
-				const response = await axios.post(
+				await axios.post(
 					`${import.meta.env.VITE_BASE_URL}/api/comment`,
 					{
 						commentValue,
@@ -186,6 +228,20 @@ export const ArticleDetails = ({ setLoading }) => {
 	return (
 		article && (
 			<div onClick={closeDropdown}>
+				{notification && !showMessageBottom && (
+					<div
+						className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-green-400 bg-green-100 px-8 py-3 text-green-700 dark:border-green-700 dark:bg-green-500 dark:text-white'
+						role='alert'>
+						<span className='block sm:inline'>{notification}</span>
+					</div>
+				)}
+				{error && (
+					<div
+						className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-red-400 bg-red-100 px-8 py-3 text-red-700 dark:border-red-700 dark:bg-red-500 dark:text-white'
+						role='alert'>
+						<span className='block sm:inline'>{error}</span>
+					</div>
+				)}
 				<main
 					className='fade-in-2 pb-16 pt-8 lg:pb-24 lg:pt-16 '
 					onClick={closeMenu}>
@@ -259,6 +315,7 @@ export const ArticleDetails = ({ setLoading }) => {
 															</>
 														) : (
 															<Link
+																onClick={() => setReportModalOpen(article?._id)}
 																className='text-md block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-gray-700 '
 																role='menuitem'>
 																Report
@@ -274,6 +331,13 @@ export const ArticleDetails = ({ setLoading }) => {
 												closeModal={closeModal}
 												handleDeleteClick={handleDeleteClick}
 											/>
+											{reportModalOpen && (
+												<ReportModal
+													handleReport={handleReport}
+													isOpen={reportModalOpen}
+													closeModal={closeReportModal}
+												/>
+											)}
 										</div>
 									</div>
 								</address>
@@ -334,6 +398,20 @@ export const ArticleDetails = ({ setLoading }) => {
 										Post Comment
 									</button>
 								</form>
+								{notification && showMessageBottom && (
+									<div
+										className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-green-400 bg-green-100 px-8 py-3 text-green-700 dark:border-green-700 dark:bg-green-500 dark:text-white'
+										role='alert'>
+										<span className='block sm:inline'>{notification}</span>
+									</div>
+								)}
+								{error && (
+									<div
+										className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-red-400 bg-red-100 px-8 py-3 text-red-700 dark:border-red-700 dark:bg-red-500 dark:text-white'
+										role='alert'>
+										<span className='block sm:inline'>{error}</span>
+									</div>
+								)}
 								{article?.comments?.map((comment, index) => (
 									<article
 										key={index}
@@ -360,6 +438,7 @@ export const ArticleDetails = ({ setLoading }) => {
 													</time>
 												</p>
 											</div>
+
 											<div className='relative'>
 												<button
 													type='button'
@@ -367,19 +446,22 @@ export const ArticleDetails = ({ setLoading }) => {
 													className='mr-4 inline-flex h-8 w-8 scale-125 items-center justify-center rounded-full text-sm text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
 													<i class='fa-solid fa-ellipsis'></i>
 												</button>
+
 												{menuOpen[index] && (
 													<div className='absolute right-0 mt-2  w-48  shadow-lg'>
-														{comment?.author?._id === currentUser?.id && (
+														{comment?.author?._id === currentUser?.id ? (
 															<button
 																onClick={() => deleteComment(comment?._id, index)}
 																className='text-md block w-full bg-white px-4 py-3 text-left text-sm text-rose-500  hover:bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-700'>
 																Delete
 															</button>
+														) : (
+															<button
+																onClick={() => setReportModalOpen(comment?._id)}
+																className='text-md block w-full bg-white px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900  dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
+																Report
+															</button>
 														)}
-
-														<button className='text-md block w-full border-b  bg-white px-4 py-3 text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100 dark:hover:bg-gray-700'>
-															Report
-														</button>
 													</div>
 												)}
 											</div>
@@ -415,5 +497,4 @@ export const ArticleDetails = ({ setLoading }) => {
 		)
 	)
 }
-
 export default ArticleDetails
