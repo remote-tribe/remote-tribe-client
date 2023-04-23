@@ -1,9 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 
-export const UserFollowing = ({ userData, currentUser, handleShowFollowingSettings }) => {
-	const navigate = useNavigate()
+export const UserFollowing = ({ userData }) => {
 	const [followingUsers, setFollowingUsers] = useState([])
 
 	const fetchFollowingUsers = async () => {

@@ -9,16 +9,15 @@ const override = {
 }
 
 export const SignUpForm = ({ handleShowRegister, setMessage }) => {
-	const [isLoading, setIsLoading] = useState(false)
-	const [firstName, setFirstName] = useState('')
-	const [lastName, setLastName] = useState('')
-	const [username, setUsername] = useState('')
 	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [confirmedPassword, setConfirmedPassword] = useState('')
 	const [error, setError] = useState('')
-
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [lastName, setLastName] = useState('')
+	const [firstName, setFirstName] = useState('')
+	const [isLoading, setIsLoading] = useState(false)
 	const [termsAgreed, setTermsAgreed] = useState(false)
+	const [confirmedPassword, setConfirmedPassword] = useState('')
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

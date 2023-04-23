@@ -1,9 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 
-export const UserArticles = ({ currentUser, handleShowArticlesSettings, userData }) => {
-	const navigate = useNavigate()
+export const UserArticles = ({ handleShowArticlesSettings, userData }) => {
 	const [articles, setArticles] = useState([])
 
 	useEffect(() => {

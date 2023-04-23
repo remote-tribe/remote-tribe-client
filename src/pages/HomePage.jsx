@@ -1,11 +1,11 @@
-import { GetCurrentUser } from '../Auth'
-import { useEffect, useContext, useState } from 'react'
-import { UserContext } from '../context/UserContext'
-import { FadeLoader } from 'react-spinners'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import { Carousel } from 'react-responsive-carousel'
 import axios from 'axios'
+import { GetCurrentUser } from '../Auth'
+import { FadeLoader } from 'react-spinners'
+import { Carousel } from 'react-responsive-carousel'
+import { UserContext } from '../context/UserContext'
 import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useContext, useState } from 'react'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const override = {
 	display: 'block',
@@ -21,15 +21,7 @@ export const HomePage = () => {
 	const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1000)
 
 	useEffect(() => {
-		function handleResize() {
-			setIsLargeScreen(window.innerWidth >= 1000)
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => {
-			window.removeEventListener('resize', handleResize)
-		}
+		getAllArticles()
 	}, [])
 
 	useEffect(() => {
@@ -39,7 +31,15 @@ export const HomePage = () => {
 	}, [])
 
 	useEffect(() => {
-		getAllArticles()
+		function handleResize() {
+			setIsLargeScreen(window.innerWidth >= 1000)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
 	}, [])
 
 	const getAllArticles = () => {

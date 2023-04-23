@@ -1,27 +1,20 @@
 import './App.css'
-import { HomePage } from './pages/HomePage'
-import { SignInPage } from './pages/SignInPage'
-import { CommunityPage } from './pages/CommunityPage'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { NavBar } from './components/NavBar'
-import { ProfilePage } from './pages/ProfilePage'
-import { UserPage } from './pages/UserPage'
-import { UsersPage } from './pages/UsersPage'
-import UserContextProvider from './context/UserContext'
-import ArticleDetailsPage from './pages/ArticleDetailsPage'
-import ArticleUpdatePage from './pages/ArticleUpdatePage'
-import { InboxPage } from './pages/InboxPage'
-import { ClipLoader } from 'react-spinners'
-import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
+import { HomePage } from './pages/HomePage'
+import { useState, useEffect } from 'react'
+import { UserPage } from './pages/UserPage'
+import { NavBar } from './components/NavBar'
+import { UsersPage } from './pages/UsersPage'
+import { InboxPage } from './pages/InboxPage'
+import { SignInPage } from './pages/SignInPage'
+import { ProfilePage } from './pages/ProfilePage'
+import { CommunityPage } from './pages/CommunityPage'
+import UserContextProvider from './context/UserContext'
+import ArticleUpdatePage from './pages/ArticleUpdatePage'
+import ArticleDetailsPage from './pages/ArticleDetailsPage'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 Modal.setAppElement('#root')
-
-const override = {
-	display: 'block',
-	margin: '0 auto',
-	borderColor: 'red',
-}
 
 function App() {
 	const [isLoading, setIsLoading] = useState(true)
@@ -31,6 +24,7 @@ function App() {
 			setIsLoading(false)
 		})
 	}, [])
+
 	return (
 		<UserContextProvider>
 			<div className='App min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-800 '>
@@ -42,8 +36,8 @@ function App() {
 							element={<HomePage />}
 						/>
 						<Route
-							path='/profile'
-							element={<ProfilePage />}
+							path='/users/:userId'
+							element={<UserPage />}
 						/>
 						<Route
 							path='/inbox'
@@ -54,24 +48,24 @@ function App() {
 							element={<UsersPage />}
 						/>
 						<Route
-							path='/users/:userId'
-							element={<UserPage />}
+							path='/signin'
+							element={<SignInPage />}
+						/>
+						<Route
+							path='/profile'
+							element={<ProfilePage />}
 						/>
 						<Route
 							path='/community'
 							element={<CommunityPage />}
 						/>
 						<Route
-							path='/signin'
-							element={<SignInPage />}
+							path='/community/article/:articleId/edit'
+							element={<ArticleUpdatePage />}
 						/>
 						<Route
 							path='/community/article/:articleId'
 							element={<ArticleDetailsPage />}
-						/>
-						<Route
-							path='/community/article/:articleId/edit'
-							element={<ArticleUpdatePage />}
 						/>
 					</Routes>
 				</BrowserRouter>

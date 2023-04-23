@@ -86,11 +86,13 @@ export const InboxPage = () => {
 				{showChats && (
 					<ul className='pt-2 md:pt-6'>
 						{currentUser?.conversations
+
 							.filter((conversation) =>
 								conversation.participants.some((participant) =>
 									participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
 								),
 							)
+							.reverse()
 							.map((conversation, index) => {
 								const otherParticipant = conversation.participants.find(
 									(participant) => participant._id !== userId,

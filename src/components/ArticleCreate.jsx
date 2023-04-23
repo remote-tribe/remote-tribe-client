@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { Editor } from './Editor'
-import { Image } from 'cloudinary-react'
 import { FadeLoader } from 'react-spinners'
 
 const override = {
@@ -13,15 +12,13 @@ const override = {
 const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
-	const currentUser = GetCurrentUser()
 	const [loading, setLoading] = useState(false)
-
-	// set upload images
 	const [selectedImage, setSelectedImage] = useState(null)
 	const [uploadedImage, setUploadedImage] = useState('')
 	const [uploaded, setUploaded] = useState(false)
+	const currentUser = GetCurrentUser()
 
-	//START!! handle images
+	//Image handling
 	const handleImageChange = (e) => {
 		setSelectedImage(e.target.files[0])
 		handleImageUpload(e.target.files[0])
@@ -31,12 +28,13 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 		setLoading(true)
 		if (!file) return
 
-		// create a FormData
+		// Form creation
+
 		const formData = new FormData()
 		formData.append('file', file)
 		formData.append('upload_preset', 'fsgqertv')
 
-		// sent POST request to Cloudinary
+		// Sending the form to Cloudinary
 		try {
 			const res = await axios.post(`https://api.cloudinary.com/v1_1/dxeejm8ef/image/upload`, formData)
 			setUploadedImage(res.data.url)
@@ -47,12 +45,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 		}
 	}
 
-	//END!! handle images
-
-	const handleContentChange = (newContent) => {
-		setContent(newContent)
-	}
-
+	//Form for creating an article
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
@@ -80,6 +73,11 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 		setSelectedImage(null)
 		setUploadedImage('')
 		setUploaded(false)
+	}
+
+	// Text editor handling
+	const handleContentChange = (newContent) => {
+		setContent(newContent)
 	}
 
 	return (

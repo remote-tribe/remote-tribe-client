@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { GetCurrentUser } from '../Auth'
+import { useState, useEffect } from 'react'
 import { FadeLoader } from 'react-spinners'
 
 const override = {
@@ -11,10 +11,10 @@ const override = {
 }
 
 export const UsersPage = () => {
-	const [loading, setLoading] = useState(true)
-	const [users, setUsers] = useState([])
 	const currentUser = GetCurrentUser()
 	const currentUserId = currentUser?.id
+	const [users, setUsers] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		setLoading(true)

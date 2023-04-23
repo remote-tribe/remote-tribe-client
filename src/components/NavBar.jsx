@@ -6,15 +6,12 @@ import { useEffect, useState, useContext } from 'react'
 import { themeSwitch } from '../main'
 
 export const NavBar = () => {
-	const [moon, setMoon] = useState(null)
 	const [sun, setSun] = useState(null)
-	const [showNav, setShowNav] = useState(false)
-	const { loggedUser } = useContext(UserContext)
-	const [userData, setUserData] = useState(null)
+	const [moon, setMoon] = useState(null)
 	const theme = localStorage.getItem('theme')
-	const swapIcons = () => {
-		setIcon(!icon)
-	}
+	const [showNav, setShowNav] = useState(false)
+	const [userData, setUserData] = useState(null)
+	const { loggedUser } = useContext(UserContext)
 
 	useEffect(() => {
 		const currentUser = GetCurrentUser()
@@ -159,12 +156,12 @@ export const NavBar = () => {
 						<NavLink
 							onClick={() => setShowNav(false)}
 							to='/community'
-							className='mx-auto mb-1 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
+							className='mx-auto mb-1 py-1 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
 							Community
 						</NavLink>
 					</div>
 
-					<div className='flex items-center justify-evenly border-t-2 py-3 dark:border-gray-700'>
+					<div className='flex items-center justify-evenly border-t-2 py-2 dark:border-gray-700'>
 						{userData ? (
 							<>
 								<NavLink
@@ -176,7 +173,7 @@ export const NavBar = () => {
 								<NavLink
 									to=''
 									onClick={Logout}
-									className='mx-4 text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
+									className='mx-4  text-lg font-semibold text-gray-800 focus:text-sky-300 hover:text-sky-500 active:text-sky-300 dark:text-gray-400 dark:hover:text-sky-300'>
 									Sign Out
 								</NavLink>
 							</>

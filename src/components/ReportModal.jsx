@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import Modal from 'react-modal'
+import { useState } from 'react'
 
 const customStyles = {
 	content: {
@@ -13,8 +13,9 @@ const customStyles = {
 }
 
 export const ReportModal = ({ isOpen, closeModal, handleReport }) => {
-	const [report, setReport] = useState('')
 	const id = isOpen
+	const [report, setReport] = useState('')
+
 	return (
 		<Modal
 			style={customStyles}

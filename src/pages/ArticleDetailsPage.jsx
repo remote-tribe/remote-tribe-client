@@ -1,10 +1,8 @@
-import { useParams } from 'react-router-dom'
-import ArticleDetails from '../components/ArticleDetails'
-import CreateArticle from '../components/ArticleCreate'
-import UpdateArticle from '../components/ArticleUpdate'
-import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 import { FadeLoader } from 'react-spinners'
+import React, { useEffect, useState } from 'react'
+import ArticleDetails from '../components/ArticleDetails'
 
 const override = {
 	display: 'block',
@@ -13,8 +11,8 @@ const override = {
 }
 
 function ArticleDetailsPage() {
-	const [loading, setLoading] = useState(true)
 	const [article, setArticle] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	const { articleId } = useParams()
 

@@ -7,28 +7,28 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 	const [chat, setChat] = useState([])
 	const [message, setMessage] = useState('')
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
-	const token = localStorage.getItem('token')
-	const navigate = useNavigate()
 	const [reportModalOpen, setReportModalOpen] = useState(false)
 	const [notification, setNotification] = useState(null)
 	const [error, setError] = useState(null)
 
+	// Local storage token and navigation
+	const token = localStorage.getItem('token')
+	const navigate = useNavigate()
+
+	// Toggle menu open/close state
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen)
 	}
 
+	// Delete conversation
 	const deleteConversation = async (e) => {
 		e.preventDefault()
 		const id = chat?._id
 
 		try {
-			await axios.delete(
-				`${import.meta.env.VITE_BASE_URL}/api/conversation?conversationId=${id}`,
-
-				{
-					headers: { Authorization: `Bearer ${token}` },
-				},
-			)
+			await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/conversation?conversationId=${id}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			})
 			navigate(location.pathname, {})
 			fetchCurrentUser()
 		} catch (error) {
@@ -36,6 +36,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		}
 	}
 
+	// Get conversation data
 	useEffect(() => {
 		const conversation = userData?.conversations?.find((conversation) => {
 			return conversation?.participants?.some((participant) => {
@@ -48,11 +49,11 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		}
 	}, [userData, currentUser])
 
+	// Handle message submission
 	const handleSubmit = async (e) => {
-		const token = localStorage.getItem('token')
 		e.preventDefault()
 		try {
-			const response = await axios.post(
+			await axios.post(
 				`${import.meta.env.VITE_BASE_URL}/api/conversation`,
 				{
 					senderId: currentUser?._id,
@@ -70,10 +71,12 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 		}
 	}
 
+	// Close report modal
 	const closeReportModal = () => {
 		setReportModalOpen(false)
 	}
 
+	// Handle report submission
 	const handleReport = async (report, id) => {
 		closeReportModal()
 

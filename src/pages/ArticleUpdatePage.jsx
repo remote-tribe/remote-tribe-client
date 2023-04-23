@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom'
-import UpdateArticle from '../components/ArticleUpdate'
-import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { FadeLoader } from 'react-spinners'
+import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import UpdateArticle from '../components/ArticleUpdate'
 
 const override = {
 	display: 'block',
@@ -11,10 +11,9 @@ const override = {
 }
 
 function ArticleUpdatePage() {
-	const [loading, setLoading] = useState(true)
-	const [article, setArticle] = useState([])
-
 	const { articleId } = useParams()
+	const [article, setArticle] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		getArticle()

@@ -1,9 +1,7 @@
 import axios from 'axios'
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { GetCurrentUser } from '../Auth'
-import { UserContext } from '../context/UserContext'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import Comment from './Comment'
 import { DeleteModal } from './DeleteModal'
 import { ReportModal } from './ReportModal'
 
@@ -31,18 +29,7 @@ export const ArticleDetails = ({ setLoading }) => {
 
 	const [showMessageBottom, setShowMessageBottom] = useState(false)
 
-	const toggleMenu = (index) => {
-		const newMenuOpen = [...menuOpen]
-		newMenuOpen[index] = !newMenuOpen[index]
-		setMenuOpen(newMenuOpen)
-	}
-
-	const closeMenu = () => {
-		if (menuOpen.includes(true)) {
-			setMenuOpen(Array(article.comments.length).fill(false))
-		}
-	}
-
+	// Fetch article data
 	const getArticle = () => {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
@@ -59,24 +46,22 @@ export const ArticleDetails = ({ setLoading }) => {
 		getArticle()
 	}, [])
 
-	// set article date
-
+	// Open delete modal
 	const openModal = () => {
 		setModalOpen(true)
 	}
 
+	// Close delete modal
 	const closeModal = () => {
 		setModalOpen(false)
 	}
 
-	const openReportModal = () => {
-		setReportModalOpen(true)
-	}
-
+	// Close report modal
 	const closeReportModal = () => {
 		setReportModalOpen(false)
 	}
 
+	// Report handling
 	const handleReport = async (report, id) => {
 		closeReportModal()
 		if (id !== article?._id) {
@@ -104,6 +89,7 @@ export const ArticleDetails = ({ setLoading }) => {
 		}
 	}
 
+	// Article deletion handling
 	const handleDeleteClick = async () => {
 		closeModal()
 		setLoading(true)
@@ -123,7 +109,8 @@ export const ArticleDetails = ({ setLoading }) => {
 			console.log(error)
 		}
 	}
-	// START!!! handle likes function
+
+	// Handling likes
 	useEffect(() => {
 		if (typeof article?.likes === 'number') {
 			setLikesNum(article?.likes)
@@ -135,18 +122,21 @@ export const ArticleDetails = ({ setLoading }) => {
 		}
 	}, [article?.likes, article?.likedBy, currentUser?.id])
 
+	// Add likes to the database
 	async function addLikesNumInDataBase() {
 		await axios.post(`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}/like`, {
 			userId: currentUser.id,
 		})
 	}
 
+	// Add dislikes to the database
 	async function addDislikesNumInDataBase() {
 		await axios.put(`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}/like`, {
 			userId: currentUser.id,
 		})
 	}
 
+	// Handle like and dislike functionality
 	async function handleLike() {
 		if (token) {
 			if (isLiked === false) {
@@ -162,9 +152,7 @@ export const ArticleDetails = ({ setLoading }) => {
 			}
 		} else navigate('/signin')
 	}
-	// END!!! handle likes function
 
-	//START handle article date function
 	useEffect(() => {
 		const date = new Date(article?.createdAt)
 		const formattedDate = date?.toLocaleString('en-US', {
@@ -174,8 +162,8 @@ export const ArticleDetails = ({ setLoading }) => {
 		})
 		setArticleDate(formattedDate)
 	}, [article])
-	// END!!! article data function
 
+	// Handle comment submission
 	const handleSubmit = async (e) => {
 		setCommentValue('')
 		e.preventDefault()
@@ -204,14 +192,7 @@ export const ArticleDetails = ({ setLoading }) => {
 		} else navigate('/signin')
 	}
 
-	const toggleDropdown = () => {
-		setIsOpen(!isOpen)
-	}
-
-	const closeDropdown = () => {
-		if (isOpen) setIsOpen(false)
-	}
-
+	// Delete comment
 	const deleteComment = async (commentId, index) => {
 		toggleMenu(index)
 		await axios.delete(
@@ -223,6 +204,30 @@ export const ArticleDetails = ({ setLoading }) => {
 			},
 		)
 		getArticle()
+	}
+
+	// Toggle dropdown menu
+	const toggleDropdown = () => {
+		setIsOpen(!isOpen)
+	}
+
+	// Close dropdown menu
+	const closeDropdown = () => {
+		if (isOpen) setIsOpen(false)
+	}
+
+	// Toggle comment menu
+	const toggleMenu = (index) => {
+		const newMenuOpen = [...menuOpen]
+		newMenuOpen[index] = !newMenuOpen[index]
+		setMenuOpen(newMenuOpen)
+	}
+
+	// Close comment menu
+	const closeMenu = () => {
+		if (menuOpen.includes(true)) {
+			setMenuOpen(Array(article.comments.length).fill(false))
+		}
 	}
 
 	return (

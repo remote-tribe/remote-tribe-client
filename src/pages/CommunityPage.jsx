@@ -1,9 +1,9 @@
+import axios from 'axios'
+import { FadeLoader } from 'react-spinners'
+import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import ArticleList from '../components/ArticlesList'
 import CreateArticle from '../components/ArticleCreate'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { FadeLoader } from 'react-spinners'
 
 const override = {
 	display: 'block',
@@ -12,10 +12,10 @@ const override = {
 }
 
 export const CommunityPage = () => {
-	const [loading, setLoading] = useState(true)
 	const navigate = useNavigate()
 	const token = localStorage.getItem('token')
 	const [articles, setArticles] = useState([])
+	const [loading, setLoading] = useState(true)
 	const [showCreate, setShowCreate] = useState(false)
 
 	useEffect(() => {

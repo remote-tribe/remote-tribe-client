@@ -1,17 +1,17 @@
-import { useState, useContext } from 'react'
 import axios from 'axios'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
-	const [showEmailInputs, setShowEmailInputs] = useState(false)
-	const [showPasswordInputs, setShowPasswordInputs] = useState(false)
-	const [currentEmail, setCurrentEmail] = useState('')
-	const [newPassword, setNewPassword] = useState('')
-	const [confirmedPassword, setConfirmedPassword] = useState('')
 	const [newEmail, setNewEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [newPassword, setNewPassword] = useState('')
 	const [showVerify, setShowVerify] = useState(true)
 	const [showButtons, setShowButtons] = useState(true)
+	const [currentEmail, setCurrentEmail] = useState('')
+	const [showEmailInputs, setShowEmailInputs] = useState(false)
+	const [confirmedPassword, setConfirmedPassword] = useState('')
+	const [showPasswordInputs, setShowPasswordInputs] = useState(false)
 
 	const handleShowVerify = () => {
 		setShowVerify(!showVerify)
@@ -62,7 +62,6 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 		try {
 			const response = await axios.post(
 				`${import.meta.env.VITE_BASE_URL}/auth/password`,
-
 				{
 					userId: userData._id,
 					password,

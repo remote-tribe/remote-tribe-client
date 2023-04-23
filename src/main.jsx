@@ -1,8 +1,7 @@
+import './index.css'
+import App from './App'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
-import Modal from 'react-modal'
 
 const sunIcon = document.querySelector('.sun-icon')
 const moonIcon = document.querySelector('.moon-icon')
@@ -15,15 +14,6 @@ const iconToggle = () => {
 	sunIcon?.classList.toggle('hidden')
 }
 
-const themeCheck = () => {
-	if (userTheme === 'dark' || (!userTheme && systemTheme)) {
-		document.documentElement.classList.add('dark')
-		moonIcon?.classList.add('hidden')
-		return
-	}
-	sunIcon?.classList.add('hidden')
-}
-
 const themeSwitch = () => {
 	if (document.documentElement.classList.contains('dark')) {
 		document.documentElement.classList.remove('dark')
@@ -34,6 +24,15 @@ const themeSwitch = () => {
 	document.documentElement.classList.add('dark')
 	localStorage.setItem('theme', 'dark')
 	iconToggle()
+}
+
+const themeCheck = () => {
+	if (userTheme === 'dark' || (!userTheme && systemTheme)) {
+		document.documentElement.classList.add('dark')
+		moonIcon?.classList.add('hidden')
+		return
+	}
+	sunIcon?.classList.add('hidden')
 }
 
 themeCheck()

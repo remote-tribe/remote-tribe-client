@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 import jwtDecode from 'jwt-decode'
 
 export const Login = async (email, password, rememberMe) => {
@@ -30,7 +29,6 @@ export const Logout = () => {
 export const GetCurrentUser = () => {
 	try {
 		const token = localStorage.getItem('token')
-
 		return jwtDecode(token)
 	} catch (error) {
 		return null

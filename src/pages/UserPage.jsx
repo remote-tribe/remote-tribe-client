@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { UserProfile } from '../components/UserProfile'
-import { Conversation } from '../components/Conversation'
-import { GetCurrentUser } from '../Auth'
-import { FadeLoader } from 'react-spinners'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { GetCurrentUser } from '../Auth'
+import { useState, useEffect } from 'react'
+import { FadeLoader } from 'react-spinners'
+import { useParams, useNavigate } from 'react-router-dom'
 import { UserArticles } from '../components/UserArticles'
 import { UserFollowers } from '../components/UserFollowers'
 import { UserFollowing } from '../components/UserFollowing'
@@ -18,25 +15,25 @@ const override = {
 }
 
 export const UserPage = () => {
-	const token = localStorage.getItem('token')
 	const navigate = useNavigate()
-	const [loading, setLoading] = useState(true)
-	const [showConversation, setShowConversation] = useState(false)
-	const [userData, setUserData] = useState(null)
 	const { userId } = useParams()
 	const currentUser = GetCurrentUser()
-	const isCurrentUser = userData?._id === currentUser?.id
-	const [currentUserFollowing, setCurrentUserFollowing] = useState([])
+	const token = localStorage.getItem('token')
+	const [loading, setLoading] = useState(true)
+	const [userData, setUserData] = useState(null)
+	const [showProfile, setShowProfile] = useState(true)
 	const [isFollowing, setIsFollowing] = useState(false)
-	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
+	const isCurrentUser = userData?._id === currentUser?.id
 	const [showFollowing, SetShowFollowing] = useState(false)
 	const [showFollowers, SetShowFollowers] = useState(false)
-	const [showProfile, setShowProfile] = useState(true)
+	const [currentUserFollowing, setCurrentUserFollowing] = useState([])
+	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
 
+	// Handles the "Follow" button click by making an API call to follow the user.
 	const handleFollow = async () => {
 		const token = localStorage.getItem('token')
 		try {
-			const response = await axios.post(
+			await axios.post(
 				`${import.meta.env.VITE_BASE_URL}/api/user/following`,
 				{
 					userId: userData?._id,
@@ -53,12 +50,7 @@ export const UserPage = () => {
 		}
 	}
 
-	const handleMessage = () => {
-		if (!token) {
-			return navigate('/signin')
-		} else navigate('/inbox', { state: { user: userData } })
-	}
-
+	// Handles the "Unfollow" button click by making an API call to unfollow the user.
 	const handleUnfollow = async () => {
 		const token = localStorage.getItem('token')
 		try {
@@ -79,6 +71,15 @@ export const UserPage = () => {
 			console.error('Error updating user profile: ', err)
 		}
 	}
+
+	// Handles the "Message" button click by navigating to the user's inbox page.
+	const handleMessage = () => {
+		if (!token) {
+			return navigate('/signin')
+		} else navigate('/inbox', { state: { user: userData } })
+	}
+
+	// Fetches the list of users that the current user is following.
 	const fetchCurrentUserFollowing = async () => {
 		const token = localStorage.getItem('token')
 		try {
@@ -98,6 +99,7 @@ export const UserPage = () => {
 		fetchCurrentUserFollowing()
 	}, [])
 
+	// Determines whether the current user is following the displayed user.
 	useEffect(() => {
 		if (currentUserFollowing.includes(userData?._id)) {
 			setIsFollowing(true)
@@ -106,6 +108,7 @@ export const UserPage = () => {
 		}
 	}, [currentUserFollowing, userData])
 
+	// Fetches the displayed user's data from the server
 	const fetchUser = async () => {
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
@@ -117,6 +120,7 @@ export const UserPage = () => {
 		}
 	}
 
+	// Determines whether the current user is the displayed user and redirects them to their profile page.
 	useEffect(() => {
 		if (userId === currentUser?.id) {
 			navigate('/profile')
@@ -152,7 +156,7 @@ export const UserPage = () => {
 	}
 
 	return loading ? (
-		<div className='text-center text-sky-400 flex justify-center mt-60 '>
+		<div className='mt-60 flex justify-center text-center text-sky-400 '>
 			<FadeLoader
 				color={'#00a8e8'}
 				loading={loading}
@@ -164,10 +168,10 @@ export const UserPage = () => {
 		<>
 			<main className='profile-page'>
 				<section className='relative block h-80'>
-					<div className='w-full h-full bg-center bg-cover'>
-						<span className='w-full h-full absolute opacity-50 dark:bg-sky-800 bg-sky-400'></span>
+					<div className='h-full w-full bg-cover bg-center'>
+						<span className='absolute h-full w-full bg-sky-400 opacity-50 dark:bg-sky-800'></span>
 					</div>
-					<div className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16'>
+					<div className='pointer-events-none absolute bottom-0 left-0 right-0 top-auto h-16 w-full overflow-hidden'>
 						<svg
 							className='absolute bottom-0 overflow-hidden '
 							xmlns='http://www.w3.org/2000/svg'
@@ -179,24 +183,24 @@ export const UserPage = () => {
 					</div>
 				</section>
 				{userData && (
-					<section className='relative py-16 bg-gray-100 dark:bg-gray-800 '>
+					<section className='relative bg-gray-100 py-16 dark:bg-gray-800 '>
 						<div className='container mx-auto px-4 '>
-							<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6 shadow-lg rounded-lg -mt-64 dark:text-gray-200'>
+							<div className='relative -mt-64 mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white shadow-lg dark:bg-slate-700 dark:text-gray-200'>
 								<div className='px-6'>
 									<div className='flex flex-wrap justify-center'>
-										<div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center'>
+										<div className='flex w-full justify-center px-4 lg:order-2 lg:w-3/12'>
 											<img
 												alt='...'
 												src={userData?.profilePicture}
-												className='shadow-xl z-10 rounded-full h-40 w-40 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 object-cover fade-in-2'
+												className='fade-in-2 absolute z-10 -m-16 -ml-20 h-40 w-40 rounded-full border-none object-cover align-middle shadow-xl lg:-ml-16'
 											/>
 										</div>
-										<div className='w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center'>
-											<div className='py-6 px-3 mt-32 sm:mt-0'>
-												<div className='py-6 px-3 mt-32 sm:mt-0 fade-in-2'>
+										<div className='w-full px-4 lg:order-3 lg:w-4/12 lg:self-center lg:text-right'>
+											<div className='mt-32 px-3 py-6 sm:mt-0'>
+												<div className='fade-in-2 mt-32 px-3 py-6 sm:mt-0'>
 													{isCurrentUser ? (
 														<button
-															className='bg-sky-500 hover:bg-sky-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+															className='mb-1 rounded bg-sky-500 px-10 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-600 hover:shadow-md sm:mr-2 '
 															type='button'>
 															Settings
 														</button>
@@ -204,21 +208,21 @@ export const UserPage = () => {
 														<>
 															<button
 																onClick={handleMessage}
-																className='bg-sky-400 hover:bg-sky-500 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+																className='mb-1 rounded bg-sky-400 px-10 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-500 hover:shadow-md sm:mr-2 '
 																type='button'>
 																Message
 															</button>
 															{isFollowing ? (
 																<button
 																	onClick={handleUnfollow}
-																	className='bg-rose-500 hover:bg-rose-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+																	className='mb-1 rounded bg-rose-500 px-10 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-rose-600 hover:shadow-md sm:mr-2 '
 																	type='button'>
 																	Unfollow
 																</button>
 															) : (
 																<button
 																	onClick={handleFollow}
-																	className='bg-sky-600 hover:bg-sky-700 uppercase text-white font-bold hover:shadow-md shadow text-xs px-10 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 '
+																	className='mb-1 rounded bg-sky-600 px-10 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear focus:outline-none hover:bg-sky-700 hover:shadow-md sm:mr-2 '
 																	type='button'>
 																	Follow
 																</button>
@@ -229,13 +233,13 @@ export const UserPage = () => {
 											</div>
 										</div>
 
-										<div className='w-full lg:w-4/12 px-4 lg:order-1'>
-											<div className='flex justify-center py-4 lg:pt-4 pt-8 fade-in-2'>
-												<div className='lg:mr-4 p-3 text-center '>
-													<Link className=' text-xl font-bold block uppercase tracking-wide  '>
+										<div className='w-full px-4 lg:order-1 lg:w-4/12'>
+											<div className='fade-in-2 flex justify-center py-4 pt-8 lg:pt-4'>
+												<div className='p-3 text-center lg:mr-4 '>
+													<Link className=' block text-xl font-bold uppercase tracking-wide  '>
 														<button
 															onClick={handleShowFollowersSettings}
-															className='bg-transparent text-sky-500 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='border-none bg-transparent text-2xl font-bold  text-sky-500 transition-all duration-150 ease-linear hover:text-sky-700'
 															type='button'>
 															{userData.followers?.length}
 														</button>
@@ -243,10 +247,10 @@ export const UserPage = () => {
 													<span className='text-md '>Followers</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='text-xl font-bold block uppercase tracking-wide '>
+													<Link className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowFollowingSettings}
-															className='bg-transparent text-sky-500 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='border-none bg-transparent text-2xl font-bold  text-sky-500 transition-all duration-150 ease-linear hover:text-sky-700'
 															type='button'>
 															{userData.following?.length}
 														</button>
@@ -254,10 +258,10 @@ export const UserPage = () => {
 													<span className='text-md '>Following</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='text-xl font-bold block uppercase tracking-wide '>
+													<Link className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowArticlesSettings}
-															className='bg-transparent text-sky-500 border-none hover:text-sky-700  font-bold text-2xl ease-linear transition-all duration-150'
+															className='border-none bg-transparent text-2xl font-bold  text-sky-500 transition-all duration-150 ease-linear hover:text-sky-700'
 															type='button'>
 															{userData.articles?.length}
 														</button>
@@ -271,7 +275,7 @@ export const UserPage = () => {
 									<main className='profile-page'>
 										{userData && !showArticlesSettings && !showFollowers && !showFollowing && (
 											<section className='relative block h-80'>
-												<div className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16'>
+												<div className='pointer-events-none absolute bottom-0 left-0 right-0 top-auto h-16 w-full overflow-hidden'>
 													<svg
 														className='absolute bottom-0 overflow-hidden '
 														xmlns='http://www.w3.org/2000/svg'
@@ -285,28 +289,28 @@ export const UserPage = () => {
 										)}
 
 										{userData && !showArticlesSettings && !showFollowers && !showFollowing && (
-											<div className='relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-700 w-full mb-6  rounded-lg -mt-64 dark:text-gray-200 fade-in-2'>
+											<div className='fade-in-2 relative -mt-64 mb-6 flex w-full min-w-0 flex-col break-words  rounded-lg bg-white dark:bg-slate-700 dark:text-gray-200'>
 												<div className='px-6'>
 													<div className='flex flex-wrap justify-center'></div>
 
-													<div className='text-center mt-12'>
-														<h3 className='text-4xl font-semibold leading-normal mb-2 '>
+													<div className='mt-12 text-center'>
+														<h3 className='mb-2 text-4xl font-semibold leading-normal '>
 															{userData?.username}
 														</h3>
 														{userData?.location && (
-															<div className='text-sm leading-normal mt-10 mb-2 text-blueGray-400 font-bold uppercase'>
-																<i className='fas fa-solid fa-location-dot text-sky-500 text-2xl mr-2'></i>
+															<div className='text-blueGray-400 mb-2 mt-10 text-sm font-bold uppercase leading-normal'>
+																<i className='fas fa-solid fa-location-dot mr-2 text-2xl text-sky-500'></i>
 																{userData?.location?.city}
 																{userData?.location?.city && userData?.location.country && ','}{' '}
 																{userData?.location?.country}
 															</div>
 														)}
-														<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
+														<div className='text-blueGray-600 mb-2 mt-10 text-lg font-medium'>
 															{userData?.profession && (
-																<div className='mb-2 text-lg text-blueGray-600 font-medium mt-10'>
+																<div className='text-blueGray-600 mb-2 mt-10 text-lg font-medium'>
 																	<Link
 																		to={``}
-																		className='transition-all font-normal text-blueGray-500 hover:text-sky-400'>
+																		className='text-blueGray-500 font-normal transition-all hover:text-sky-400'>
 																		{' '}
 																		{userData?.profession}
 																	</Link>
@@ -314,10 +318,10 @@ export const UserPage = () => {
 															)}
 														</div>
 													</div>
-													<div className='mt-10 pt-4 border-t dark:border-slate-600 border-blueGray-200 text-center'>
+													<div className='border-blueGray-200 mt-10 border-t pt-4 text-center dark:border-slate-600'>
 														<div className='flex flex-wrap justify-center'>
-															<div className='w-full lg:w-9/12 px-4'>
-																<p className='mb-4 text-lg leading-relaxed text-blueGray-700'>
+															<div className='w-full px-4 lg:w-9/12'>
+																<p className='text-blueGray-700 mb-4 text-lg leading-relaxed'>
 																	{userData?.description}
 																</p>
 															</div>

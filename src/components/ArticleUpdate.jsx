@@ -1,34 +1,38 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { GetCurrentUser } from '../Auth'
-import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Editor } from './Editor'
-import { Image } from 'cloudinary-react'
+import { GetCurrentUser } from '../Auth'
 import { FadeLoader } from 'react-spinners'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+
 const override = {
 	display: 'block',
 	margin: '0 auto',
 	borderColor: 'red',
 }
+
 const UpdateArticle = ({ article }) => {
+	const navigate = useNavigate()
+	const { articleId } = useParams()
+	const currentUser = GetCurrentUser()
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
-	const navigate = useNavigate()
-	const currentUser = GetCurrentUser()
 	const [loading, setLoading] = useState(false)
 	const [selectedImage, setSelectedImage] = useState(null)
-	const { articleId } = useParams()
-	const DEFAULT_IMAGE_URL =
-		'http://res.cloudinary.com/dxeejm8ef/image/upload/v1681998829/aldc1ngkd91yif7ddeje.png'
+
+	const PLACEHOLDER_IMAGE =
+		'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
+
 	useEffect(() => {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`)
 			.then((response) => {
-				const oneArticle = response.data
-				setTitle(oneArticle.title)
-				setContent(oneArticle.content)
-				setImageUrl(oneArticle.imageUrl)
+				const article = response.data
+
+				setTitle(article.title)
+				setContent(article.content)
+				setImageUrl(article.imageUrl)
 			})
 			.catch((error) => console.log(error))
 	}, [articleId])
@@ -57,14 +61,12 @@ const UpdateArticle = ({ article }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-
 		const data = {
 			author: currentUser._id,
 			title: title,
 			content: content,
 			imageUrl: imageUrl,
 		}
-
 		axios
 			.put(`${import.meta.env.VITE_BASE_URL}/api/community/article/${articleId}`, data)
 			.then(() => {
@@ -73,26 +75,13 @@ const UpdateArticle = ({ article }) => {
 			.catch((e) => {
 				console.log(e)
 			})
-
 		setTitle('')
 		setContent('')
 		setImageUrl('')
 		setSelectedImage('')
 	}
 
-	const deleteArticle = () => {
-		axios
-			.delete(
-				`${import.meta.env.VITE_BASE_URL}/api/community/article/${article._id}?articleId=${
-					article?._id
-				}&userId=${currentUser.id}&comments=${article?.comments}`,
-			)
-			.then(() => {
-				navigate('/community')
-			})
-			.catch((err) => console.log(err))
-	}
-
+	//Text editor handling
 	const handleContentChange = (newContent) => {
 		setContent(newContent)
 	}
@@ -165,7 +154,7 @@ const UpdateArticle = ({ article }) => {
 								</div>
 							) : (
 								<img
-									src={imageUrl || DEFAULT_IMAGE_URL}
+									src={imageUrl || PLACEHOLDER_IMAGE}
 									className='mx-auto h-24 w-24 rounded object-cover'
 								/>
 							)}

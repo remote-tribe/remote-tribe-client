@@ -1,12 +1,12 @@
-import React, { createContext, useState, useEffect } from 'react'
 import { Login, Logout, GetCurrentUser } from '../Auth'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const UserContext = createContext()
 
 const UserContextProvider = ({ children }) => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
-	const [loggedUser, setLoggedUser] = useState(null)
 	const [token, setToken] = useState(null)
+	const [loggedUser, setLoggedUser] = useState(null)
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	useEffect(() => {
 		const user = GetCurrentUser()

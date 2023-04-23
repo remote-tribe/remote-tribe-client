@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
-import React, { useState, useContext } from 'react'
 import { ClipLoader } from 'react-spinners'
+import { useState, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 
 const override = {
@@ -11,12 +11,12 @@ const override = {
 
 export const SignInForm = ({ handleShowRegister, message }) => {
 	const navigate = useNavigate()
-	const { handleLogin } = useContext(UserContext)
 	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [rememberMe, setRememberMe] = useState(false)
 	const [error, setError] = useState('')
+	const [password, setPassword] = useState('')
+	const { handleLogin } = useContext(UserContext)
 	const [isLoading, setIsLoading] = useState(false)
+	const [rememberMe, setRememberMe] = useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

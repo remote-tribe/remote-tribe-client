@@ -1,18 +1,18 @@
-import { useState, useContext } from 'react'
-import { UserContext } from '../context/UserContext'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 
 export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSettings }) => {
+	const [location, setLocation] = useState({
+		city: userData?.location?.city || '',
+		country: userData?.location?.country || '',
+	})
 	const { setLoggedUser } = useContext(UserContext)
 
 	const [username, setUsername] = useState(userData?.username || '')
 	const [profession, setProfession] = useState(userData?.profession || '')
 	const [description, setDescription] = useState(userData?.description || '')
-	const [location, setLocation] = useState({
-		city: userData?.location?.city || '',
-		country: userData?.location?.country || '',
-	})
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
-const ArticleList = ({ articles, handleShowCreate }) => {
+function ArticleList({ articles, handleShowCreate }) {
 	const [searchQuery, setSearchQuery] = useState('')
 
 	const filteredArticles = articles?.filter((article) => {
@@ -9,6 +9,7 @@ const ArticleList = ({ articles, handleShowCreate }) => {
 		const authorMatch = article?.author?.username.toLowerCase().includes(searchQuery.toLowerCase())
 		return titleMatch || authorMatch
 	})
+
 	return (
 		<div className='mx-auto bg-gradient-to-bl from-sky-500 to-transparent '>
 			<div className='flex flex-col items-center justify-center pt-5 '>

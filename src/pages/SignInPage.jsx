@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { SignInForm } from '../components/SignInForm'
-import { SignUpForm } from '../components/SignUpForm'
 import { FadeLoader } from 'react-spinners'
+import { SignUpForm } from '../components/SignUpForm'
+import { SignInForm } from '../components/SignInForm'
 
 const override = {
 	display: 'block',
@@ -11,8 +11,8 @@ const override = {
 
 export const SignInPage = () => {
 	const [loading, setLoading] = useState(true)
-	const [showRegister, setShowRegister] = useState(false)
 	const [message, setMessage] = useState(null)
+	const [showRegister, setShowRegister] = useState(false)
 
 	useEffect(() => {
 		setLoading(false)
