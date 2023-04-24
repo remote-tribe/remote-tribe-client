@@ -13,6 +13,7 @@ Users can chat with each other on the platform, providing a space for them to co
 ## Technologies Used
 The following technologies were used to build the Remote Tribe web application:
 
+- Typescript
 - React
 - MongoDB
 - Express
