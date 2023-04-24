@@ -1,9 +1,36 @@
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export const UserArticles = ({ handleShowArticlesSettings, userData }) => {
-	const [articles, setArticles] = useState([])
+interface UserData {
+	username: string
+	_id: any
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
+interface Article {
+	_id: string
+	title: string
+	imageUrl?: string
+	createdAt: string
+	likes: number
+	comments: object[]
+}
+
+export const UserArticles = ({
+	handleShowArticlesSettings,
+	userData,
+}: {
+	handleShowArticlesSettings: () => void
+	userData: UserData
+}) => {
+	const [articles, setArticles] = useState<Article[]>([])
 
 	useEffect(() => {
 		getAllArticles()
@@ -13,7 +40,7 @@ export const UserArticles = ({ handleShowArticlesSettings, userData }) => {
 		axios
 			.get(`${import.meta.env.VITE_BASE_URL}/api/users/${userData._id}/articles`)
 			.then(({ data }) => {
-				setArticles(data.article.reverse())
+				setArticles(data.articles.reverse())
 			})
 			.catch((e) => {
 				console.log('fail to access database..', e)
@@ -26,7 +53,7 @@ export const UserArticles = ({ handleShowArticlesSettings, userData }) => {
 				<button
 					onClick={handleShowArticlesSettings}
 					className=' cursor-pointer p-3 font-normal text-sky-400 transition-all duration-150 hover:text-sky-500'>
-					<i class='fa-solid fa-arrow-left text-3xl'></i>
+					<i className='fa-solid fa-arrow-left text-3xl'></i>
 				</button>
 			</div>
 			{articles && (

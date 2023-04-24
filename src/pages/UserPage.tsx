@@ -14,19 +14,36 @@ const override = {
 	borderColor: 'red',
 }
 
+interface UserData {
+	username: string
+	_id: any
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
+interface CurrentUser {
+	id: string
+	username: string
+}
+
 export const UserPage = () => {
 	const navigate = useNavigate()
-	const { userId } = useParams()
-	const currentUser = GetCurrentUser()
-	const token = localStorage.getItem('token')
+	const { userId } = useParams<{ userId: string }>()
+	const currentUser = GetCurrentUser() as CurrentUser | null
+	const token: string | null = localStorage.getItem('token')
 	const [loading, setLoading] = useState(true)
-	const [userData, setUserData] = useState(null)
+	const [userData, setUserData] = useState<UserData | null>(null)
 	const [showProfile, setShowProfile] = useState(true)
 	const [isFollowing, setIsFollowing] = useState(false)
 	const isCurrentUser = userData?._id === currentUser?.id
 	const [showFollowing, SetShowFollowing] = useState(false)
 	const [showFollowers, SetShowFollowers] = useState(false)
-	const [currentUserFollowing, setCurrentUserFollowing] = useState([])
+	const [currentUserFollowing, setCurrentUserFollowing] = useState<string[]>([])
 	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
 
 	// Handles the "Follow" button click by making an API call to follow the user.
@@ -236,7 +253,9 @@ export const UserPage = () => {
 										<div className='w-full px-4 lg:order-1 lg:w-4/12'>
 											<div className='fade-in-2 flex justify-center py-4 pt-8 lg:pt-4'>
 												<div className='p-3 text-center lg:mr-4 '>
-													<Link className=' block text-xl font-bold uppercase tracking-wide  '>
+													<Link
+														to={''}
+														className=' block text-xl font-bold uppercase tracking-wide  '>
 														<button
 															onClick={handleShowFollowersSettings}
 															className='border-none bg-transparent text-2xl font-bold  text-sky-500 transition-all duration-150 ease-linear hover:text-sky-700'
@@ -247,7 +266,9 @@ export const UserPage = () => {
 													<span className='text-md '>Followers</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='block text-xl font-bold uppercase tracking-wide '>
+													<Link
+														to={''}
+														className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowFollowingSettings}
 															className='border-none bg-transparent text-2xl font-bold  text-sky-500 transition-all duration-150 ease-linear hover:text-sky-700'
@@ -258,7 +279,9 @@ export const UserPage = () => {
 													<span className='text-md '>Following</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='block text-xl font-bold uppercase tracking-wide '>
+													<Link
+														to={''}
+														className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowArticlesSettings}
 															className='border-none bg-transparent text-2xl font-bold  text-sky-500 transition-all duration-150 ease-linear hover:text-sky-700'
@@ -332,27 +355,14 @@ export const UserPage = () => {
 										)}
 										{showArticlesSettings && (
 											<UserArticles
-												currentUser={currentUser}
 												userData={userData}
 												handleShowArticlesSettings={handleShowArticlesSettings}
 											/>
 										)}
 
-										{showFollowing && (
-											<UserFollowing
-												currentUser={currentUser}
-												userData={userData}
-												handleShowFollowingSettings={handleShowFollowingSettings}
-											/>
-										)}
+										{showFollowing && <UserFollowing userData={userData} />}
 
-										{showFollowers && (
-											<UserFollowers
-												currentUser={currentUser}
-												userData={userData}
-												handleShowFollowersSettings={handleShowFollowersSettings}
-											/>
-										)}
+										{showFollowers && <UserFollowers userData={userData} />}
 									</main>
 								</div>
 							</div>

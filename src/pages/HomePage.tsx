@@ -13,9 +13,22 @@ const override = {
 	borderColor: 'red',
 }
 
+type Article = {
+	_id: string
+	title: string
+	imageUrl?: string
+}
+
+declare module 'react' {
+	interface Attributes {
+		css?: any
+		size?: any
+	}
+}
+
 export const HomePage = () => {
 	const navigate = useNavigate()
-	const [articles, setArticles] = useState([])
+	const [articles, setArticles] = useState<Article[]>([])
 	const [loading, setLoading] = useState(true)
 	const { loggedUser, setLoggedUser } = useContext(UserContext)
 	const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1000)
@@ -176,7 +189,9 @@ export const HomePage = () => {
 					)}
 					<footer className='m-10  bg-gray-100 pt-10 dark:bg-gray-800'>
 						<div className='flex flex-col items-center'>
-							<Link className='mb-5 flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white'>
+							<Link
+								to={''}
+								className='mb-5 flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white'>
 								<svg
 									xmlns='http://www.w3.org/2000/svg'
 									className='mr-4 h-10 w-10 text-sky-500 dark:text-sky-400'

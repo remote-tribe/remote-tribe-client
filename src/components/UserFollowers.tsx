@@ -2,7 +2,19 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 
-export const UserFollowers = ({ userData }) => {
+interface UserData {
+	username: string
+	_id: any
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
+export const UserFollowers = ({ userData }: { userData: UserData }) => {
 	const [userFollowers, setUserFollowers] = useState([])
 
 	const fetchFollowingUsers = async () => {
@@ -28,17 +40,17 @@ export const UserFollowers = ({ userData }) => {
 	return (
 		<div className='fade-in-2 flex w-full justify-center'>
 			{userFollowers && (
-				<table class='my-8 w-3/4 text-center text-2xl  '>
+				<table className='my-8 w-3/4 text-center text-2xl  '>
 					<thead className='h-16'>
 						<tr className='bg-gray-100 shadow dark:bg-slate-800 '>
 							<th className='w-1/4'>
-								<i class='fa-sharp fa-solid fa-image text-2xl text-sky-500'></i>
+								<i className='fa-sharp fa-solid fa-image text-2xl text-sky-500'></i>
 							</th>
 							<th className='w-1/4'>
-								<i class='fa-solid fa-user text-2xl text-sky-500'></i>
+								<i className='fa-solid fa-user text-2xl text-sky-500'></i>
 							</th>
 							<th className='w-1/4'>
-								<i class='fa-solid fa-briefcase  text-2xl text-sky-500 '></i>
+								<i className='fa-solid fa-briefcase  text-2xl text-sky-500 '></i>
 							</th>
 							<th className='w-1/4'>
 								<i className='fas fa-solid fa-location-dot text-2xl text-sky-500 '></i>
@@ -46,7 +58,7 @@ export const UserFollowers = ({ userData }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{userFollowers?.map((user, index) => (
+						{userFollowers?.map((user: UserData, index) => (
 							<tr
 								key={index}
 								className='m-2 h-12 rounded-md shadow dark:shadow-slate-800'>

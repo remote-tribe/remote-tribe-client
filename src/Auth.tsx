@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
-export const Login = async (email, password, rememberMe) => {
+export const Login = async (email: string, password: string, rememberMe: boolean) => {
 	try {
 		const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, {
 			email,
@@ -14,7 +14,7 @@ export const Login = async (email, password, rememberMe) => {
 
 			return response.data
 		}
-	} catch (error) {
+	} catch (error: any) {
 		throw { message: error?.response?.data?.message }
 	}
 }
@@ -28,7 +28,7 @@ export const Logout = () => {
 
 export const GetCurrentUser = () => {
 	try {
-		const token = localStorage.getItem('token')
+		const token: any = localStorage.getItem('token')
 		return jwtDecode(token)
 	} catch (error) {
 		return null
