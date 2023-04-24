@@ -1,31 +1,45 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { DeleteModal } from './DeleteModal'
 import { ReportModal } from './ReportModal'
+import { UserContext } from '../context/UserContext'
 
-export const ArticleDetails = ({ setLoading }) => {
-	const currentUser = GetCurrentUser()
+interface Article {
+	author: { _id: string; username: string; profession: string; profilePicture: string }
+	_id: string
+	title: string
+	content: any
+	imageUrl?: string
+	createdAt: string
+	likes: any
+	comments: object[]
+	likedBy: string[]
+}
+
+export const ArticleDetails = ({ setLoading }: { setLoading: any }) => {
+	const currentUser = GetCurrentUser() as { id: string; username: string }
 	const token = localStorage.getItem('token')
+	const { handleLogout } = useContext(UserContext)
 
 	const { articleId } = useParams()
-	const [article, setArticle] = useState(null)
+	const [article, setArticle] = useState<Article>({} as Article)
 	const [articleDate, setArticleDate] = useState('')
-	const initialLikesNum = parseInt(typeof article?.likes === 'number' ? article?.likes : 0)
+	const initialLikesNum = parseInt(article?.likes?.toString() || '0')
 	const [likesNum, setLikesNum] = useState(initialLikesNum)
 	const [isLiked, setIsLiked] = useState(false)
 	const [menuOpen, setMenuOpen] = useState(new Array(article?.comments?.length).fill(false))
 
 	const [commentValue, setCommentValue] = useState('')
 	const [modalOpen, setModalOpen] = useState(false)
-	const [reportModalOpen, setReportModalOpen] = useState(false)
+	const [reportModalOpen, setReportModalOpen] = useState<any>(false)
 
 	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 
 	const [notification, setNotification] = useState(null)
-	const [error, setError] = useState(null)
+	const [error, setError] = useState('')
 
 	const [showMessageBottom, setShowMessageBottom] = useState(false)
 
@@ -62,7 +76,7 @@ export const ArticleDetails = ({ setLoading }) => {
 	}
 
 	// Report handling
-	const handleReport = async (report, id) => {
+	const handleReport = async (report: string, id: string) => {
 		closeReportModal()
 		if (id !== article?._id) {
 			setShowMessageBottom(true)
@@ -70,7 +84,7 @@ export const ArticleDetails = ({ setLoading }) => {
 		if (report == '') {
 			setError('Text field cannot be empty.')
 			setTimeout(() => {
-				setError(null)
+				setError('')
 			}, 5000)
 			return
 		}
@@ -164,7 +178,7 @@ export const ArticleDetails = ({ setLoading }) => {
 	}, [article])
 
 	// Handle comment submission
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: any) => {
 		setCommentValue('')
 		e.preventDefault()
 		if (token) {
@@ -183,7 +197,7 @@ export const ArticleDetails = ({ setLoading }) => {
 					},
 				)
 				getArticle()
-			} catch (error) {
+			} catch (error: any) {
 				if (error.message.includes('401')) {
 					handleLogout()
 				}
@@ -193,7 +207,7 @@ export const ArticleDetails = ({ setLoading }) => {
 	}
 
 	// Delete comment
-	const deleteComment = async (commentId, index) => {
+	const deleteComment = async (commentId: string, index: number) => {
 		toggleMenu(index)
 		await axios.delete(
 			`${import.meta.env.VITE_BASE_URL}/api/comment?commentId=${commentId}&userId=${
@@ -217,7 +231,7 @@ export const ArticleDetails = ({ setLoading }) => {
 	}
 
 	// Toggle comment menu
-	const toggleMenu = (index) => {
+	const toggleMenu = (index: number) => {
 		const newMenuOpen = [...menuOpen]
 		newMenuOpen[index] = !newMenuOpen[index]
 		setMenuOpen(newMenuOpen)
@@ -312,6 +326,7 @@ export const ArticleDetails = ({ setLoading }) => {
 																	Edit
 																</Link>
 																<Link
+																	to={''}
 																	onClick={openModal}
 																	className=' text-md block  px-4 py-3 text-red-500 hover:bg-gray-100 hover:text-gray-900 dark:text-red-400 dark:hover:bg-gray-700'
 																	role='menuitem'>
@@ -320,6 +335,7 @@ export const ArticleDetails = ({ setLoading }) => {
 															</>
 														) : (
 															<Link
+																to={''}
 																onClick={() => setReportModalOpen(article?._id)}
 																className='text-md block px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:bg-gray-700 '
 																role='menuitem'>
@@ -390,7 +406,7 @@ export const ArticleDetails = ({ setLoading }) => {
 										</label>
 										<textarea
 											id='comment'
-											rows='6'
+											rows={6}
 											onChange={(e) => setCommentValue(e.target.value)}
 											value={commentValue}
 											className='w-full resize-none border-0 px-0 text-sm  text-gray-900 outline-none dark:bg-gray-700  dark:text-gray-200 dark:placeholder-gray-300 '
@@ -417,7 +433,7 @@ export const ArticleDetails = ({ setLoading }) => {
 										<span className='block sm:inline'>{error}</span>
 									</div>
 								)}
-								{article?.comments?.map((comment, index) => (
+								{article?.comments?.map((comment: any, index: number) => (
 									<article
 										key={index}
 										className='mb-6 rounded-lg bg-white p-6 text-base dark:bg-gray-700'>
@@ -449,7 +465,7 @@ export const ArticleDetails = ({ setLoading }) => {
 													type='button'
 													onClick={() => toggleMenu(index)}
 													className='mr-4 inline-flex h-8 w-8 scale-125 items-center justify-center rounded-full text-sm text-gray-500 transition duration-500 ease-in-out focus:outline-none hover:bg-gray-300'>
-													<i class='fa-solid fa-ellipsis'></i>
+													<i className='fa-solid fa-ellipsis'></i>
 												</button>
 
 												{menuOpen[index] && (

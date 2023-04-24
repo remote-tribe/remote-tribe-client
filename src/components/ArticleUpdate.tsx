@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Editor } from './Editor'
 import { GetCurrentUser } from '../Auth'
 import { FadeLoader } from 'react-spinners'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const override = {
@@ -11,15 +11,25 @@ const override = {
 	borderColor: 'red',
 }
 
-const UpdateArticle = ({ article }) => {
+interface Article {
+	_id: string
+	title: string
+	author: { username: string; profilePicture: string; _id: string }
+	imageUrl?: string
+	createdAt: string
+	likes: number
+	comments: object[]
+}
+
+const UpdateArticle = ({ article }: { article: Article }) => {
 	const navigate = useNavigate()
 	const { articleId } = useParams()
-	const currentUser = GetCurrentUser()
+	const currentUser = GetCurrentUser() as { username: string; id: string }
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
 	const [loading, setLoading] = useState(false)
-	const [selectedImage, setSelectedImage] = useState(null)
+	const [selectedImage, setSelectedImage] = useState('')
 
 	const PLACEHOLDER_IMAGE =
 		'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'
@@ -37,12 +47,12 @@ const UpdateArticle = ({ article }) => {
 			.catch((error) => console.log(error))
 	}, [articleId])
 
-	const handleImageChange = (e) => {
+	const handleImageChange = (e: any) => {
 		setSelectedImage(e.target.files[0])
 		handleImageUpload(e.target.files[0])
 	}
 
-	const handleImageUpload = async (file) => {
+	const handleImageUpload = async (file: File) => {
 		setLoading(true)
 		if (!file) return
 
@@ -59,10 +69,10 @@ const UpdateArticle = ({ article }) => {
 		}
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: any) => {
 		e.preventDefault()
 		const data = {
-			author: currentUser._id,
+			author: currentUser.id,
 			title: title,
 			content: content,
 			imageUrl: imageUrl,
@@ -82,7 +92,7 @@ const UpdateArticle = ({ article }) => {
 	}
 
 	//Text editor handling
-	const handleContentChange = (newContent) => {
+	const handleContentChange = (newContent: any) => {
 		setContent(newContent)
 	}
 

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from 'react'
+import { useRef, useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { UserContext } from '../context/UserContext'
@@ -19,20 +19,34 @@ const override = {
 	borderColor: 'red',
 }
 
+interface UserData {
+	username: string
+	_id: string
+	id: string
+	email: string
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
 export const ProfilePage = () => {
 	const [loading, setLoading] = useState(true)
-	const [userData, setUserData] = useState(null)
+	const [userData, setUserData] = useState<UserData>({} as UserData)
 	const [loadingImg, setLoadingImg] = useState(false)
 	const [showSettings, setShowSettings] = useState(false)
-	const [uploadedImage, setUploadedImage] = useState(null)
+	const [uploadedImage, setUploadedImage] = useState<string | ArrayBuffer | null>(null)
 	const [showFollowing, SetShowFollowing] = useState(false)
 	const [showFollowers, SetShowFollowers] = useState(false)
 	const [uploadedImageURL, setUploadedImageURL] = useState('')
 	const [showAccountSettings, setShowAccountSettings] = useState(false)
 	const [showArticlesSettings, setShowArticlesSettings] = useState(false)
 
-	const fileInputRef = useRef(null)
-	const currentUser = GetCurrentUser()
+	const fileInputRef: any = useRef(null)
+	const currentUser = GetCurrentUser() as UserData
 	const token = localStorage.getItem('token')
 	const { handleLogout } = useContext(UserContext)
 
@@ -60,7 +74,7 @@ export const ProfilePage = () => {
 			setUserData(data)
 		} catch (error) {
 			console.error(error)
-			if (axios.isAxiosError(error) && error.response.status === 401) {
+			if (axios.isAxiosError(error) && error.response?.status === 401) {
 				handleLogout()
 			}
 		} finally {
@@ -90,12 +104,12 @@ export const ProfilePage = () => {
 	// Image handling
 
 	const handleImageClick = () => {
-		fileInputRef.current.click()
+		fileInputRef.current?.click()
 	}
 
-	const handleImageChange = async (event) => {
+	const handleImageChange = async (e: any) => {
 		try {
-			const selectedImage = event.target.files[0]
+			const selectedImage = e.target.files[0]
 
 			const reader = new FileReader()
 			reader.onloadend = () => {
@@ -111,7 +125,7 @@ export const ProfilePage = () => {
 		}
 	}
 
-	const handleImageUpload = async (image) => {
+	const handleImageUpload = async (image: any) => {
 		if (!image) {
 			return
 		}
@@ -284,7 +298,9 @@ export const ProfilePage = () => {
 										<div className='fade-in-2 w-full px-4 lg:order-1 lg:w-4/12 '>
 											<div className='flex justify-center py-4 pt-8 lg:pt-4'>
 												<div className='p-3 text-center lg:mr-4'>
-													<Link className=' block text-xl font-bold uppercase tracking-wide  '>
+													<Link
+														to={''}
+														className=' block text-xl font-bold uppercase tracking-wide  '>
 														<button
 															onClick={handleShowFollowersSettings}
 															className='border-none bg-transparent text-2xl font-bold text-sky-500  transition-all duration-150 ease-linear hover:text-sky-700 dark:text-sky-400'
@@ -295,7 +311,9 @@ export const ProfilePage = () => {
 													<span className='text-md '>Followers</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='block text-xl font-bold uppercase tracking-wide '>
+													<Link
+														to={''}
+														className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowFollowingSettings}
 															className='border-none bg-transparent text-2xl font-bold text-sky-500  transition-all duration-150 ease-linear hover:text-sky-700 dark:text-sky-400'
@@ -306,7 +324,9 @@ export const ProfilePage = () => {
 													<span className='text-md '>Following</span>
 												</div>
 												<div className='mr-4 p-3 text-center'>
-													<Link className='block text-xl font-bold uppercase tracking-wide '>
+													<Link
+														to={''}
+														className='block text-xl font-bold uppercase tracking-wide '>
 														<button
 															onClick={handleShowArticlesSettings}
 															className='border-none bg-transparent text-2xl font-bold text-sky-500  transition-all duration-150 ease-linear hover:text-sky-700 dark:text-sky-400'
@@ -337,40 +357,20 @@ export const ProfilePage = () => {
 
 									{showArticlesSettings && (
 										<UserArticles
-											currentUser={currentUser}
 											userData={userData}
 											handleShowArticlesSettings={handleShowArticlesSettings}
 										/>
 									)}
 
-									{showFollowing && (
-										<UserFollowing
-											currentUser={currentUser}
-											userData={userData}
-											handleShowFollowingSettings={handleShowFollowingSettings}
-										/>
-									)}
+									{showFollowing && <UserFollowing userData={userData} />}
 
-									{showFollowers && (
-										<UserFollowers
-											currentUser={currentUser}
-											userData={userData}
-											handleShowFollowersSettings={handleShowFollowersSettings}
-										/>
-									)}
+									{showFollowers && <UserFollowers userData={userData} />}
 
 									{!showSettings &&
 										!showAccountSettings &&
 										!showArticlesSettings &&
 										!showFollowers &&
-										!showFollowing && (
-											<UserProfile
-												currentUser={currentUser}
-												userData={userData}
-												handleShowSettings={handleShowSettings}
-												handleShowArticlesSettings={handleShowArticlesSettings}
-											/>
-										)}
+										!showFollowing && <UserProfile userData={userData} />}
 								</div>
 							</div>
 						</div>

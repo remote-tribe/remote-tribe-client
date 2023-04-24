@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { FadeLoader } from 'react-spinners'
 import { useParams } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import UpdateArticle from '../components/ArticleUpdate'
 
 const override = {
@@ -10,9 +10,19 @@ const override = {
 	borderColor: 'red',
 }
 
+interface Article {
+	_id: string
+	title: string
+	author: { username: string; profilePicture: string; _id: string }
+	imageUrl?: string
+	createdAt: string
+	likes: number
+	comments: object[]
+}
+
 function ArticleUpdatePage() {
 	const { articleId } = useParams()
-	const [article, setArticle] = useState([])
+	const [article, setArticle] = useState<Article>({} as Article)
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {

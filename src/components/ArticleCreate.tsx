@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { GetCurrentUser } from '../Auth'
 import { Editor } from './Editor'
 import { FadeLoader } from 'react-spinners'
@@ -9,22 +9,28 @@ const override = {
 	margin: '0 auto',
 	borderColor: 'red',
 }
-const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
+const CreateArticle = ({
+	handleShowCreate,
+	loadAllArticles,
+}: {
+	handleShowCreate: () => void
+	loadAllArticles: () => void
+}) => {
 	const [title, setTitle] = useState('')
 	const [content, setContent] = useState('')
 	const [loading, setLoading] = useState(false)
 	const [selectedImage, setSelectedImage] = useState(null)
 	const [uploadedImage, setUploadedImage] = useState('')
 	const [uploaded, setUploaded] = useState(false)
-	const currentUser = GetCurrentUser()
+	const currentUser = GetCurrentUser() as { id: string; username: string }
 
 	//Image handling
-	const handleImageChange = (e) => {
+	const handleImageChange = (e: any) => {
 		setSelectedImage(e.target.files[0])
 		handleImageUpload(e.target.files[0])
 	}
 
-	const handleImageUpload = async (file) => {
+	const handleImageUpload = async (file: File) => {
 		setLoading(true)
 		if (!file) return
 
@@ -46,7 +52,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	}
 
 	//Form for creating an article
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: any) => {
 		e.preventDefault()
 
 		const data = {
@@ -59,8 +65,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 
 		axios
 			.post(`${import.meta.env.VITE_BASE_URL}/api/community/articles`, data)
-			.then((response) => {
-				console.log(response.data)
+			.then(() => {
 				loadAllArticles()
 				handleShowCreate()
 			})
@@ -76,7 +81,7 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 	}
 
 	// Text editor handling
-	const handleContentChange = (newContent) => {
+	const handleContentChange = (newContent: any) => {
 		setContent(newContent)
 	}
 
@@ -137,7 +142,10 @@ const CreateArticle = ({ handleShowCreate, loadAllArticles }) => {
 						className='mb-2 block text-center text-lg font-medium text-gray-800 dark:text-gray-200'>
 						Content
 					</label>
-					<Editor onContentChange={handleContentChange} />
+					<Editor
+						prevContent={''}
+						onContentChange={handleContentChange}
+					/>
 				</div>
 				<div className='flex justify-center space-x-2'>
 					<button

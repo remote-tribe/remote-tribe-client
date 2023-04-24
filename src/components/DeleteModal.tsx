@@ -11,7 +11,15 @@ const customStyles = {
 	},
 }
 
-export const DeleteModal = ({ isOpen, closeModal, handleDeleteClick }) => {
+export const DeleteModal = ({
+	isOpen,
+	closeModal,
+	handleDeleteClick,
+}: {
+	isOpen: any
+	closeModal: () => void
+	handleDeleteClick: () => void
+}) => {
 	return (
 		<Modal
 			style={customStyles}

@@ -3,7 +3,27 @@ import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import { UserContext } from '../context/UserContext'
 
-export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSettings }) => {
+interface UserData {
+	username: string
+	_id: any
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
+export const UserSettings = ({
+	userData,
+	handleShowSettings,
+	handleShowAccountSettings,
+}: {
+	userData: UserData
+	handleShowSettings: any
+	handleShowAccountSettings: any
+}) => {
 	const [location, setLocation] = useState({
 		city: userData?.location?.city || '',
 		country: userData?.location?.country || '',
@@ -14,7 +34,7 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 	const [profession, setProfession] = useState(userData?.profession || '')
 	const [description, setDescription] = useState(userData?.description || '')
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		const token = localStorage.getItem('token')
 		try {
@@ -47,6 +67,7 @@ export const UserSettings = ({ userData, handleShowSettings, handleShowAccountSe
 				<div className='container mx-auto px-4 '>
 					<div className='relative -mt-64 mb-4 flex w-full min-w-0 flex-col break-words rounded-lg bg-white  dark:bg-slate-700 dark:text-gray-200 '>
 						<Link
+							to={''}
 							onClick={handleShowAccountSettings}
 							className=' absolute -right-12 -top-20 ml-auto mr-10 cursor-pointer  text-xl text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500 '>
 							Account Settings

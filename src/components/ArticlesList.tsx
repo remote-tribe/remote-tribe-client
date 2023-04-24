@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
-function ArticleList({ articles, handleShowCreate }) {
+interface Article {
+	_id: string
+	title: string
+	author: { username: string }
+	imageUrl?: string
+	createdAt: string
+	likes: number
+	comments: object[]
+}
+
+function ArticleList({ articles, handleShowCreate }: { articles: Article[]; handleShowCreate: () => void }) {
 	const [searchQuery, setSearchQuery] = useState('')
 
 	const filteredArticles = articles?.filter((article) => {

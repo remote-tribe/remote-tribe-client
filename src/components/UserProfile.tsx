@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom'
 
-export const UserProfile = ({ userData }) => {
+interface UserData {
+	username: string
+	_id: any
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
+export const UserProfile = ({ userData }: { userData: UserData }) => {
 	return (
 		<main className='profile-page '>
 			<section className='relative block h-80'>

@@ -2,7 +2,26 @@ import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
+interface UserData {
+	username: string
+	_id: string
+	email: string
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	location: { country: string; city: string }
+}
+
+export const AccountSettings = ({
+	userData,
+	handleShowAccountSettings,
+}: {
+	userData: UserData
+	handleShowAccountSettings: any
+}) => {
 	const [newEmail, setNewEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [newPassword, setNewPassword] = useState('')
@@ -27,7 +46,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 		setShowButtons(!showButtons)
 	}
 
-	const handleEmailSubmit = async (e) => {
+	const handleEmailSubmit = async (e: any) => {
 		e.preventDefault()
 		const token = localStorage.getItem('token')
 
@@ -55,7 +74,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 		}
 	}
 
-	const handlePasswordSubmit = async (e) => {
+	const handlePasswordSubmit = async (e: any) => {
 		e.preventDefault()
 		const token = localStorage.getItem('token')
 
@@ -83,7 +102,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 		}
 	}
 
-	const verifyPass = async (e) => {
+	const verifyPass = async (e: any) => {
 		e.preventDefault()
 		const token = localStorage.getItem('token')
 
@@ -116,6 +135,7 @@ export const AccountSettings = ({ userData, handleShowAccountSettings }) => {
 					<div className='container mx-auto px-4 '>
 						<div className='relative -mt-64 mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white  dark:bg-slate-700 dark:text-gray-200 '>
 							<Link
+								to={''}
 								onClick={handleShowAccountSettings}
 								className=' absolute -right-12 -top-36 ml-auto  mr-10 cursor-pointer text-xl text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-500'>
 								User Settings

@@ -10,8 +10,17 @@ const override = {
 	borderColor: 'red',
 }
 
+interface Article {
+	_id: string
+	title: string
+	imageUrl?: string
+	createdAt: string
+	likes: number
+	comments: object[]
+}
+
 function ArticleDetailsPage() {
-	const [article, setArticle] = useState([])
+	const [article, setArticle] = useState<Article>({} as Article)
 	const [loading, setLoading] = useState(true)
 
 	const { articleId } = useParams()
@@ -46,11 +55,7 @@ function ArticleDetailsPage() {
 		</div>
 	) : (
 		<div className='container mx-auto space-y-8'>
-			<ArticleDetails
-				article={article}
-				getArticle={getArticle}
-				setLoading={setLoading}
-			/>
+			<ArticleDetails setLoading={setLoading} />
 		</div>
 	)
 }
