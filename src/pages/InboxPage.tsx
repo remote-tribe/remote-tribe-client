@@ -11,6 +11,20 @@ const override = {
 	borderColor: 'red',
 }
 
+interface UserData {
+	username: string
+	id: string
+	_id: string
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	conversations: [{ participants: [] }]
+	location: { country: string; city: string }
+}
+
 export const InboxPage = () => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [loading, setLoading] = useState(true)
@@ -19,9 +33,9 @@ export const InboxPage = () => {
 	if (!token) {
 		navigate('/signin')
 	}
-	const [currentUser, setCurrentUser] = useState(null)
+	const [currentUser, setCurrentUser] = useState<UserData | null>(null)
 	const [userData, setUserData] = useState(null)
-	const currUser = GetCurrentUser()
+	const currUser = GetCurrentUser() as UserData
 	const userId = currUser?.id
 	const location = useLocation()
 	const [showChats, setShowChats] = useState(true)
@@ -39,7 +53,7 @@ export const InboxPage = () => {
 		}
 	}
 
-	const fetchUser = async (userId) => {
+	const fetchUser = async (userId: string) => {
 		if (window.innerWidth < 768) {
 			setShowChats(false)
 		}
@@ -88,15 +102,28 @@ export const InboxPage = () => {
 						{currentUser?.conversations
 
 							.filter((conversation) =>
-								conversation.participants.some((participant) =>
+								conversation.participants.some((participant: { username: string }) =>
 									participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
 								),
 							)
 							.reverse()
 							.map((conversation, index) => {
-								const otherParticipant = conversation.participants.find(
-									(participant) => participant._id !== userId,
-								)
+								const otherParticipant: UserData = conversation.participants.find(
+									(participant: UserData) => participant._id !== userId,
+								) || {
+									username: '',
+									id: '',
+									_id: '',
+									profilePicture: '',
+									followers: [],
+									following: [],
+									articles: [],
+									profession: '',
+									description: '',
+									conversations: [{ participants: [] }],
+									location: { country: '', city: '' },
+								}
+
 								return (
 									<li
 										onClick={() => {
@@ -104,9 +131,7 @@ export const InboxPage = () => {
 										}}
 										key={index}
 										className='cursor-pointer border-t border-gray-300 px-3 py-5 transition hover:bg-sky-100 dark:border-gray-600 dark:hover:bg-sky-900'>
-										<span
-											href='#'
-											className='flex items-center justify-between'>
+										<span className='flex items-center justify-between'>
 											<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
 												{otherParticipant?.username}
 											</h3>

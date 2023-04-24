@@ -12,7 +12,15 @@ const customStyles = {
 	},
 }
 
-export const ReportModal = ({ isOpen, closeModal, handleReport }) => {
+export const ReportModal = ({
+	isOpen,
+	closeModal,
+	handleReport,
+}: {
+	isOpen: any
+	closeModal: () => void
+	handleReport: (report: string, id: string) => void
+}) => {
 	const id = isOpen
 	const [report, setReport] = useState('')
 

@@ -28,8 +28,8 @@ export const Logout = () => {
 
 export const GetCurrentUser = () => {
 	try {
-		const token: any = localStorage.getItem('token')
-		return jwtDecode(token)
+		const token: string | null = localStorage.getItem('token')
+		if (token) return jwtDecode(token)
 	} catch (error) {
 		return null
 	}

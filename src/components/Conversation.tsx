@@ -1,15 +1,52 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEventHandler } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ReportModal } from './ReportModal'
 
-export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUser, setShowChats }) => {
-	const [chat, setChat] = useState([])
+interface UserData {
+	username: string
+	id: string
+	_id: string
+	profilePicture: string
+	followers: object[]
+	following: object[]
+	articles: object[]
+	profession: string
+	description: string
+	conversations: object[]
+	location: { country: string; city: string }
+}
+
+interface Conversation {
+	participants: UserData[]
+	_id: string
+	messages: []
+}
+
+export const Conversation = ({
+	userData,
+	currentUser,
+	fetchUser,
+	fetchCurrentUser,
+	setShowChats,
+}: {
+	userData: UserData | null
+	currentUser: UserData | null
+	fetchUser: Function
+	fetchCurrentUser: Function
+	setShowChats: Function
+}) => {
+	const [chat, setChat] = useState<Conversation>({
+		participants: [],
+		_id: '',
+		messages: [],
+	})
+
 	const [message, setMessage] = useState('')
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
-	const [reportModalOpen, setReportModalOpen] = useState(false)
+	const [reportModalOpen, setReportModalOpen] = useState<any>(false)
 	const [notification, setNotification] = useState(null)
-	const [error, setError] = useState(null)
+	const [error, setError] = useState('')
 
 	// Local storage token and navigation
 	const token = localStorage.getItem('token')
@@ -21,7 +58,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 	}
 
 	// Delete conversation
-	const deleteConversation = async (e) => {
+	const deleteConversation = async (e: any) => {
 		e.preventDefault()
 		const id = chat?._id
 
@@ -38,19 +75,17 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 
 	// Get conversation data
 	useEffect(() => {
-		const conversation = userData?.conversations?.find((conversation) => {
-			return conversation?.participants?.some((participant) => {
+		const conversation = userData?.conversations?.find((conversation: any) => {
+			return conversation?.participants?.some((participant: UserData) => {
 				return participant._id === currentUser?._id
 			})
 		})
 
-		if (conversation) {
-			setChat(conversation)
-		}
+		setChat(conversation as Conversation)
 	}, [userData, currentUser])
 
 	// Handle message submission
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		try {
 			await axios.post(
@@ -77,13 +112,13 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 	}
 
 	// Handle report submission
-	const handleReport = async (report, id) => {
+	const handleReport = async (report: string, id: string) => {
 		closeReportModal()
 
 		if (report == '') {
 			setError('Text field cannot be empty.')
 			setTimeout(() => {
-				setError(null)
+				setError('')
 			}, 5000)
 			return
 		}
@@ -187,7 +222,7 @@ export const Conversation = ({ userData, currentUser, fetchUser, fetchCurrentUse
 						<div
 							id='messages'
 							className='scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex h-full flex-col space-y-4 overflow-y-auto p-3'>
-							{chat?.messages?.map((message, index) => (
+							{chat?.messages?.map((message: { sender: string; message: string }, index: number) => (
 								<div
 									key={index}
 									className='chat-message'>

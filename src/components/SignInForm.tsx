@@ -9,7 +9,13 @@ const override = {
 	borderColor: 'red',
 }
 
-export const SignInForm = ({ handleShowRegister, message }) => {
+export const SignInForm = ({
+	handleShowRegister,
+	message,
+}: {
+	handleShowRegister: () => void
+	message?: string | null
+}) => {
 	const navigate = useNavigate()
 	const [email, setEmail] = useState('')
 	const [error, setError] = useState('')
@@ -18,7 +24,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [rememberMe, setRememberMe] = useState(false)
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		setIsLoading(true)
 		try {
@@ -26,7 +32,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 			if (isLoggedIn) {
 				navigate('/')
 			}
-		} catch (error) {
+		} catch (error: any) {
 			setError(error?.message)
 			console.log(error)
 		} finally {
@@ -34,7 +40,7 @@ export const SignInForm = ({ handleShowRegister, message }) => {
 		}
 	}
 
-	const handleRememberMeChange = (e) => {
+	const handleRememberMeChange = (e: any) => {
 		setRememberMe(e.target.checked)
 	}
 

@@ -8,7 +8,13 @@ const override = {
 	borderColor: 'red',
 }
 
-export const SignUpForm = ({ handleShowRegister, setMessage }) => {
+export const SignUpForm = ({
+	handleShowRegister,
+	setMessage,
+}: {
+	handleShowRegister: () => void
+	setMessage: any
+}) => {
 	const [email, setEmail] = useState('')
 	const [error, setError] = useState('')
 	const [username, setUsername] = useState('')
@@ -19,7 +25,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 	const [termsAgreed, setTermsAgreed] = useState(false)
 	const [confirmedPassword, setConfirmedPassword] = useState('')
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault()
 		setIsLoading(true)
 
@@ -49,7 +55,7 @@ export const SignUpForm = ({ handleShowRegister, setMessage }) => {
 				handleShowRegister()
 				setMessage(response.data.message)
 			}
-		} catch (error) {
+		} catch (error: any) {
 			setError(error?.response?.data?.message)
 		} finally {
 			setIsLoading(false)

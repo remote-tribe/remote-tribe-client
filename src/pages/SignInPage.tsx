@@ -41,7 +41,6 @@ export const SignInPage = () => {
 			) : (
 				<SignInForm
 					handleShowRegister={handleShowRegister}
-					setMessage={setMessage}
 					message={message}
 				/>
 			)}

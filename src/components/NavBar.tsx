@@ -5,12 +5,20 @@ import { UserContext } from '../context/UserContext'
 import { useEffect, useState, useContext } from 'react'
 import { themeSwitch } from '../main'
 
+interface UserData {
+	username: string
+	_id: string
+}
+
 export const NavBar = () => {
-	const [sun, setSun] = useState(null)
-	const [moon, setMoon] = useState(null)
+	const [sun, setSun] = useState(true)
+	const [moon, setMoon] = useState(false)
 	const theme = localStorage.getItem('theme')
 	const [showNav, setShowNav] = useState(false)
-	const [userData, setUserData] = useState(null)
+	const [userData, setUserData] = useState<UserData>({
+		username: '',
+		_id: '',
+	})
 	const { loggedUser } = useContext(UserContext)
 
 	useEffect(() => {
@@ -28,7 +36,7 @@ export const NavBar = () => {
 			setMoon(true)
 			setSun(false)
 		}
-		setUserData(currentUser)
+		setUserData(currentUser as UserData)
 	}, [loggedUser])
 
 	return (
@@ -137,7 +145,9 @@ export const NavBar = () => {
 				</div>
 
 				<div className='cursor-pointer sm:hidden'>
-					<NavLink onClick={() => setShowNav(!showNav)}>
+					<NavLink
+						to={''}
+						onClick={() => setShowNav(!showNav)}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							className='h-6 w-6 text-sky-500'
