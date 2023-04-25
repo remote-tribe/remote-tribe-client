@@ -14,6 +14,13 @@ import ArticleUpdatePage from './pages/ArticleUpdatePage'
 import ArticleDetailsPage from './pages/ArticleDetailsPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+declare module 'react' {
+	interface Attributes {
+		css?: any
+		size?: any
+	}
+}
+
 Modal.setAppElement('#root')
 
 function App() {

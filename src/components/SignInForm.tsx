@@ -48,14 +48,14 @@ export const SignInForm = ({
 		<section className='fade-in-2'>
 			{message && (
 				<div
-					className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-green-400 bg-green-100 px-8 py-3 text-green-700 dark:border-green-700 dark:bg-green-500 dark:text-white'
+					className='fade-in-2 relative mx-auto my-3 w-fit rounded border  border-green-700 bg-green-600 px-8 py-3 text-white dark:bg-green-500'
 					role='alert'>
 					<span className='block sm:inline'>{message}</span>
 				</div>
 			)}
 			{error ? (
 				<div
-					className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700 dark:border-red-700 dark:bg-red-400 dark:text-red-100'
+					className='fade-in-2 relative mx-auto my-3 w-fit rounded border   border-red-700 bg-red-400 px-4 py-3 text-red-100'
 					role='alert'>
 					<span className='block sm:inline'>{error}</span>
 				</div>

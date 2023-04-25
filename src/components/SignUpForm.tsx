@@ -65,7 +65,7 @@ export const SignUpForm = ({
 		<section className='fade-in-2'>
 			{error ? (
 				<div
-					className='fade-in-2 relative mx-auto my-3 w-fit rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700 dark:border-red-700 dark:bg-red-400 dark:text-red-100'
+					className='fade-in-2 relative mx-auto my-3 w-fit rounded border   border-red-700 bg-red-400 px-4 py-3 text-red-100'
 					role='alert'>
 					<span className='block sm:inline'>{error}</span>
 				</div>

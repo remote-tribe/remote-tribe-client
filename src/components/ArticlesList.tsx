@@ -42,7 +42,7 @@ function ArticleList({ articles, handleShowCreate }: { articles: Article[]; hand
 			</div>
 
 			{filteredArticles && (
-				<div className='fade-in mx-auto mt-6 flex flex-wrap justify-center pb-6 md:w-10/12 '>
+				<div className='fade-in-2 mx-auto mt-6 flex flex-wrap justify-center pb-6 md:w-10/12 '>
 					{filteredArticles?.map((article, index) => (
 						<Link
 							to={`/community/article/${article?._id}`}
