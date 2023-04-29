@@ -162,7 +162,7 @@ export const HomePage = () => {
 										<Link
 											to={`/community/article/${article?._id}`}
 											key={index}
-											className=' dark:text-gray-60 mt-4 flex h-52 w-52 cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 focus:scale-105 hover:-translate-y-1 hover:shadow-md dark:bg-gray-300  dark:hover:shadow-gray-600'>
+											className=' dark:text-gray-60 mt-4 flex w-[49%] cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 focus:scale-105 hover:-translate-y-1 hover:shadow-md dark:bg-gray-300  dark:hover:shadow-gray-600'>
 											{article?.imageUrl ? (
 												<img
 													className='h-2/3 w-full'
@@ -174,7 +174,7 @@ export const HomePage = () => {
 											)}
 
 											<div className='flex justify-center px-4 py-4'>
-												<div className='mb-2 text-sm font-semibold'>{article?.title}</div>
+												<div className='mb-2 text-sm font-medium'>{article?.title}</div>
 											</div>
 										</Link>
 									))}

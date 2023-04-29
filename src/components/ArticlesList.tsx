@@ -59,7 +59,7 @@ function ArticleList({ articles, handleShowCreate }: { articles: Article[]; hand
 							)}
 
 							<div className='flex flex-wrap px-4 py-4'>
-								<div className='mb-2 text-xl font-semibold'>{article?.title}</div>
+								<div className='mb-2 text-xl font-medium'>{article?.title}</div>
 							</div>
 							<div className='mx-2 mb-2 mt-auto flex justify-between'>
 								<div className='mb-1 mr-4 space-x-4 text-xl'>
