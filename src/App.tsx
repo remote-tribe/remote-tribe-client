@@ -34,7 +34,7 @@ function App() {
 
 	return (
 		<UserContextProvider>
-			<div className='App min-h-screen overflow-x-hidden bg-gray-100 dark:bg-gray-800 '>
+			<div className='App min-h-screen overflow-x-hidden bg-gray-100 antialiased dark:bg-gray-800'>
 				<BrowserRouter>
 					<NavBar></NavBar>
 					<Routes>
