@@ -23,7 +23,7 @@ interface Conversation {
 	messages: []
 }
 
-export const Conversation = ({
+const Conversation = ({
 	userData,
 	currentUser,
 	fetchUser,
@@ -367,3 +367,5 @@ export const Conversation = ({
 		</div>
 	)
 }
+
+export default Conversation

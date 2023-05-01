@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { GetCurrentUser } from '../Auth'
 import { FadeLoader } from 'react-spinners'
-import { Carousel } from 'react-responsive-carousel'
+
 import { UserContext } from '../context/UserContext'
 import { Link, useNavigate } from 'react-router-dom'
-import { ContactForm } from '../components/ContactForm'
-import { useEffect, useContext, useState } from 'react'
+
+import { useEffect, useContext, useState, lazy } from 'react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import React from 'react'
 
 const override = {
 	display: 'block',
@@ -20,7 +21,12 @@ type Article = {
 	imageUrl?: string
 }
 
-export const HomePage = () => {
+const Carousel = lazy(() =>
+	import('react-responsive-carousel').then((module) => ({ default: module.Carousel })),
+)
+const ContactForm = lazy(() => import('../components/ContactForm'))
+
+const HomePage = () => {
 	const navigate = useNavigate()
 	const [loading, setLoading] = useState(true)
 	const [showForm, setShowForm] = useState(false)
@@ -70,7 +76,7 @@ export const HomePage = () => {
 	}
 
 	return (
-		<div className='fade-in'>
+		<>
 			{loading ? (
 				<div className='mt-60 flex justify-center text-center text-sky-400 '>
 					<FadeLoader
@@ -89,7 +95,7 @@ export const HomePage = () => {
 							toggleForm={toggleForm}
 						/>
 					) : (
-						<div>
+						<>
 							{alert && (
 								<div
 									className=' fade-in-2 absolute left-[43.5%]  mx-auto my-3 w-fit rounded border border-green-700 bg-green-600 px-8 py-3 text-white dark:bg-green-500'
@@ -98,7 +104,7 @@ export const HomePage = () => {
 								</div>
 							)}
 							<main className='flex h-full items-center bg-sky-500 px-6 text-white dark:bg-sky-900 lg:px-32 '>
-								<section className='body-font text-gray-700'>
+								<section className='body-font fade-in-2 text-gray-700'>
 									<div className='container mx-auto flex flex-col items-center p-8 px-5 md:flex-row md:py-20'>
 										<div className='mb-10 w-full  md:mb-0 md:w-1/2 lg:w-full lg:max-w-3xl'>
 											<img
@@ -150,6 +156,7 @@ export const HomePage = () => {
 							</main>
 							{isLargeScreen ? (
 								<Carousel
+									className='fade-in-2'
 									infiniteLoop={true}
 									autoPlay={true}
 									showThumbs={false}
@@ -165,6 +172,7 @@ export const HomePage = () => {
 											className=' dark:text-gray-60 mt-4 flex w-[49%] cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 focus:scale-105 hover:-translate-y-1 hover:shadow-md dark:bg-gray-300  dark:hover:shadow-gray-600'>
 											{article?.imageUrl ? (
 												<img
+													loading='lazy'
 													className='h-2/3 w-full'
 													src={article?.imageUrl}
 													alt={article?.title}
@@ -181,6 +189,7 @@ export const HomePage = () => {
 								</Carousel>
 							) : (
 								<Carousel
+									className='fade-in-2'
 									infiniteLoop={true}
 									autoPlay={true}
 									showThumbs={false}
@@ -195,6 +204,7 @@ export const HomePage = () => {
 											className='mx-auto mt-4 flex h-52 w-2/3 cursor-pointer flex-col overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 focus:scale-105 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-300 dark:text-gray-600 md:w-72'>
 											{article?.imageUrl ? (
 												<img
+													loading='lazy'
 													className='h-2/3 w-full  '
 													src={article?.imageUrl}
 													alt={article?.title}
@@ -321,10 +331,12 @@ export const HomePage = () => {
 									</ul>
 								</div>
 							</footer>
-						</div>
+						</>
 					)}
 				</>
 			)}
-		</div>
+		</>
 	)
 }
+
+export default React.memo(HomePage)

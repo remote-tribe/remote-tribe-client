@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import React from 'react'
 
 interface Article {
 	_id: string
@@ -13,12 +14,17 @@ interface Article {
 
 function ArticleList({ articles, handleShowCreate }: { articles: Article[]; handleShowCreate: () => void }) {
 	const [searchQuery, setSearchQuery] = useState('')
+	const [filteredArticles, setFilteredArticles] = useState<Article[]>([])
 
-	const filteredArticles = articles?.filter((article) => {
-		const titleMatch = article?.title?.toLowerCase().includes(searchQuery.toLowerCase())
-		const authorMatch = article?.author?.username.toLowerCase().includes(searchQuery.toLowerCase())
-		return titleMatch || authorMatch
-	})
+	useEffect(() => {
+		const filtered = articles?.filter((article) => {
+			const titleMatch = article?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+			const authorMatch = article?.author?.username.toLowerCase().includes(searchQuery.toLowerCase())
+			return titleMatch || authorMatch
+		})
+
+		setFilteredArticles(filtered || [])
+	}, [articles, searchQuery])
 
 	return (
 		<div className='mx-auto bg-gradient-to-bl from-sky-500 to-transparent '>
@@ -45,11 +51,12 @@ function ArticleList({ articles, handleShowCreate }: { articles: Article[]; hand
 				<div className='fade-in-2 mx-auto mt-6 flex flex-wrap justify-center pb-6 md:w-10/12 '>
 					{filteredArticles?.map((article, index) => (
 						<Link
-							to={`/community/article/${article?._id}`}
 							key={index}
+							to={`/community/article/${article?._id}`}
 							className='mx-2 my-2 flex h-96 cursor-pointer flex-col overflow-hidden rounded-lg bg-slate-100 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-500 dark:bg-slate-700  dark:text-gray-100 dark:hover:shadow-slate-600 md:mx-16  md:mt-24 md:w-[30vw] '>
 							{article?.imageUrl ? (
 								<img
+									loading='lazy'
 									className='h-64 w-full '
 									src={article?.imageUrl}
 									alt={article?.title}
@@ -84,4 +91,4 @@ function ArticleList({ articles, handleShowCreate }: { articles: Article[]; hand
 	)
 }
 
-export default ArticleList
+export default React.memo(ArticleList)

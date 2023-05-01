@@ -31,7 +31,7 @@ interface CurrentUser {
 	username: string
 }
 
-export const UserPage = () => {
+const UserPage = () => {
 	const navigate = useNavigate()
 	const { userId } = useParams<{ userId: string }>()
 	const currentUser = GetCurrentUser() as CurrentUser | null
@@ -373,3 +373,5 @@ export const UserPage = () => {
 		</>
 	)
 }
+
+export default UserPage

@@ -1,9 +1,8 @@
-import { Conversation } from '../components/Conversation'
-import { GetCurrentUser } from '../Auth'
-import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { GetCurrentUser } from '../Auth'
 import { FadeLoader } from 'react-spinners'
+import { useState, useEffect, lazy, useCallback, useMemo } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const override = {
 	display: 'block',
@@ -25,7 +24,9 @@ interface UserData {
 	location: { country: string; city: string }
 }
 
-export const InboxPage = () => {
+const Conversation = lazy(() => import('../components/Conversation'))
+
+const InboxPage = () => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [loading, setLoading] = useState(true)
 	const navigate = useNavigate()
@@ -40,33 +41,28 @@ export const InboxPage = () => {
 	const location = useLocation()
 	const [showChats, setShowChats] = useState(true)
 
-	const fetchCurrentUser = async () => {
-		setUserData(null)
-		setLoading(true)
+	const fetchCurrentUser = useCallback(async () => {
 		try {
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
-			setLoading(false)
 			setCurrentUser(response.data)
-		} catch (error) {
 			setLoading(false)
+		} catch (error) {
 			console.error(error)
+			setLoading(false)
 		}
-	}
+	}, [userId])
 
-	const fetchUser = async (userId: string) => {
+	const fetchUser = useCallback(async (userId: string) => {
 		if (window.innerWidth < 768) {
 			setShowChats(false)
 		}
 		try {
-			if (location) {
-				setUserData(location?.state?.user)
-			}
 			const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user?userId=${userId}`)
 			setUserData(response.data)
 		} catch (error) {
 			console.error(error)
 		}
-	}
+	}, [])
 
 	useEffect(() => {
 		if (location?.state) {
@@ -74,7 +70,17 @@ export const InboxPage = () => {
 			fetchUser(location?.state?.user?._id)
 		}
 		fetchCurrentUser()
-	}, [])
+	}, [location?.state, fetchCurrentUser, fetchUser])
+
+	const filteredConversations = useMemo(() => {
+		return currentUser?.conversations
+			.filter((conversation) =>
+				conversation.participants.some((participant: { username: string }) =>
+					participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
+				),
+			)
+			.reverse()
+	}, [currentUser?.conversations, searchQuery])
 
 	return loading ? (
 		<div className='mt-60 flex justify-center text-center text-sky-400 '>
@@ -90,7 +96,11 @@ export const InboxPage = () => {
 			<section className='flex flex-col bg-gray-200 py-3 scrollbar dark:bg-gray-700 md:h-full md:w-4/12 '>
 				<label className='px-3'>
 					<input
-						onClick={() => setShowChats(!showChats)}
+						onClick={() => {
+							if (window.innerWidth < 768) {
+								setShowChats(!showChats)
+							} else setShowChats(true)
+						}}
 						className='w-full rounded-lg bg-white p-2 shadow ring-sky-400 transition duration-200 focus:outline-none focus:ring-2 dark:bg-gray-600 dark:text-gray-100 md:p-4'
 						placeholder='Search...'
 						value={searchQuery}
@@ -99,47 +109,38 @@ export const InboxPage = () => {
 				</label>
 				{showChats && (
 					<ul className='pt-2 md:pt-6'>
-						{currentUser?.conversations
-
-							.filter((conversation) =>
-								conversation.participants.some((participant: { username: string }) =>
-									participant.username.toLowerCase().includes(searchQuery.toLowerCase()),
-								),
+						{filteredConversations?.map((conversation, index) => {
+							const otherParticipant: UserData = conversation.participants.find(
+								(participant: UserData) => participant._id !== userId,
+							) || {
+								username: '',
+								id: '',
+								_id: '',
+								profilePicture: '',
+								followers: [],
+								following: [],
+								articles: [],
+								profession: '',
+								description: '',
+								conversations: [{ participants: [] }],
+								location: { country: '', city: '' },
+							}
+							return (
+								<li
+									onClick={() => {
+										fetchUser(otherParticipant?._id)
+									}}
+									key={index}
+									className='cursor-pointer border-t border-gray-300 px-3 py-5 transition hover:bg-sky-100 dark:border-gray-600 dark:hover:bg-sky-900'>
+									<span className='flex items-center justify-between'>
+										<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
+											{otherParticipant?.username}
+										</h3>
+									</span>
+									<div className='text-md italic text-gray-400'>Sent you a message!</div>
+								</li>
 							)
-							.reverse()
-							.map((conversation, index) => {
-								const otherParticipant: UserData = conversation.participants.find(
-									(participant: UserData) => participant._id !== userId,
-								) || {
-									username: '',
-									id: '',
-									_id: '',
-									profilePicture: '',
-									followers: [],
-									following: [],
-									articles: [],
-									profession: '',
-									description: '',
-									conversations: [{ participants: [] }],
-									location: { country: '', city: '' },
-								}
-
-								return (
-									<li
-										onClick={() => {
-											fetchUser(otherParticipant?._id)
-										}}
-										key={index}
-										className='cursor-pointer border-t border-gray-300 px-3 py-5 transition hover:bg-sky-100 dark:border-gray-600 dark:hover:bg-sky-900'>
-										<span className='flex items-center justify-between'>
-											<h3 className='text-lg font-semibold text-sky-500 dark:text-sky-400'>
-												{otherParticipant?.username}
-											</h3>
-										</span>
-										<div className='text-md italic text-gray-400'>Sent you a message!</div>
-									</li>
-								)
-							})}
+						})}
 					</ul>
 				)}
 			</section>
@@ -153,3 +154,5 @@ export const InboxPage = () => {
 		</main>
 	)
 }
+
+export default InboxPage

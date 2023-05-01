@@ -16,7 +16,7 @@ interface UserData {
 	username: string
 }
 
-export const UsersPage = () => {
+const UsersPage = () => {
 	const currentUser = GetCurrentUser() as UserData
 	const currentUserId = currentUser?.id
 	const [users, setUsers] = useState([])
@@ -61,3 +61,5 @@ export const UsersPage = () => {
 		</div>
 	)
 }
+
+export default UsersPage

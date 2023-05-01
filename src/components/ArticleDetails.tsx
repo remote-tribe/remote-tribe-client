@@ -18,7 +18,7 @@ interface Article {
 	likedBy: string[]
 }
 
-export const ArticleDetails = ({ setLoading }: { setLoading: any }) => {
+export const ArticleDetails = ({ setLoading }: { setLoading: (arg0: boolean) => void }) => {
 	const currentUser = GetCurrentUser() as { id: string; username: string }
 	const token = localStorage.getItem('token')
 	const { handleLogout } = useContext(UserContext)
@@ -274,6 +274,7 @@ export const ArticleDetails = ({ setLoading }: { setLoading: any }) => {
 											rel='author'
 											className='text-xl font-semibold text-sky-500 '>
 											<img
+												loading='lazy'
 												className='mr-4 h-16 w-16 rounded-full object-cover object-center'
 												src={article?.author?.profilePicture}
 												alt={article?.author?.username}
@@ -309,7 +310,7 @@ export const ArticleDetails = ({ setLoading }: { setLoading: any }) => {
 											aria-expanded='true'>
 											<i className='fa-solid fa-ellipsis-vertical text-2xl'></i>
 										</button>
-										<div>
+										<>
 											{/* Dropdown menu */}
 											{isOpen && (
 												<div className='absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1  ring-black ring-opacity-5 focus:outline-none dark:bg-gray-600'>
@@ -359,7 +360,7 @@ export const ArticleDetails = ({ setLoading }: { setLoading: any }) => {
 													closeModal={closeReportModal}
 												/>
 											)}
-										</div>
+										</>
 									</div>
 								</address>
 								<h1 className='mb-4 text-3xl font-semibold leading-tight text-gray-900 dark:text-white lg:mb-6 lg:text-4xl'>

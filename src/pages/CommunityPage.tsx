@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { FadeLoader } from 'react-spinners'
 import { useNavigate } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, lazy } from 'react'
 import ArticleList from '../components/ArticlesList'
-import CreateArticle from '../components/ArticleCreate'
+import React from 'react'
 
 const override = {
 	display: 'block',
@@ -11,7 +11,9 @@ const override = {
 	borderColor: 'red',
 }
 
-export const CommunityPage = () => {
+const CreateArticle = lazy(() => import('../components/ArticleCreate'))
+
+const CommunityPage = () => {
 	const navigate = useNavigate()
 	const token = localStorage.getItem('token')
 	const [articles, setArticles] = useState([])
@@ -72,3 +74,4 @@ export const CommunityPage = () => {
 		</div>
 	)
 }
+export default React.memo(CommunityPage)

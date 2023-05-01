@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { GetCurrentUser } from '../Auth'
 
-export const ContactForm = ({
+const ContactForm = ({
 	toggleForm,
 	alert,
 	showAlert,
@@ -149,3 +149,5 @@ export const ContactForm = ({
 		</div>
 	)
 }
+
+export default ContactForm

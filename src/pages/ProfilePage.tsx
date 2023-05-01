@@ -33,7 +33,7 @@ interface UserData {
 	location: { country: string; city: string }
 }
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
 	const [loading, setLoading] = useState(true)
 	const [userData, setUserData] = useState<UserData>({} as UserData)
 	const [loadingImg, setLoadingImg] = useState(false)
@@ -380,3 +380,5 @@ export const ProfilePage = () => {
 		</>
 	)
 }
+
+export default ProfilePage

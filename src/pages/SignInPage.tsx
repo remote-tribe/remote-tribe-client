@@ -9,7 +9,7 @@ const override = {
 	borderColor: 'red',
 }
 
-export const SignInPage = () => {
+const SignInPage = () => {
 	const [loading, setLoading] = useState(true)
 	const [message, setMessage] = useState(null)
 	const [showRegister, setShowRegister] = useState(false)
@@ -47,3 +47,5 @@ export const SignInPage = () => {
 		</>
 	)
 }
+
+export default SignInPage
